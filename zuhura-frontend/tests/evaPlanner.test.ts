@@ -7,14 +7,23 @@ vi.mock('cesium', () => {
   }
 
   class MockCartesian3 {
-    constructor(public x: number, public y: number, public z: number) {}
+    constructor(
+      public x: number,
+      public y: number,
+      public z: number,
+    ) {}
     static fromDegrees(lon: number, lat: number, height = 0) {
       return new MockCartesian3(lon, lat, height);
     }
   }
 
   class MockColor {
-    constructor(public r: number, public g: number, public b: number, public a: number) {}
+    constructor(
+      public r: number,
+      public g: number,
+      public b: number,
+      public a: number,
+    ) {}
     static fromCssColorString(_str: string) {
       return new MockColor(1, 1, 1, 1);
     }
@@ -30,14 +39,20 @@ vi.mock('cesium', () => {
     },
     Cartesian3: MockCartesian3,
     Cartesian2: class MockCartesian2 {
-      constructor(public x: number, public y: number) {}
+      constructor(
+        public x: number,
+        public y: number,
+      ) {}
     },
     Color: MockColor,
     HeightReference: { CLAMP_TO_GROUND: 'CLAMP_TO_GROUND' },
     LabelStyle: { FILL_AND_OUTLINE: 'FILL_AND_OUTLINE' },
     VerticalOrigin: { BOTTOM: 'BOTTOM' },
     DistanceDisplayCondition: class MockDistanceDisplayCondition {
-      constructor(public near: number, public far: number) {}
+      constructor(
+        public near: number,
+        public far: number,
+      ) {}
     },
     PolylineOutlineMaterialProperty: class MockPolylineOutlineMaterialProperty {
       constructor(public options: any) {}
@@ -71,10 +86,7 @@ import {
   generateEmergencyAbortRoute,
   EvaPoint,
 } from '../src/eva/metabolicPathfinder';
-import {
-  DEFAULT_TACTICAL_CONFIG,
-  SLOPE_HAZARD_ZONES,
-} from '../src/eva/tacticalLayers';
+import { DEFAULT_TACTICAL_CONFIG, SLOPE_HAZARD_ZONES } from '../src/eva/tacticalLayers';
 
 describe('EVA planner', () => {
   beforeEach(() => {
@@ -113,10 +125,10 @@ describe('EVA planner', () => {
         expect(target.science_priority_score).toBeGreaterThanOrEqual(80);
         expect(target.science_priority_score).toBeLessThanOrEqual(100);
         expect(target.crism_mineral_signature.length).toBeGreaterThan(0);
-        expect(target.longitude).toBeGreaterThanOrEqual(77.40);
-        expect(target.longitude).toBeLessThanOrEqual(77.70);
-        expect(target.latitude).toBeGreaterThanOrEqual(18.20);
-        expect(target.latitude).toBeLessThanOrEqual(18.60);
+        expect(target.longitude).toBeGreaterThanOrEqual(77.4);
+        expect(target.longitude).toBeLessThanOrEqual(77.7);
+        expect(target.latitude).toBeGreaterThanOrEqual(18.2);
+        expect(target.latitude).toBeLessThanOrEqual(18.6);
       });
     });
 
@@ -171,8 +183,8 @@ describe('EVA planner', () => {
 
     it('applies +35% oxygen burn penalty when traversing aeolian sand ripple zones', () => {
       // In the South Séítah aeolian ripple sand trap (77.515°–77.535°E, 18.410°–18.430°N)
-      const p1: EvaPoint = { longitude: 77.520, latitude: 18.420, elevation_m: -2560.0 };
-      const p2: EvaPoint = { longitude: 77.522, latitude: 18.420, elevation_m: -2560.0 };
+      const p1: EvaPoint = { longitude: 77.52, latitude: 18.42, elevation_m: -2560.0 };
+      const p2: EvaPoint = { longitude: 77.522, latitude: 18.42, elevation_m: -2560.0 };
       const sandSeg = calculateSegmentMetabolicCost(p1, p2);
 
       expect(sandSeg.slip_penalty).toBeCloseTo(1.35, 2);
@@ -182,7 +194,7 @@ describe('EVA planner', () => {
     it('plans a comprehensive metabolic EVA sortie with realistic suit telemetry metrics', () => {
       const sortieWaypoints: EvaPoint[] = [
         { ...JEZERO_HAB_COORDINATES, isHab: true },
-        { longitude: 77.560, latitude: 18.442, elevation_m: -2550.0, name: 'Crater Floor Waypoint' },
+        { longitude: 77.56, latitude: 18.442, elevation_m: -2550.0, name: 'Crater Floor Waypoint' },
         { longitude: 77.545, latitude: 18.445, elevation_m: -2500.0, name: 'Three Forks Delta Toe' },
       ];
 
@@ -211,7 +223,7 @@ describe('EVA planner', () => {
       expect(abortPlan.waypoints[abortPlan.waypoints.length - 1].isHab).toBe(true);
       expect(abortPlan.waypoints[abortPlan.waypoints.length - 1].longitude).toBeCloseTo(
         JEZERO_HAB_COORDINATES.longitude,
-        3
+        3,
       );
       expect(abortPlan.total_distance_m).toBeGreaterThan(0);
       expect(abortPlan.suit_oxygen_pct_remaining).toBeGreaterThan(0);

@@ -122,7 +122,6 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-950/60 ">
       <div className="relative w-full max-w-6xl max-h-[92vh] flex flex-col rounded-xl border border-line-strong bg-surface-subtle text-ink shadow-2xl overflow-hidden font-sans">
-        
         {/* Top Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-line bg-surface-subtle">
           <div className="flex items-center space-x-3">
@@ -131,9 +130,7 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h2 className="text-base font-semibold text-ink">
-                  Environment
-                </h2>
+                <h2 className="text-base font-semibold text-ink">Environment</h2>
                 <EpistemicBadge type="MODEL_ESTIMATED" compact />
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-surface-muted text-ink-soft border border-line">
                   MCD v5.3 / Viking / REMS
@@ -234,9 +231,15 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
           </div>
 
           <div className="flex items-center space-x-4 font-mono text-[11px] text-ink-soft">
-            <span>Lat: <strong className="text-ink">{targetLat.toFixed(2)}&deg;</strong></span>
-            <span>Lon: <strong className="text-ink">{targetLon.toFixed(2)}&deg;</strong></span>
-            <span>Elevation: <strong className="text-ink">{targetElevation.toFixed(0)} m</strong></span>
+            <span>
+              Lat: <strong className="text-ink">{targetLat.toFixed(2)}&deg;</strong>
+            </span>
+            <span>
+              Lon: <strong className="text-ink">{targetLon.toFixed(2)}&deg;</strong>
+            </span>
+            <span>
+              Elevation: <strong className="text-ink">{targetElevation.toFixed(0)} m</strong>
+            </span>
             <button
               onClick={handleFlyToTarget}
               className="flex items-center space-x-1 px-2.5 py-0.5 rounded bg-brand-50 text-brand-600 hover:bg-brand-50 border border-brand-200 transition-colors"
@@ -281,7 +284,9 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
           {isLoading && !assessment && (
             <div className="flex flex-col items-center justify-center py-20 space-y-3">
               <RefreshCw className="w-8 h-8 text-brand-600 animate-spin" />
-              <p className="text-sm font-mono text-ink-muted">Computing Martian atmospheric hypsometry & solar insolation...</p>
+              <p className="text-sm font-mono text-ink-muted">
+                Computing Martian atmospheric hypsometry & solar insolation...
+              </p>
             </div>
           )}
 
@@ -306,8 +311,8 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                             assessment.overall_site_viability_score >= 75
                               ? 'bg-success'
                               : assessment.overall_site_viability_score >= 50
-                              ? 'bg-warning'
-                              : 'bg-danger'
+                                ? 'bg-warning'
+                                : 'bg-danger'
                           }`}
                           style={{ width: `${assessment.overall_site_viability_score}%` }}
                         />
@@ -320,7 +325,9 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                         <span className="text-3xl font-mono font-bold text-ink">
                           {assessment.atmosphere.surface_pressure_pa.toFixed(0)}
                         </span>
-                        <span className="text-xs font-mono text-ink-muted">Pa ({assessment.atmosphere.surface_pressure_mbar.toFixed(2)} mbar)</span>
+                        <span className="text-xs font-mono text-ink-muted">
+                          Pa ({assessment.atmosphere.surface_pressure_mbar.toFixed(2)} mbar)
+                        </span>
                       </div>
                       <div className="mt-2 text-[11px] font-mono">
                         {assessment.atmosphere.above_water_triple_point ? (
@@ -340,13 +347,15 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                         <span className="text-3xl font-mono font-bold text-ink">
                           {assessment.dust.tau_visible.toFixed(2)}
                         </span>
-                        <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
-                          assessment.dust.opacity_category === 'CLEAR'
-                            ? 'bg-success-soft text-success'
-                            : assessment.dust.opacity_category === 'MODERATE_DUST'
-                            ? 'bg-warning-soft text-warning'
-                            : 'bg-danger-soft text-danger'
-                        }`}>
+                        <span
+                          className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
+                            assessment.dust.opacity_category === 'CLEAR'
+                              ? 'bg-success-soft text-success'
+                              : assessment.dust.opacity_category === 'MODERATE_DUST'
+                                ? 'bg-warning-soft text-warning'
+                                : 'bg-danger-soft text-danger'
+                          }`}
+                        >
                           {assessment.dust.opacity_category}
                         </span>
                       </div>
@@ -382,7 +391,9 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                       </div>
                       <div>
                         <span className="text-ink-muted block">Solar Constant (TOA):</span>
-                        <strong className="text-ink text-sm">{assessment.orbital.top_of_atmosphere_solar_flux_w_m2} W/m&sup2;</strong>
+                        <strong className="text-ink text-sm">
+                          {assessment.orbital.top_of_atmosphere_solar_flux_w_m2} W/m&sup2;
+                        </strong>
                       </div>
                       <div>
                         <span className="text-ink-muted block">Solar Declination:</span>
@@ -394,8 +405,12 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                       </div>
                     </div>
                     <div className="mt-3 pt-3 border-t border-line flex items-center justify-between text-xs text-ink-muted">
-                      <span><strong>Northern Hemisphere:</strong> {assessment.orbital.season_northern}</span>
-                      <span><strong>Southern Hemisphere:</strong> {assessment.orbital.season_southern}</span>
+                      <span>
+                        <strong>Northern Hemisphere:</strong> {assessment.orbital.season_northern}
+                      </span>
+                      <span>
+                        <strong>Southern Hemisphere:</strong> {assessment.orbital.season_southern}
+                      </span>
                     </div>
                   </div>
 
@@ -408,7 +423,10 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                     {assessment.environmental_hazards.length === 0 ? (
                       <p className="text-xs font-mono text-success flex items-center space-x-2">
                         <CheckCircle className="w-4 h-4" />
-                        <span>Nominal conditions: No severe atmospheric or thermal hazards identified at this site and season.</span>
+                        <span>
+                          Nominal conditions: No severe atmospheric or thermal hazards identified at this site and
+                          season.
+                        </span>
                       </p>
                     ) : (
                       <div className="space-y-2">
@@ -501,7 +519,9 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                         <tbody className="divide-y divide-line">
                           {assessment.atmosphere.layers.map((layer) => (
                             <tr key={layer.altitude_above_surface_km} className="hover:bg-surface-subtle">
-                              <td className="py-2 px-3 font-semibold text-ink">{layer.altitude_above_surface_km.toFixed(1)}</td>
+                              <td className="py-2 px-3 font-semibold text-ink">
+                                {layer.altitude_above_surface_km.toFixed(1)}
+                              </td>
                               <td className="py-2 px-3">{layer.elevation_above_areoid_m.toFixed(0)}</td>
                               <td className="py-2 px-3 text-brand-600">{layer.pressure_pa.toFixed(1)}</td>
                               <td className="py-2 px-3">{layer.pressure_mbar.toFixed(3)}</td>
@@ -509,7 +529,9 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                               <td className="py-2 px-3">{layer.temperature_k.toFixed(1)}</td>
                               <td className="py-2 px-3">{layer.temperature_c.toFixed(1)}&deg;C</td>
                               <td className="py-2 px-3">{layer.speed_of_sound_m_s.toFixed(1)} m/s</td>
-                              <td className="py-2 px-3 text-ink-muted">{layer.earth_equivalent_altitude_km.toFixed(1)} km</td>
+                              <td className="py-2 px-3 text-ink-muted">
+                                {layer.earth_equivalent_altitude_km.toFixed(1)} km
+                              </td>
                             </tr>
                           ))}
                         </tbody>
@@ -525,7 +547,9 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                   {/* Dust Overview Banner */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 rounded-xl border border-line bg-surface-subtle">
-                      <div className="text-[11px] text-ink-muted">Visible Dust Tau (&tau;<sub>610</sub>)</div>
+                      <div className="text-[11px] text-ink-muted">
+                        Visible Dust Tau (&tau;<sub>610</sub>)
+                      </div>
                       <div className="mt-1 text-3xl font-mono font-bold text-ink">
                         {assessment.dust.tau_visible.toFixed(2)}
                       </div>
@@ -539,9 +563,7 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                       <div className="mt-1 text-3xl font-mono font-bold text-brand-600">
                         {(assessment.dust.diffuse_scattering_fraction * 100).toFixed(1)}%
                       </div>
-                      <div className="mt-2 text-xs font-mono text-ink-muted">
-                        Forward scattered sunlight to ground
-                      </div>
+                      <div className="mt-2 text-xs font-mono text-ink-muted">Forward scattered sunlight to ground</div>
                     </div>
 
                     <div className="p-4 rounded-xl border border-line bg-surface-subtle">
@@ -562,9 +584,7 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                   {/* Dust Storm Controls */}
                   <div className="p-5 rounded-xl border border-line bg-surface-subtle">
                     <div className="flex items-center justify-between mb-3">
-                      <h3 className="text-xs font-semibold text-warning">
-                        Global Dust Storm Simulation Multiplier
-                      </h3>
+                      <h3 className="text-xs font-semibold text-warning">Global Dust Storm Simulation Multiplier</h3>
                       <span className="text-xs font-mono font-bold text-ink px-2 py-0.5 rounded bg-surface-muted border border-line">
                         {globalDustMultiplier.toFixed(1)}x
                       </span>
@@ -593,7 +613,10 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                     </h3>
                     <div className="space-y-2">
                       {assessment.dust.operational_recommendations.map((rec, idx) => (
-                        <div key={idx} className="p-3 rounded-lg bg-surface-subtle border border-line text-xs font-mono text-ink-soft flex items-start space-x-2">
+                        <div
+                          key={idx}
+                          className="p-3 rounded-lg bg-surface-subtle border border-line text-xs font-mono text-ink-soft flex items-start space-x-2"
+                        >
                           <CheckCircle className="w-4 h-4 text-brand-600 shrink-0 mt-0.5" />
                           <span>{rec}</span>
                         </div>
@@ -610,9 +633,7 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                   <div className="p-5 rounded-xl border border-line bg-surface-subtle">
                     <div className="flex items-center justify-between mb-2">
                       <div>
-                        <span className="text-xs font-semibold text-brand-600">
-                          Regolith Thermal Inertia (I):
-                        </span>
+                        <span className="text-xs font-semibold text-brand-600">Regolith Thermal Inertia (I):</span>
                         <div className="text-xs font-mono text-ink-soft mt-0.5">
                           Classification: <strong className="text-warning">{assessment.thermal.regolith_type}</strong>
                         </div>
@@ -665,13 +686,13 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                       <div className="mt-1 text-2xl font-mono font-bold text-ink">
                         {assessment.thermal.diurnal_temperature_swing_k.toFixed(1)} K
                       </div>
-                      <div className="text-[11px] font-mono text-ink-muted">
-                        Daily thermal cycle range
-                      </div>
+                      <div className="text-[11px] font-mono text-ink-muted">Daily thermal cycle range</div>
                     </div>
 
                     <div className="p-4 rounded-xl border border-line bg-surface-subtle">
-                      <div className="text-[11px] text-ink-muted">CO<sub>2</sub> Frost Risk</div>
+                      <div className="text-[11px] text-ink-muted">
+                        CO<sub>2</sub> Frost Risk
+                      </div>
                       <div className="mt-1 text-2xl font-mono font-bold">
                         {assessment.thermal.co2_frost_present ? (
                           <span className="text-brand-600">Frost likely</span>
@@ -679,9 +700,7 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                           <span className="text-success">No frost</span>
                         )}
                       </div>
-                      <div className="text-[11px] font-mono text-ink-muted">
-                        T &le; 148 K sublimation point
-                      </div>
+                      <div className="text-[11px] font-mono text-ink-muted">T &le; 148 K sublimation point</div>
                     </div>
                   </div>
 
@@ -700,13 +719,17 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                             <th className="py-2 px-3">Surface Temp (K)</th>
                             <th className="py-2 px-3">Surface Temp (&deg;C)</th>
                             <th className="py-2 px-3">Air Temp 2m (K)</th>
-                            <th className="py-2 px-3">CO<sub>2</sub> Frost</th>
+                            <th className="py-2 px-3">
+                              CO<sub>2</sub> Frost
+                            </th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-line">
                           {assessment.thermal.hourly_curve.map((h) => (
                             <tr key={h.local_solar_time_hours} className="hover:bg-surface-subtle">
-                              <td className="py-2 px-3 font-semibold text-ink">{h.local_solar_time_hours.toFixed(0)}:00 Sol</td>
+                              <td className="py-2 px-3 font-semibold text-ink">
+                                {h.local_solar_time_hours.toFixed(0)}:00 Sol
+                              </td>
                               <td className="py-2 px-3">{h.solar_zenith_angle_deg.toFixed(1)}&deg;</td>
                               <td className="py-2 px-3 text-brand-600">{h.solar_irradiance_w_m2.toFixed(1)}</td>
                               <td className="py-2 px-3">{h.surface_temperature_k.toFixed(1)}</td>
@@ -764,9 +787,7 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                       <div className="mt-1 text-3xl font-mono font-bold text-ink">
                         {assessment.power_budget.daily_energy_wh_sol.toFixed(0)}
                       </div>
-                      <div className="text-xs font-mono text-ink-muted mt-1">
-                        Watt-hours per 24.66-hour Martian Sol
-                      </div>
+                      <div className="text-xs font-mono text-ink-muted mt-1">Watt-hours per 24.66-hour Martian Sol</div>
                     </div>
 
                     <div className="p-4 rounded-xl border border-line bg-surface-subtle">
@@ -774,9 +795,7 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                       <div className="mt-1 text-3xl font-mono font-bold text-brand-600">
                         {assessment.power_budget.peak_power_w.toFixed(1)} W
                       </div>
-                      <div className="text-xs font-mono text-ink-muted mt-1">
-                        At solar noon (maximum insolation)
-                      </div>
+                      <div className="text-xs font-mono text-ink-muted mt-1">At solar noon (maximum insolation)</div>
                     </div>
 
                     <div className="p-4 rounded-xl border border-line bg-surface-subtle">
@@ -803,7 +822,8 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                           <div>Survival: 220 Wh/sol</div>
                           <div>Nominal Drive: 650 Wh/sol</div>
                           <div className="mt-2 font-bold text-brand-600">
-                            Status: {assessment.power_budget.rover_compatibility?.mer_opportunity_spirit?.current_status}
+                            Status:{' '}
+                            {assessment.power_budget.rover_compatibility?.mer_opportunity_spirit?.current_status}
                           </div>
                         </div>
                       </div>
@@ -826,9 +846,7 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
                           <div>Power Source: Nuclear MMRTG</div>
                           <div>Continuous: 2400 Wh/sol</div>
                           <div>Dust Vulnerability: IMMUNE</div>
-                          <div className="mt-2 font-bold text-success">
-                            Status: FULL_NOMINAL_DRIVE
-                          </div>
+                          <div className="mt-2 font-bold text-success">Status: FULL_NOMINAL_DRIVE</div>
                         </div>
                       </div>
                     </div>
@@ -871,21 +889,24 @@ Overall Site Viability Score & $${assessment.overall_site_viability_score.toFixe
 
                   {/* Peer-Reviewed References */}
                   <div className="p-5 rounded-xl border border-line bg-surface-subtle space-y-3">
-                    <h3 className="text-xs font-semibold text-brand-600">
-                      Peer-Reviewed Literature References
-                    </h3>
+                    <h3 className="text-xs font-semibold text-brand-600">Peer-Reviewed Literature References</h3>
                     <div className="space-y-2 text-xs font-mono text-ink-soft">
                       <div className="p-2.5 rounded bg-surface-subtle border border-line">
-                        <strong>Forget, F., et al. (1999).</strong> Improved general circulation models of the Martian atmosphere from the surface to above 80 km. <em>Journal of Geophysical Research: Planets</em>, 104(E10), 24155-24175.
+                        <strong>Forget, F., et al. (1999).</strong> Improved general circulation models of the Martian
+                        atmosphere from the surface to above 80 km. <em>Journal of Geophysical Research: Planets</em>,
+                        104(E10), 24155-24175.
                       </div>
                       <div className="p-2.5 rounded bg-surface-subtle border border-line">
-                        <strong>Hess, S. L., et al. (1980).</strong> The annual cycle of pressure on Mars measured by Viking Landers 1 and 2. <em>Tellus</em>, 32(3), 238-251.
+                        <strong>Hess, S. L., et al. (1980).</strong> The annual cycle of pressure on Mars measured by
+                        Viking Landers 1 and 2. <em>Tellus</em>, 32(3), 238-251.
                       </div>
                       <div className="p-2.5 rounded bg-surface-subtle border border-line">
-                        <strong>Montabone, L., et al. (2015).</strong> An open-access database of Martian atmospheric dust optical depth for 12 Martian years. <em>Icarus</em>, 251, 65-95.
+                        <strong>Montabone, L., et al. (2015).</strong> An open-access database of Martian atmospheric
+                        dust optical depth for 12 Martian years. <em>Icarus</em>, 251, 65-95.
                       </div>
                       <div className="p-2.5 rounded bg-surface-subtle border border-line">
-                        <strong>Appelbaum, J., & Flood, D. J. (1990).</strong> Solar radiation on Mars. <em>Solar Energy</em>, 45(6), 353-363.
+                        <strong>Appelbaum, J., & Flood, D. J. (1990).</strong> Solar radiation on Mars.{' '}
+                        <em>Solar Energy</em>, 45(6), 353-363.
                       </div>
                     </div>
                   </div>

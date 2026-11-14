@@ -72,7 +72,7 @@ export const HoverIntelligenceTooltip: React.FC = () => {
   }
 
   const latStr = `${Math.abs(cursorLat).toFixed(2)}°${cursorLat >= 0 ? 'N' : 'S'}`;
-  const lonStr = `${((cursorLon % 360 + 360) % 360).toFixed(2)}°E`;
+  const lonStr = `${(((cursorLon % 360) + 360) % 360).toFixed(2)}°E`;
   const currentElevation = backendData?.elevation_m ?? cursorElevation ?? instantInfo.elevation_m;
   const elevStr = `${currentElevation >= 0 ? '+' : ''}${Math.round(currentElevation).toLocaleString()} m`;
   const landmarks = nearestHoverLandmarks(cursorLat, cursorLon, 4);
@@ -121,11 +121,13 @@ export const HoverIntelligenceTooltip: React.FC = () => {
         </div>
 
         <div className="mt-3 flex gap-1 rounded-full bg-surface-muted p-1 text-[11px]">
-          {([
-            ['overview', 'Overview'],
-            ['terrain', 'Terrain & Elevation'],
-            ['landmarks', 'Nearby Landmarks'],
-          ] as const).map(([id, label]) => (
+          {(
+            [
+              ['overview', 'Overview'],
+              ['terrain', 'Terrain & Elevation'],
+              ['landmarks', 'Nearby Landmarks'],
+            ] as const
+          ).map(([id, label]) => (
             <button
               key={id}
               type="button"

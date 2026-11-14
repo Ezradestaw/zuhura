@@ -1,17 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import {
-  X,
-  Maximize2,
-  Minimize2,
-  RotateCw,
-  Eye,
-  Sliders,
-  Sparkles,
-  Layers,
-  Info,
-} from 'lucide-react';
+import { X, Maximize2, Minimize2, RotateCw, Eye, Sliders, Sparkles, Layers, Info } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
 
 interface LayerInfo {
@@ -242,10 +232,42 @@ export const XRayMars3DModal: React.FC = () => {
     // 7. Concentric Cutaway Spheres
     // Layer radii (scale normalized to R_surface = 2.0)
     const layerDefs = [
-      { id: 'core', radius: 0.92, color: 0xe63946, roughness: 0.2, metalness: 0.7, emissive: 0x661100, emissiveIntensity: 0.45 },
-      { id: 'slag', radius: 1.05, color: 0xffb703, roughness: 0.4, metalness: 0.3, emissive: 0x442200, emissiveIntensity: 0.35 },
-      { id: 'mantle', radius: 1.55, color: 0xb08968, roughness: 0.6, metalness: 0.1, emissive: 0x110500, emissiveIntensity: 0.1 },
-      { id: 'lithosphere', radius: 1.88, color: 0x606c38, roughness: 0.5, metalness: 0.1, emissive: 0x051105, emissiveIntensity: 0.1 },
+      {
+        id: 'core',
+        radius: 0.92,
+        color: 0xe63946,
+        roughness: 0.2,
+        metalness: 0.7,
+        emissive: 0x661100,
+        emissiveIntensity: 0.45,
+      },
+      {
+        id: 'slag',
+        radius: 1.05,
+        color: 0xffb703,
+        roughness: 0.4,
+        metalness: 0.3,
+        emissive: 0x442200,
+        emissiveIntensity: 0.35,
+      },
+      {
+        id: 'mantle',
+        radius: 1.55,
+        color: 0xb08968,
+        roughness: 0.6,
+        metalness: 0.1,
+        emissive: 0x110500,
+        emissiveIntensity: 0.1,
+      },
+      {
+        id: 'lithosphere',
+        radius: 1.88,
+        color: 0x606c38,
+        roughness: 0.5,
+        metalness: 0.1,
+        emissive: 0x051105,
+        emissiveIntensity: 0.1,
+      },
       { id: 'crust', radius: 2.0, color: 0xc85a32, roughness: 0.8, metalness: 0.05, map: marsSurfaceTex },
     ];
 
@@ -291,7 +313,7 @@ export const XRayMars3DModal: React.FC = () => {
     const epicenter = new THREE.Vector3(1.2, 0.4, 1.5).normalize().multiplyScalar(2.02);
     const epiMesh = new THREE.Mesh(
       new THREE.SphereGeometry(0.04, 16, 16),
-      new THREE.MeshBasicMaterial({ color: 0xff0044 })
+      new THREE.MeshBasicMaterial({ color: 0xff0044 }),
     );
     epiMesh.position.copy(epicenter);
     seismicGroup.add(epiMesh);
@@ -299,11 +321,7 @@ export const XRayMars3DModal: React.FC = () => {
     // Generate 8 curved P and S wave ray paths through the interior
     for (let k = 0; k < 8; k++) {
       const angle = (k / 8) * Math.PI * 1.5 + 0.3;
-      const target = new THREE.Vector3(
-        Math.cos(angle) * 2.0,
-        (Math.random() - 0.5) * 0.8,
-        Math.sin(angle) * 2.0
-      );
+      const target = new THREE.Vector3(Math.cos(angle) * 2.0, (Math.random() - 0.5) * 0.8, Math.sin(angle) * 2.0);
 
       // Deep inflection point near CMB
       const midDepth = 0.95 + (k / 8) * 0.6;
@@ -429,9 +447,7 @@ export const XRayMars3DModal: React.FC = () => {
           <div className="flex items-center space-x-3">
             <div>
               <p className="text-[12px] font-medium text-brand-600">X-ray</p>
-              <h3 className="text-base font-semibold tracking-tight text-ink">
-                Interior of Mars
-              </h3>
+              <h3 className="text-base font-semibold tracking-tight text-ink">Interior of Mars</h3>
               <p className="text-[13px] text-ink-muted">
                 Drag to turn the planet, scroll to move inward, and choose a layer to read what it is.
               </p>
@@ -466,7 +482,10 @@ export const XRayMars3DModal: React.FC = () => {
         {/* Central Workspace: 3D Canvas + Interactive Floating Controls + Side Telemetry */}
         <div className="relative flex-1 w-full h-full overflow-hidden flex flex-col md:flex-row">
           {/* 3D WebGL Canvas Viewport */}
-          <div ref={mountRef} className="relative min-h-[220px] flex-1 w-full h-full cursor-grab active:cursor-grabbing">
+          <div
+            ref={mountRef}
+            className="relative min-h-[220px] flex-1 w-full h-full cursor-grab active:cursor-grabbing"
+          >
             {/* 3D Viewport Controls HUD Overlay */}
             <div className="absolute top-4 left-4 z-20 flex flex-col space-y-2 p-3 rounded-xl bg-surface-muted border border-line shadow-xl text-xs font-mono select-none w-64">
               <div className="flex items-center justify-between pb-1.5 border-b border-line text-ink-soft font-bold">

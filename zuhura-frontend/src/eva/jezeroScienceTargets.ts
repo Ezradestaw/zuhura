@@ -9,7 +9,14 @@
 export interface ScienceTarget {
   id: string;
   name: string;
-  type: 'landing_site' | 'delta_scarp' | 'butte' | 'fluvial_channel' | 'crater_rim' | 'carbonate_outcrop' | 'sand_dunes';
+  type:
+    | 'landing_site'
+    | 'delta_scarp'
+    | 'butte'
+    | 'fluvial_channel'
+    | 'crater_rim'
+    | 'carbonate_outcrop'
+    | 'sand_dunes';
   longitude: number;
   latitude: number;
   elevation_m: number;
@@ -58,8 +65,8 @@ export interface RadiationZone {
  * Center of EVA operations and designated refuge for Emergency Abort.
  */
 export const JEZERO_HAB_COORDINATES = {
-  longitude: 77.5800,
-  latitude: 18.4400,
+  longitude: 77.58,
+  latitude: 18.44,
   elevation_m: -2540.0,
   name: 'Ares Jezero Base / Hab',
   designation: 'BASE-ALPHA-01',
@@ -83,11 +90,12 @@ export const JEZERO_SCIENCE_TARGETS: ScienceTarget[] = [
     id: 'target-three-forks',
     name: 'Three Forks Delta Margin',
     type: 'delta_scarp',
-    longitude: 77.5480,
-    latitude: 18.4350,
+    longitude: 77.548,
+    latitude: 18.435,
     elevation_m: -2505.0,
     science_priority_score: 98,
-    geological_context: 'Bottomset fine-grained mudstones formed in quiet ancient lake waters. Primary sample cache depot site for Perseverance.',
+    geological_context:
+      'Bottomset fine-grained mudstones formed in quiet ancient lake waters. Primary sample cache depot site for Perseverance.',
     crism_mineral_signature: 'Smectite Clays (Nontronite/Saponite), Hydrated Silica, Carbonates',
     astrobiology_potential: 'Extreme',
     recommended_instrument: 'SHERLOC Micro-Raman / PIXL X-Ray Fluorescence',
@@ -100,7 +108,8 @@ export const JEZERO_SCIENCE_TARGETS: ScienceTarget[] = [
       camera: 'Mastcam-Z Left',
       caption: 'Fine-grained layered lacustrine sediment outcrop along the Three Forks delta toe.',
       local_thumbnail: '/api/v1/rover/file/mastcam_z/ZL0_0018_0668769812_000FDR_N0010052AUT_04096_110085J01.png',
-      high_res_url: 'https://mars.nasa.gov/mars2020-raw-images/m20/all/00668/ZL0_0018_0668769812_000FDR_N0010052AUT_04096_110085J01.png',
+      high_res_url:
+        'https://mars.nasa.gov/mars2020-raw-images/m20/all/00668/ZL0_0018_0668769812_000FDR_N0010052AUT_04096_110085J01.png',
     },
   },
   {
@@ -108,10 +117,11 @@ export const JEZERO_SCIENCE_TARGETS: ScienceTarget[] = [
     name: 'Kodiak Butte (Delta Remnant)',
     type: 'butte',
     longitude: 77.5385,
-    latitude: 18.3970,
+    latitude: 18.397,
     elevation_m: -2420.0,
     science_priority_score: 94,
-    geological_context: 'Isolated erosional remnant exhibiting dramatic classic Gilbert-type delta architecture with dipping foreset and horizontal topset beds.',
+    geological_context:
+      'Isolated erosional remnant exhibiting dramatic classic Gilbert-type delta architecture with dipping foreset and horizontal topset beds.',
     crism_mineral_signature: 'Olivine-rich sandstone, Iron/Magnesium Smectites, Fe-Oxides',
     astrobiology_potential: 'High',
     recommended_instrument: 'SuperCam Remote Micro-Imager (RMI)',
@@ -122,20 +132,23 @@ export const JEZERO_SCIENCE_TARGETS: ScienceTarget[] = [
     perseverance_imagery: {
       sol: 180,
       camera: 'SuperCam RMI',
-      caption: 'Stratified cross-bedding foresets on Kodiak Butte confirming high-energy river delta discharge into a deep standing lake.',
+      caption:
+        'Stratified cross-bedding foresets on Kodiak Butte confirming high-energy river delta discharge into a deep standing lake.',
       local_thumbnail: '/api/v1/rover/file/supercam/SC0_0180_0683161090_000RMI_N0020052AUT_04096_110085J01.png',
-      high_res_url: 'https://mars.nasa.gov/mars2020-raw-images/m20/all/00180/SC0_0180_0683161090_000RMI_N0020052AUT_04096_110085J01.png',
+      high_res_url:
+        'https://mars.nasa.gov/mars2020-raw-images/m20/all/00180/SC0_0180_0683161090_000RMI_N0020052AUT_04096_110085J01.png',
     },
   },
   {
     id: 'target-bright-angel',
     name: 'Bright Angel Outcrop',
     type: 'carbonate_outcrop',
-    longitude: 77.5620,
-    latitude: 18.4710,
+    longitude: 77.562,
+    latitude: 18.471,
     elevation_m: -2480.0,
     science_priority_score: 96,
-    geological_context: 'Light-toned fractured rocky bench displaying exquisite polygonal desiccation cracks and vivianite-like phosphate/calcium veins.',
+    geological_context:
+      'Light-toned fractured rocky bench displaying exquisite polygonal desiccation cracks and vivianite-like phosphate/calcium veins.',
     crism_mineral_signature: 'Magnesium Carbonate (Magnesite), Calcite, Microcrystalline Quartz',
     astrobiology_potential: 'Extreme',
     recommended_instrument: 'SHERLOC WATSON Microscopic Camera',
@@ -146,20 +159,23 @@ export const JEZERO_SCIENCE_TARGETS: ScienceTarget[] = [
     perseverance_imagery: {
       sol: 480,
       camera: 'Mastcam-Z Right',
-      caption: 'Pristine polished rock face at Bright Angel displaying rounded fluvial pebbles and carbonate cementation.',
+      caption:
+        'Pristine polished rock face at Bright Angel displaying rounded fluvial pebbles and carbonate cementation.',
       local_thumbnail: '/api/v1/rover/file/mastcam_z/ZR0_0204_0685292411_000FDR_N0030052AUT_04096_110085J01.png',
-      high_res_url: 'https://mars.nasa.gov/mars2020-raw-images/m20/all/00480/ZR0_0204_0685292411_000FDR_N0030052AUT_04096_110085J01.png',
+      high_res_url:
+        'https://mars.nasa.gov/mars2020-raw-images/m20/all/00480/ZR0_0204_0685292411_000FDR_N0030052AUT_04096_110085J01.png',
     },
   },
   {
     id: 'target-neretya-vallis',
     name: 'Neretya Vallis Inflow Gorge',
     type: 'fluvial_channel',
-    longitude: 77.5180,
-    latitude: 18.5250,
+    longitude: 77.518,
+    latitude: 18.525,
     elevation_m: -2320.0,
     science_priority_score: 91,
-    geological_context: 'Ancient 2-km wide canyon breached through the western crater rim, through which massive floods fed sediment into Lake Jezero.',
+    geological_context:
+      'Ancient 2-km wide canyon breached through the western crater rim, through which massive floods fed sediment into Lake Jezero.',
     crism_mineral_signature: 'Pyroxene-rich Basalts, Hydrated Sulfates, Phyllosilicates',
     astrobiology_potential: 'High',
     recommended_instrument: 'Mastcam-Z Stereo Telephoto / Multispectral Filter Pairs',
@@ -172,7 +188,8 @@ export const JEZERO_SCIENCE_TARGETS: ScienceTarget[] = [
       camera: 'Navcam Right',
       caption: 'Steep erosional boulder field along the southern gorge wall of Neretya Vallis.',
       local_thumbnail: '/api/v1/rover/file/navcam/NR0_0300_0693810420_000ECM_N0030052AUT_04096_110085J01.png',
-      high_res_url: 'https://mars.nasa.gov/mars2020-raw-images/m20/all/00300/NR0_0300_0693810420_000ECM_N0030052AUT_04096_110085J01.png',
+      high_res_url:
+        'https://mars.nasa.gov/mars2020-raw-images/m20/all/00300/NR0_0300_0693810420_000ECM_N0030052AUT_04096_110085J01.png',
     },
   },
   {
@@ -183,7 +200,8 @@ export const JEZERO_SCIENCE_TARGETS: ScienceTarget[] = [
     latitude: 18.4447,
     elevation_m: -2580.0,
     science_priority_score: 85,
-    geological_context: 'Pristine landing site of Mars 2020 Perseverance and Ingenuity helicopter. Flat, volcanic basalt floor unit with minimal obstacles.',
+    geological_context:
+      'Pristine landing site of Mars 2020 Perseverance and Ingenuity helicopter. Flat, volcanic basalt floor unit with minimal obstacles.',
     crism_mineral_signature: 'Augite, Pigeonite, Plagioclase feldspar, Olivine',
     astrobiology_potential: 'Moderate',
     recommended_instrument: 'PIXL / Mastcam-Z 360 Panorama',
@@ -196,18 +214,20 @@ export const JEZERO_SCIENCE_TARGETS: ScienceTarget[] = [
       camera: 'Navcam Left',
       caption: 'First engineering 360-degree panoramic survey of the flat basaltic plain at Octavia E. Butler Landing.',
       local_thumbnail: '/api/v1/rover/file/navcam/NL0_0003_0667439120_000ECM_N0010052AUT_04096_110085J01.png',
-      high_res_url: 'https://mars.nasa.gov/mars2020-raw-images/m20/all/00003/NL0_0003_0667439120_000ECM_N0010052AUT_04096_110085J01.png',
+      high_res_url:
+        'https://mars.nasa.gov/mars2020-raw-images/m20/all/00003/NL0_0003_0667439120_000ECM_N0010052AUT_04096_110085J01.png',
     },
   },
   {
     id: 'target-seitah-dunes',
     name: 'South Séítah Aeolian Ripple Field',
     type: 'sand_dunes',
-    longitude: 77.5250,
-    latitude: 18.4200,
+    longitude: 77.525,
+    latitude: 18.42,
     elevation_m: -2550.0,
     science_priority_score: 88,
-    geological_context: 'Active transverse aeolian megaripples and loose basaltic sand sheets. Severe rover and spacesuit locomotion hazard.',
+    geological_context:
+      'Active transverse aeolian megaripples and loose basaltic sand sheets. Severe rover and spacesuit locomotion hazard.',
     crism_mineral_signature: 'Olivine-rich cumulate bedrock, Fe/Mg Silicates',
     astrobiology_potential: 'Exploratory',
     recommended_instrument: 'Hazcam Obstacle Avoidance / WATSON Hand-Lens',
@@ -220,7 +240,8 @@ export const JEZERO_SCIENCE_TARGETS: ScienceTarget[] = [
       camera: 'Front Hazcam Left',
       caption: 'Wheel tracks sinking deep into loose low-cohesion aeolian sand ripples in Séítah.',
       local_thumbnail: '/api/v1/rover/file/hazcam/FL0_0110_0676954100_000EDR_N0020052AUT_04096_110085J01.png',
-      high_res_url: 'https://mars.nasa.gov/mars2020-raw-images/m20/all/00110/FL0_0110_0676954100_000EDR_N0020052AUT_04096_110085J01.png',
+      high_res_url:
+        'https://mars.nasa.gov/mars2020-raw-images/m20/all/00110/FL0_0110_0676954100_000EDR_N0020052AUT_04096_110085J01.png',
     },
   },
 ];
@@ -234,9 +255,9 @@ export const THEMIS_REGOLITH_ZONES: RegolithZone[] = [
     name: 'Western Delta Frontal Bedrock',
     type: 'consolidated_bedrock',
     polygon: [
-      [77.540, 18.420],
+      [77.54, 18.42],
       [77.565, 18.425],
-      [77.570, 18.460],
+      [77.57, 18.46],
       [77.545, 18.455],
     ],
     thermal_inertia_si: 440,
@@ -249,9 +270,9 @@ export const THEMIS_REGOLITH_ZONES: RegolithZone[] = [
     name: 'South Séítah Aeolian Sand Trap',
     type: 'aeolian_sand_trap',
     polygon: [
-      [77.518, 18.410],
+      [77.518, 18.41],
       [77.535, 18.412],
-      [77.532, 18.430],
+      [77.532, 18.43],
       [77.515, 18.425],
     ],
     thermal_inertia_si: 165,
@@ -264,13 +285,13 @@ export const THEMIS_REGOLITH_ZONES: RegolithZone[] = [
     name: 'Jezero Floor Gravel Regolith',
     type: 'pebble_regolith',
     polygon: [
-      [77.560, 18.420],
-      [77.600, 18.425],
-      [77.600, 18.460],
-      [77.560, 18.455],
+      [77.56, 18.42],
+      [77.6, 18.425],
+      [77.6, 18.46],
+      [77.56, 18.455],
     ],
     thermal_inertia_si: 290,
-    metabolic_slip_penalty: 1.10,
+    metabolic_slip_penalty: 1.1,
     firmness_rating: 'Compacted Regolith (Nominal Footing)',
     color_hex: '#a78bfa', // Light Purple
   },
@@ -286,9 +307,9 @@ export const RADIATION_SHIELDING_ZONES: RadiationZone[] = [
     type: 'shielded_scarp',
     polygon: [
       [77.535, 18.425],
-      [77.550, 18.430],
+      [77.55, 18.43],
       [77.548, 18.455],
-      [77.532, 18.450],
+      [77.532, 18.45],
     ],
     dose_rate_usv_hr: 16.5,
     shielding_efficiency_pct: 42.0,
@@ -300,10 +321,10 @@ export const RADIATION_SHIELDING_ZONES: RadiationZone[] = [
     name: 'Delta Top Open Plateau',
     type: 'open_plateau',
     polygon: [
-      [77.515, 18.470],
+      [77.515, 18.47],
       [77.545, 18.475],
-      [77.540, 18.510],
-      [77.510, 18.505],
+      [77.54, 18.51],
+      [77.51, 18.505],
     ],
     dose_rate_usv_hr: 32.4,
     shielding_efficiency_pct: 0.0,
@@ -318,7 +339,7 @@ export const RADIATION_SHIELDING_ZONES: RadiationZone[] = [
       [77.534, 18.393],
       [77.543, 18.394],
       [77.541, 18.402],
-      [77.532, 18.400],
+      [77.532, 18.4],
     ],
     dose_rate_usv_hr: 48.0,
     shielding_efficiency_pct: -15.0, // Backscatter + high zenith exposure

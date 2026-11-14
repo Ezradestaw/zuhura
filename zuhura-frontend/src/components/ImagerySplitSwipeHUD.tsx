@@ -86,8 +86,8 @@ export const ImagerySplitSwipeHUD: React.FC = () => {
     }
   };
 
-  const leftLayerName = AVAILABLE_SWIPE_LAYERS.find(l => l.id === splitLeftLayerId)?.name || 'Left Layer';
-  const rightLayerName = AVAILABLE_SWIPE_LAYERS.find(l => l.id === splitRightLayerId)?.name || 'Right Layer';
+  const leftLayerName = AVAILABLE_SWIPE_LAYERS.find((l) => l.id === splitLeftLayerId)?.name || 'Left Layer';
+  const rightLayerName = AVAILABLE_SWIPE_LAYERS.find((l) => l.id === splitRightLayerId)?.name || 'Right Layer';
 
   return (
     <div
@@ -109,7 +109,7 @@ export const ImagerySplitSwipeHUD: React.FC = () => {
           onChange={(e) => setSplitLayers(e.target.value, splitRightLayerId)}
           className="bg-surface-subtle border border-line rounded px-2 py-0.5 text-xs text-brand-600 font-mono focus:outline-none focus:border-brand-600"
         >
-          {AVAILABLE_SWIPE_LAYERS.map(l => (
+          {AVAILABLE_SWIPE_LAYERS.map((l) => (
             <option key={`left-${l.id}`} value={l.id}>
               LEFT: {l.name} ({l.res})
             </option>
@@ -124,7 +124,7 @@ export const ImagerySplitSwipeHUD: React.FC = () => {
           onChange={(e) => setSplitLayers(splitLeftLayerId, e.target.value)}
           className="bg-surface-subtle border border-line rounded px-2 py-0.5 text-xs text-warning font-mono focus:outline-none focus:border-warning"
         >
-          {AVAILABLE_SWIPE_LAYERS.map(l => (
+          {AVAILABLE_SWIPE_LAYERS.map((l) => (
             <option key={`right-${l.id}`} value={l.id}>
               RIGHT: {l.name} ({l.res})
             </option>

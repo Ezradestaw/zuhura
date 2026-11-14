@@ -21,7 +21,9 @@ vi.mock('cesium', () => {
         this.camera = { changed: { addEventListener: vi.fn() }, flyTo: vi.fn() };
         this.entities = { add: vi.fn() };
       }
-      isDestroyed() { return false; }
+      isDestroyed() {
+        return false;
+      }
       destroy() {}
     },
     Globe: class MockGlobe {},
@@ -47,11 +49,7 @@ vi.mock('cesium', () => {
   };
 });
 
-import {
-  MARS_SEMI_MAJOR_A,
-  MARS_SEMI_MINOR_C,
-  MARS_FLATTENING,
-} from '../src/lib/geodesy/constants';
+import { MARS_SEMI_MAJOR_A, MARS_SEMI_MINOR_C, MARS_FLATTENING } from '../src/lib/geodesy/constants';
 import {
   planetographicToPlanetocentricLat,
   planetocentricToPlanetographicLat,

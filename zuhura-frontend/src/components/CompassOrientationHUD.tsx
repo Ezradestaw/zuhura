@@ -19,12 +19,7 @@ export const CompassOrientationHUD: React.FC = () => {
     const viewer = (window as any).viewer;
     if (viewer && (window as any).Cesium) {
       const Cesium = (window as any).Cesium;
-      const destination = Cesium.Cartesian3.fromDegrees(
-        cameraLon,
-        cameraLat,
-        cameraAlt,
-        viewer.scene.globe.ellipsoid
-      );
+      const destination = Cesium.Cartesian3.fromDegrees(cameraLon, cameraLat, cameraAlt, viewer.scene.globe.ellipsoid);
       viewer.camera.flyTo({
         destination,
         orientation: {
@@ -108,7 +103,6 @@ export const CompassOrientationHUD: React.FC = () => {
           </button>
         </div>
       </div>
-
     </div>
   );
 };

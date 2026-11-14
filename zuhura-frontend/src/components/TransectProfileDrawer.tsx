@@ -5,14 +5,7 @@
  */
 
 import React, { useState } from 'react';
-import {
-  TrendingUp,
-  X,
-  RefreshCw,
-  ChevronDown,
-  ChevronUp,
-  Compass,
-} from 'lucide-react';
+import { TrendingUp, X, RefreshCw, ChevronDown, ChevronUp, Compass } from 'lucide-react';
 import { useTerrainAnalysisStore } from '../store/terrainAnalysisStore';
 
 export const TransectProfileDrawer: React.FC = () => {
@@ -68,26 +61,17 @@ export const TransectProfileDrawer: React.FC = () => {
 
     const points = samples.map((s) => {
       const x = padLeft + (s.distance_km / maxDist) * chartW;
-      const y =
-        padTop +
-        (1 - (s.elevation_m - elevMinBuffered) / (elevMaxBuffered - elevMinBuffered)) *
-          chartH;
+      const y = padTop + (1 - (s.elevation_m - elevMinBuffered) / (elevMaxBuffered - elevMinBuffered)) * chartH;
       return { x, y, sample: s };
     });
 
-    pathD = points.reduce(
-      (acc, p, idx) => (idx === 0 ? `M ${p.x} ${p.y}` : `${acc} L ${p.x} ${p.y}`),
-      ''
-    );
+    pathD = points.reduce((acc, p, idx) => (idx === 0 ? `M ${p.x} ${p.y}` : `${acc} L ${p.x} ${p.y}`), '');
 
     const bottomY = padTop + chartH;
     areaD = `${pathD} L ${points[points.length - 1].x} ${bottomY} L ${points[0].x} ${bottomY} Z`;
   }
 
-  const activeSample =
-    hoveredSampleIndex !== null && samples[hoveredSampleIndex]
-      ? samples[hoveredSampleIndex]
-      : null;
+  const activeSample = hoveredSampleIndex !== null && samples[hoveredSampleIndex] ? samples[hoveredSampleIndex] : null;
 
   return (
     <div
@@ -101,9 +85,7 @@ export const TransectProfileDrawer: React.FC = () => {
           <div className="p-1 rounded bg-brand-50 border border-brand-200 text-brand-600">
             <TrendingUp className="w-3.5 h-3.5" />
           </div>
-          <span className="font-semibold text-xs text-ink">
-            Mars Geodesic Transect Profile
-          </span>
+          <span className="font-semibold text-xs text-ink">Mars Geodesic Transect Profile</span>
           {summary && (
             <span className="px-1.5 py-0.2 rounded bg-success-soft border border-success-line text-[9px] text-success font-mono font-bold">
               {summary.total_distance_km.toFixed(1)} km
@@ -117,22 +99,14 @@ export const TransectProfileDrawer: React.FC = () => {
             disabled={isLoadingProfile || !transectStart || !transectEnd}
             className="flex items-center gap-1 px-2 py-1 text-[11px] font-semibold bg-brand-700 hover:bg-brand-700 rounded text-white disabled:opacity-50 transition-colors"
           >
-            <RefreshCw
-              className={`w-3 h-3 ${isLoadingProfile ? 'animate-spin' : ''}`}
-            />
+            <RefreshCw className={`w-3 h-3 ${isLoadingProfile ? 'animate-spin' : ''}`} />
             <span>{isLoadingProfile ? 'Sampling...' : 'Sample Transect'}</span>
           </button>
 
-          <button
-            onClick={() => setIsMinimized(!isMinimized)}
-            className="p-1 text-ink-muted hover:text-ink"
-          >
+          <button onClick={() => setIsMinimized(!isMinimized)} className="p-1 text-ink-muted hover:text-ink">
             {isMinimized ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
           </button>
-          <button
-            onClick={() => setIsTransectMode(false)}
-            className="p-1 text-ink-muted hover:text-ink"
-          >
+          <button onClick={() => setIsTransectMode(false)} className="p-1 text-ink-muted hover:text-ink">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -218,13 +192,7 @@ export const TransectProfileDrawer: React.FC = () => {
                   stroke="#e4e7ec"
                   strokeDasharray="2,2"
                 />
-                <line
-                  x1={padLeft}
-                  y1={padTop + chartH}
-                  x2={padLeft + chartW}
-                  y2={padTop + chartH}
-                  stroke="#d0d5dd"
-                />
+                <line x1={padLeft} y1={padTop + chartH} x2={padLeft + chartW} y2={padTop + chartH} stroke="#d0d5dd" />
 
                 {/* Y-axis labels */}
                 <text
@@ -349,9 +317,7 @@ export const TransectProfileDrawer: React.FC = () => {
             <div className="grid grid-cols-4 gap-2 text-[10px] font-mono">
               <div className="p-1.5 bg-surface-subtle rounded border border-line">
                 <span className="text-ink-muted block text-[9px]">Relief</span>
-                <span className="text-ink font-bold">
-                  {summary.elevation_relief_m.toFixed(0)} m
-                </span>
+                <span className="text-ink font-bold">{summary.elevation_relief_m.toFixed(0)} m</span>
                 <span className="text-[8px] text-ink-muted block">
                   [{summary.min_elevation_m.toFixed(0)} to {summary.max_elevation_m.toFixed(0)}]
                 </span>
@@ -360,39 +326,25 @@ export const TransectProfileDrawer: React.FC = () => {
                 <span className="text-ink-muted block text-[9px]">Elevation gain / loss</span>
                 <span className="text-success font-bold">
                   +{summary.cumulative_elevation_gain_m.toFixed(0)} m
-                </span>{' '}
-                /{' '}
-                <span className="text-danger font-bold">
-                  -{summary.cumulative_elevation_loss_m.toFixed(0)} m
-                </span>
+                </span> /{' '}
+                <span className="text-danger font-bold">-{summary.cumulative_elevation_loss_m.toFixed(0)} m</span>
               </div>
               <div className="p-1.5 bg-surface-subtle rounded border border-line">
                 <span className="text-ink-muted block text-[9px]">Mean / max slope</span>
-                <span className="text-warning font-bold">
-                  {summary.mean_slope_deg.toFixed(1)}°
-                </span>{' '}
-                /{' '}
-                <span className="text-danger font-bold">
-                  {summary.max_slope_deg.toFixed(1)}°
-                </span>
+                <span className="text-warning font-bold">{summary.mean_slope_deg.toFixed(1)}°</span> /{' '}
+                <span className="text-danger font-bold">{summary.max_slope_deg.toFixed(1)}°</span>
               </div>
               <div className="p-1.5 bg-surface-subtle rounded border border-line">
                 <span className="text-ink-muted block text-[9px]">Point spacing</span>
-                <span className="text-ink font-bold">
-                  {summary.sample_step_m.toFixed(0)} m
-                </span>
-                <span className="text-[8px] text-ink-muted block">
-                  N={summary.num_samples} stations
-                </span>
+                <span className="text-ink font-bold">{summary.sample_step_m.toFixed(0)} m</span>
+                <span className="text-[8px] text-ink-muted block">N={summary.num_samples} stations</span>
               </div>
             </div>
           )}
 
           {/* Scientific Provenance Tag */}
           <div className="flex items-center justify-between text-[9px] text-ink-muted border-t border-line pt-1.5 font-mono">
-            <span>
-              Data: MOLA MEGDR, about 463 m/px. Elevations relative to the MOLA areoid.
-            </span>
+            <span>Data: MOLA MEGDR, about 463 m/px. Elevations relative to the MOLA areoid.</span>
           </div>
         </div>
       )}

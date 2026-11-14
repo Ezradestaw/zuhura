@@ -52,7 +52,7 @@ const LANDMARK_FEATURES: Record<string, PlanetaryFeature> = {
     longitude: 77.58,
     diameter_km: 49.0,
     elevation_m: -2648.0,
-    description: 'Ancient paleolake basin and delta investigated by NASA Mars 2020 Perseverance rover.'
+    description: 'Ancient paleolake basin and delta investigated by NASA Mars 2020 Perseverance rover.',
   },
   gale: {
     id: 'gale-crater',
@@ -62,7 +62,7 @@ const LANDMARK_FEATURES: Record<string, PlanetaryFeature> = {
     longitude: 137.44,
     diameter_km: 154.0,
     elevation_m: -4503.0,
-    description: 'Layered sedimentary mound Aeolis Mons explored by NASA Curiosity rover.'
+    description: 'Layered sedimentary mound Aeolis Mons explored by NASA Curiosity rover.',
   },
   valles_marineris: {
     id: 'valles-marineris',
@@ -72,7 +72,7 @@ const LANDMARK_FEATURES: Record<string, PlanetaryFeature> = {
     longitude: 283.0,
     diameter_km: 4000.0,
     elevation_m: -1372.0,
-    description: 'Vast canyon system stretching over 4,000 km across the Martian equator.'
+    description: 'Vast canyon system stretching over 4,000 km across the Martian equator.',
   },
   olympus_mons: {
     id: 'olympus-mons',
@@ -82,8 +82,8 @@ const LANDMARK_FEATURES: Record<string, PlanetaryFeature> = {
     longitude: 226.2,
     diameter_km: 624.0,
     elevation_m: 20015.0,
-    description: 'Largest volcano in the Solar System, rising over 21 km above the datum.'
-  }
+    description: 'Largest volcano in the Solar System, rising over 21 km above the datum.',
+  },
 };
 
 export const MarsGlobe: React.FC = () => {
@@ -148,11 +148,7 @@ export const MarsGlobe: React.FC = () => {
 
   const placeNamesRef = useRef<PlaceNamesLayer | null>(null);
 
-  const {
-    measurementToolActive,
-    measurementPoints,
-    addMeasurementPoint,
-  } = useWorkspaceStore();
+  const { measurementToolActive, measurementPoints, addMeasurementPoint } = useWorkspaceStore();
 
   const measurementToolActiveRef = useRef(measurementToolActive);
   measurementToolActiveRef.current = measurementToolActive;
@@ -169,13 +165,7 @@ export const MarsGlobe: React.FC = () => {
   selectedVehicleProfileRef.current = selectedVehicleProfile;
 
   const { layers } = useLayerStore();
-  const {
-    isTransectMode,
-    transectStart,
-    transectEnd,
-    profileData,
-    hoveredSampleIndex
-  } = useTerrainAnalysisStore();
+  const { isTransectMode, transectStart, transectEnd, profileData, hoveredSampleIndex } = useTerrainAnalysisStore();
 
   // Terrain switching effect with smooth target navigation
   // IAU place names and feature outlines. The mission pins label these four sites already.
@@ -226,12 +216,7 @@ export const MarsGlobe: React.FC = () => {
     const target = TARGET_VIEWS[selectedTerrain];
     if (target) {
       viewerInstance.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(
-          target.lon,
-          target.lat,
-          target.alt,
-          MARS_ELLIPSOID
-        ),
+        destination: Cesium.Cartesian3.fromDegrees(target.lon, target.lat, target.alt, MARS_ELLIPSOID),
         duration: 1.5,
       });
     }
@@ -264,81 +249,82 @@ export const MarsGlobe: React.FC = () => {
     if (!viewerInstance || viewerInstance.isDestroyed()) return;
 
     // 1. Sync Base Viking MDIM 2.1 Natural Color Basemap Layer (Tier 1)
-    const vikingConfig = layers.find(l => l.id === 'zuhura-viking-mdim21');
+    const vikingConfig = layers.find((l) => l.id === 'zuhura-viking-mdim21');
     if (vikingImageryLayerRef.current && vikingConfig) {
       vikingImageryLayerRef.current.show = vikingConfig.visible;
       vikingImageryLayerRef.current.alpha = vikingConfig.opacity;
     }
 
     // 2. Sync CTX Regional Context Layer (Tier 2, Jezero Footprint)
-    const ctxConfig = layers.find(l => l.id === 'zuhura-ctx-jezero');
+    const ctxConfig = layers.find((l) => l.id === 'zuhura-ctx-jezero');
     if (ctxImageryLayerRef.current && ctxConfig) {
       ctxImageryLayerRef.current.show = ctxConfig.visible;
       ctxImageryLayerRef.current.alpha = ctxConfig.opacity;
     }
 
     // 3. Sync HiRISE Local High-Resolution Layer (Tier 3, Touchdown & Delta)
-    const hiriseConfig = layers.find(l => l.id === 'zuhura-hirise-jezero');
+    const hiriseConfig = layers.find((l) => l.id === 'zuhura-hirise-jezero');
     if (hiriseImageryLayerRef.current && hiriseConfig) {
       hiriseImageryLayerRef.current.show = hiriseConfig.visible;
       hiriseImageryLayerRef.current.alpha = hiriseConfig.opacity;
     }
 
     // 4. Sync Optional MOLA COG Elevation Colormap Layer (Tier 4)
-    const molaLayerConfig = layers.find(l => l.id === 'zuhura-mola-global-v3-cog') || layers.find(l => l.id === 'zuhura-mola-megdr-128');
+    const molaLayerConfig =
+      layers.find((l) => l.id === 'zuhura-mola-global-v3-cog') || layers.find((l) => l.id === 'zuhura-mola-megdr-128');
     if (molaImageryLayerRef.current && molaLayerConfig) {
       molaImageryLayerRef.current.show = molaLayerConfig.visible;
       molaImageryLayerRef.current.alpha = molaLayerConfig.opacity;
     }
 
     // 4b. Sync MGS MOLA + MEX HRSC Blended Color Hillshade Layer (Tier 5)
-    const molaHrscConfig = layers.find(l => l.id === 'zuhura-mola-hrsc-blend');
+    const molaHrscConfig = layers.find((l) => l.id === 'zuhura-mola-hrsc-blend');
     if (molaHrscImageryLayerRef.current && molaHrscConfig) {
       molaHrscImageryLayerRef.current.show = molaHrscConfig.visible;
       molaHrscImageryLayerRef.current.alpha = molaHrscConfig.opacity;
     }
 
     // 4c. Sync THEMIS Day IR Global Radiance Mosaic (Tier 6)
-    const themisDayConfig = layers.find(l => l.id === 'zuhura-themis-day-ir');
+    const themisDayConfig = layers.find((l) => l.id === 'zuhura-themis-day-ir');
     if (themisDayIrImageryLayerRef.current && themisDayConfig) {
       themisDayIrImageryLayerRef.current.show = themisDayConfig.visible;
       themisDayIrImageryLayerRef.current.alpha = themisDayConfig.opacity;
     }
 
     // 4d. Sync MGS TES Clinopyroxene Mineralogy (Tier 7)
-    const tesConfig = layers.find(l => l.id === 'zuhura-tes-clinopyroxene');
+    const tesConfig = layers.find((l) => l.id === 'zuhura-tes-clinopyroxene');
     if (tesImageryLayerRef.current && tesConfig) {
       tesImageryLayerRef.current.show = tesConfig.visible;
       tesImageryLayerRef.current.alpha = tesConfig.opacity;
     }
 
     // 5. Sync Missions & Landing Sites pins
-    const missionsConfig = layers.find(l => l.id === 'zuhura-landing-sites');
+    const missionsConfig = layers.find((l) => l.id === 'zuhura-landing-sites');
     if (missionsConfig) {
-      landmarkEntitiesRef.current.forEach(entity => {
+      landmarkEntitiesRef.current.forEach((entity) => {
         entity.show = missionsConfig.visible;
       });
-      roverTraverseEntitiesRef.current.forEach(entity => {
+      roverTraverseEntitiesRef.current.forEach((entity) => {
         entity.show = missionsConfig.visible;
       });
     }
 
     // 5b. Sync Mount Sharp Exploration Route
-    const mountSharpConfig = layers.find(l => l.id === 'zuhura-mount-sharp-route');
+    const mountSharpConfig = layers.find((l) => l.id === 'zuhura-mount-sharp-route');
     if (mountSharpConfig) {
-      mountSharpEntitiesRef.current.forEach(entity => {
+      mountSharpEntitiesRef.current.forEach((entity) => {
         entity.show = mountSharpConfig.visible;
       });
     }
 
     // 6. Sync THEMIS, CTX, and HiRISE scientific footprint outline entities
-    const themisConfig = layers.find(l => l.id === 'zuhura-themis-ir-jezero');
+    const themisConfig = layers.find((l) => l.id === 'zuhura-themis-ir-jezero');
     const themisEntity = scientificEntitiesRef.current.get('themis');
     if (themisEntity && themisConfig) {
       themisEntity.show = themisConfig.visible;
       if (themisEntity.polygon) {
         themisEntity.polygon.material = new Cesium.ColorMaterialProperty(
-          Cesium.Color.CYAN.withAlpha(0.20 * themisConfig.opacity)
+          Cesium.Color.CYAN.withAlpha(0.2 * themisConfig.opacity),
         );
       }
     }
@@ -348,7 +334,7 @@ export const MarsGlobe: React.FC = () => {
       ctxEntity.show = ctxConfig.visible;
       if (ctxEntity.polygon) {
         ctxEntity.polygon.material = new Cesium.ColorMaterialProperty(
-          Cesium.Color.GOLD.withAlpha(0.08 * ctxConfig.opacity)
+          Cesium.Color.GOLD.withAlpha(0.08 * ctxConfig.opacity),
         );
       }
     }
@@ -358,7 +344,7 @@ export const MarsGlobe: React.FC = () => {
       hiriseEntity.show = hiriseConfig.visible;
       if (hiriseEntity.rectangle) {
         hiriseEntity.rectangle.material = new Cesium.ColorMaterialProperty(
-          Cesium.Color.RED.withAlpha(0.08 * hiriseConfig.opacity)
+          Cesium.Color.RED.withAlpha(0.08 * hiriseConfig.opacity),
         );
       }
     }
@@ -386,12 +372,7 @@ export const MarsGlobe: React.FC = () => {
     // If profile data is available, draw full polyline along great-circle arc
     if (profileData && profileData.samples && profileData.samples.length > 1) {
       const positions = profileData.samples.map((s) =>
-        Cesium.Cartesian3.fromDegrees(
-          s.longitude,
-          s.latitude,
-          Math.max(s.elevation_m, 0) + 50.0,
-          MARS_ELLIPSOID
-        )
+        Cesium.Cartesian3.fromDegrees(s.longitude, s.latitude, Math.max(s.elevation_m, 0) + 50.0, MARS_ELLIPSOID),
       );
 
       const polyline = viewerInstance.entities.add({
@@ -412,12 +393,7 @@ export const MarsGlobe: React.FC = () => {
       const startS = profileData.samples[0];
       const startPin = viewerInstance.entities.add({
         id: 'transect-station-start',
-        position: Cesium.Cartesian3.fromDegrees(
-          startS.longitude,
-          startS.latitude,
-          500.0,
-          MARS_ELLIPSOID
-        ),
+        position: Cesium.Cartesian3.fromDegrees(startS.longitude, startS.latitude, 500.0, MARS_ELLIPSOID),
         point: {
           pixelSize: 8,
           color: Cesium.Color.fromCssColorString('#10b981'),
@@ -440,12 +416,7 @@ export const MarsGlobe: React.FC = () => {
       const endS = profileData.samples[profileData.samples.length - 1];
       const endPin = viewerInstance.entities.add({
         id: 'transect-station-end',
-        position: Cesium.Cartesian3.fromDegrees(
-          endS.longitude,
-          endS.latitude,
-          500.0,
-          MARS_ELLIPSOID
-        ),
+        position: Cesium.Cartesian3.fromDegrees(endS.longitude, endS.latitude, 500.0, MARS_ELLIPSOID),
         point: {
           pixelSize: 8,
           color: Cesium.Color.fromCssColorString('#f43f5e'),
@@ -469,12 +440,7 @@ export const MarsGlobe: React.FC = () => {
         const hs = profileData.samples[hoveredSampleIndex];
         const hoverPin = viewerInstance.entities.add({
           id: 'transect-hover-marker',
-          position: Cesium.Cartesian3.fromDegrees(
-            hs.longitude,
-            hs.latitude,
-            1000.0,
-            MARS_ELLIPSOID
-          ),
+          position: Cesium.Cartesian3.fromDegrees(hs.longitude, hs.latitude, 1000.0, MARS_ELLIPSOID),
           point: {
             pixelSize: 10,
             color: Cesium.Color.CYAN,
@@ -534,7 +500,7 @@ export const MarsGlobe: React.FC = () => {
           departurePoint.lon,
           departurePoint.lat,
           Math.max(departurePoint.elevation_m, 0) + 200.0,
-          MARS_ELLIPSOID
+          MARS_ELLIPSOID,
         ),
         point: {
           pixelSize: 11,
@@ -563,7 +529,7 @@ export const MarsGlobe: React.FC = () => {
           arrivalPoint.lon,
           arrivalPoint.lat,
           Math.max(arrivalPoint.elevation_m, 0) + 200.0,
-          MARS_ELLIPSOID
+          MARS_ELLIPSOID,
         ),
         point: {
           pixelSize: 11,
@@ -589,12 +555,7 @@ export const MarsGlobe: React.FC = () => {
 
     if (waypoints && waypoints.length >= 2) {
       const positions = waypoints.map((w: any) =>
-        Cesium.Cartesian3.fromDegrees(
-          w.longitude,
-          w.latitude,
-          Math.max(w.elevation_m, 0) + 150.0,
-          MARS_ELLIPSOID
-        )
+        Cesium.Cartesian3.fromDegrees(w.longitude, w.latitude, Math.max(w.elevation_m, 0) + 150.0, MARS_ELLIPSOID),
       );
 
       // Glowing 3D traverse route polyline
@@ -638,7 +599,7 @@ export const MarsGlobe: React.FC = () => {
       if (!reg.boundary_polygon || reg.boundary_polygon.length < 3) return;
 
       const hierarchy = reg.boundary_polygon.map((p: any) =>
-        Cesium.Cartesian3.fromDegrees(p.longitude, p.latitude, 0.0, MARS_ELLIPSOID)
+        Cesium.Cartesian3.fromDegrees(p.longitude, p.latitude, 0.0, MARS_ELLIPSOID),
       );
 
       const polygonEntity = viewerInstance.entities.add({
@@ -696,12 +657,7 @@ export const MarsGlobe: React.FC = () => {
     measurementPoints.forEach((pt, idx) => {
       const pin = viewerInstance.entities.add({
         id: `measurement-vertex-${idx}`,
-        position: Cesium.Cartesian3.fromDegrees(
-          pt.lon,
-          pt.lat,
-          Math.max(pt.elevation_m, 0) + 120.0,
-          MARS_ELLIPSOID
-        ),
+        position: Cesium.Cartesian3.fromDegrees(pt.lon, pt.lat, Math.max(pt.elevation_m, 0) + 120.0, MARS_ELLIPSOID),
         point: {
           pixelSize: 8,
           color: Cesium.Color.fromCssColorString('#3d8dbf'),
@@ -724,7 +680,7 @@ export const MarsGlobe: React.FC = () => {
     // Render Geodesic Polyline connecting vertices
     if (measurementPoints.length >= 2) {
       const positions = measurementPoints.map((p) =>
-        Cesium.Cartesian3.fromDegrees(p.lon, p.lat, Math.max(p.elevation_m, 0) + 60.0, MARS_ELLIPSOID)
+        Cesium.Cartesian3.fromDegrees(p.lon, p.lat, Math.max(p.elevation_m, 0) + 60.0, MARS_ELLIPSOID),
       );
 
       const polylineEntity = viewerInstance.entities.add({
@@ -745,15 +701,13 @@ export const MarsGlobe: React.FC = () => {
 
     // Render Clamped Polygon if in Area Mode with >= 3 vertices
     if (measurementToolActive === 'area' && measurementPoints.length >= 3) {
-      const hierarchy = measurementPoints.map((p) =>
-        Cesium.Cartesian3.fromDegrees(p.lon, p.lat, 0.0, MARS_ELLIPSOID)
-      );
+      const hierarchy = measurementPoints.map((p) => Cesium.Cartesian3.fromDegrees(p.lon, p.lat, 0.0, MARS_ELLIPSOID));
 
       const polygonEntity = viewerInstance.entities.add({
         id: 'measurement-area-polygon',
         polygon: {
           hierarchy: hierarchy,
-          material: Cesium.Color.fromCssColorString('#3d8dbf').withAlpha(0.20),
+          material: Cesium.Color.fromCssColorString('#3d8dbf').withAlpha(0.2),
           outline: true,
           outlineColor: Cesium.Color.fromCssColorString('#7fb3d4'),
           outlineWidth: 2,
@@ -1008,11 +962,11 @@ export const MarsGlobe: React.FC = () => {
       const mountSharpUnits = [
         { id: 'ms-bradbury', name: 'Bradbury Landing (-4501m)', lon: 137.4416, lat: -4.5895 },
         { id: 'ms-yellowknife', name: 'Yellowknife Bay (-4520m)', lon: 137.4489, lat: -4.5904 },
-        { id: 'ms-verarubin', name: 'Vera Rubin Hematite Ridge (-4200m)', lon: 137.3820, lat: -4.6850 },
-        { id: 'ms-glentorridon', name: 'Glen Torridon Smectite Clays (-4150m)', lon: 137.3910, lat: -4.7120 },
-        { id: 'ms-greenheugh', name: 'Greenheugh Sandstone Pediment (-4000m)', lon: 137.3750, lat: -4.7350 },
-        { id: 'ms-sulfate', name: 'Sulfate Hydrated Salts (-3850m)', lon: 137.3880, lat: -4.7600 },
-        { id: 'ms-gediz', name: 'Gediz Vallis Debris Flow (-3700m)', lon: 137.4050, lat: -4.7780 },
+        { id: 'ms-verarubin', name: 'Vera Rubin Hematite Ridge (-4200m)', lon: 137.382, lat: -4.685 },
+        { id: 'ms-glentorridon', name: 'Glen Torridon Smectite Clays (-4150m)', lon: 137.391, lat: -4.712 },
+        { id: 'ms-greenheugh', name: 'Greenheugh Sandstone Pediment (-4000m)', lon: 137.375, lat: -4.735 },
+        { id: 'ms-sulfate', name: 'Sulfate Hydrated Salts (-3850m)', lon: 137.388, lat: -4.76 },
+        { id: 'ms-gediz', name: 'Gediz Vallis Debris Flow (-3700m)', lon: 137.405, lat: -4.778 },
       ];
 
       const msEntities: Cesium.Entity[] = [];
@@ -1066,12 +1020,10 @@ export const MarsGlobe: React.FC = () => {
         name: 'THEMIS Daytime IR (100 m/px, 12.57 µm)',
         show: false,
         polygon: {
-          hierarchy: Cesium.Cartesian3.fromDegreesArray([
-            76.815, 24.494,
-            78.507, 12.485,
-            77.952, 12.452,
-            76.207, 24.458,
-          ], MARS_ELLIPSOID),
+          hierarchy: Cesium.Cartesian3.fromDegreesArray(
+            [76.815, 24.494, 78.507, 12.485, 77.952, 12.452, 76.207, 24.458],
+            MARS_ELLIPSOID,
+          ),
           material: Cesium.Color.CYAN.withAlpha(0.2),
           outline: true,
           outlineColor: Cesium.Color.CYAN,
@@ -1086,12 +1038,10 @@ export const MarsGlobe: React.FC = () => {
         name: 'MRO CTX Western Delta Mosaic Footprint (5.55 m/px)',
         show: true,
         polygon: {
-          hierarchy: Cesium.Cartesian3.fromDegreesArray([
-            77.53, 18.654,
-            77.62, 17.9408,
-            77.13, 17.8814,
-            77.04, 18.5946,
-          ], MARS_ELLIPSOID),
+          hierarchy: Cesium.Cartesian3.fromDegreesArray(
+            [77.53, 18.654, 77.62, 17.9408, 77.13, 17.8814, 77.04, 18.5946],
+            MARS_ELLIPSOID,
+          ),
           material: Cesium.Color.GOLD.withAlpha(0.08),
           outline: true,
           outlineColor: Cesium.Color.GOLD,
@@ -1141,9 +1091,9 @@ export const MarsGlobe: React.FC = () => {
             selectedFeature.longitude,
             selectedFeature.latitude,
             targetAlt,
-            ellipsoid
+            ellipsoid,
           ),
-          duration: 2.0
+          duration: 2.0,
         });
       } catch (e) {
         console.warn('Camera flyTo feature notice:', e);
@@ -1168,7 +1118,7 @@ export const MarsGlobe: React.FC = () => {
         evaEntitiesRef.current,
         (targetId) => {
           setActiveEvaTargetId(targetId);
-        }
+        },
       );
     } else {
       // Clear tactical entities when HUD closed
@@ -1208,7 +1158,7 @@ export const MarsGlobe: React.FC = () => {
             JEZERO_HAB_COORDINATES.longitude,
             JEZERO_HAB_COORDINATES.latitude,
             18000.0,
-            MARS_ELLIPSOID
+            MARS_ELLIPSOID,
           ),
           orientation: {
             heading: Cesium.Math.toRadians(290.0),
@@ -1238,7 +1188,7 @@ export const MarsGlobe: React.FC = () => {
       });
       evaRouteEntitiesRef.current = createEvaRouteEntities(viewerInstance, route);
     },
-    [viewerInstance]
+    [viewerInstance],
   );
 
   // Handle simulation step
@@ -1253,7 +1203,7 @@ export const MarsGlobe: React.FC = () => {
         currentPos,
         remainingO2,
         remainingBat,
-        astronautMarkerRef.current
+        astronautMarkerRef.current,
       );
 
       // In Visor POV mode, move camera with astronaut
@@ -1263,7 +1213,7 @@ export const MarsGlobe: React.FC = () => {
             currentPos.longitude,
             currentPos.latitude,
             (currentPos.elevation_m || -2560.0) + 1.75,
-            MARS_ELLIPSOID
+            MARS_ELLIPSOID,
           ),
           orientation: {
             heading: Cesium.Math.toRadians(cameraHeading || 285.0),
@@ -1273,7 +1223,7 @@ export const MarsGlobe: React.FC = () => {
         });
       }
     },
-    [viewerInstance, isVisorPovActive, cameraHeading]
+    [viewerInstance, isVisorPovActive, cameraHeading],
   );
 
   // Handle Visor POV Toggle
@@ -1288,7 +1238,7 @@ export const MarsGlobe: React.FC = () => {
             JEZERO_HAB_COORDINATES.longitude,
             JEZERO_HAB_COORDINATES.latitude,
             JEZERO_HAB_COORDINATES.elevation_m + 1.75,
-            MARS_ELLIPSOID
+            MARS_ELLIPSOID,
           ),
           orientation: {
             heading: Cesium.Math.toRadians(285.0),
@@ -1303,7 +1253,7 @@ export const MarsGlobe: React.FC = () => {
             JEZERO_HAB_COORDINATES.longitude,
             JEZERO_HAB_COORDINATES.latitude,
             18000.0,
-            MARS_ELLIPSOID
+            MARS_ELLIPSOID,
           ),
           orientation: {
             heading: Cesium.Math.toRadians(290.0),
@@ -1314,7 +1264,7 @@ export const MarsGlobe: React.FC = () => {
         });
       }
     },
-    [viewerInstance, setIsVisorPovActive]
+    [viewerInstance, setIsVisorPovActive],
   );
 
   return (

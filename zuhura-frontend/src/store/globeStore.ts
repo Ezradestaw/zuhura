@@ -176,20 +176,22 @@ export const useGlobeStore = create<GlobeState>((set) => ({
   setActiveEvaTargetId: (targetId) => set({ activeEvaTargetId: targetId }),
   setActiveNavigationRoute: (route) => set({ activeNavigationRoute: route }),
   setActiveDiscoveredRegions: (regions) => set({ activeDiscoveredRegions: regions }),
-  setPinpointNavigationMode: (active) => set({
-    isPinpointNavigationMode: active,
-    pinpointStep: active ? 'select_departure' : 'select_departure',
-  }),
+  setPinpointNavigationMode: (active) =>
+    set({
+      isPinpointNavigationMode: active,
+      pinpointStep: active ? 'select_departure' : 'select_departure',
+    }),
   setPinpointStep: (step) => set({ pinpointStep: step }),
   setDeparturePoint: (point) => set({ departurePoint: point }),
   setArrivalPoint: (point) => set({ arrivalPoint: point }),
   setSelectedVehicleProfile: (profile) => set({ selectedVehicleProfile: profile }),
-  clearPinpointRoute: () => set({
-    departurePoint: null,
-    arrivalPoint: null,
-    activeNavigationRoute: null,
-    pinpointStep: 'select_departure',
-  }),
+  clearPinpointRoute: () =>
+    set({
+      departurePoint: null,
+      arrivalPoint: null,
+      activeNavigationRoute: null,
+      pinpointStep: 'select_departure',
+    }),
   setIsSurfaceWalkActive: (active) => set({ isSurfaceWalkActive: active }),
   setSurfaceWalkSpeed: (speed) => set({ surfaceWalkSpeed: speed }),
   setIsSplitScreenActive: (active) => set({ isSplitScreenActive: active }),

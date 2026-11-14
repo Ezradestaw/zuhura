@@ -91,95 +91,102 @@ export function readPersistedWorkspaceRaw(): string | null {
 // Initial seed bookmarks for prominent Martian landing and scientific sites
 export const INITIAL_BOOKMARKS: ResearchBookmark[] = [
   {
-    id: "bm-jezero-delta",
-    name: "Jezero Crater Western Delta",
+    id: 'bm-jezero-delta',
+    name: 'Jezero Crater Western Delta',
     lat: 18.44,
     lon: 77.45,
     elevation_m: -2530,
-    date_saved: "2026-11-13",
-    geological_context: "Mars 2020 Perseverance landing site; ancient lacustrine delta facies",
-    tags: ["Perseverance", "Delta", "Sedimentary"]
+    date_saved: '2026-11-13',
+    geological_context: 'Mars 2020 Perseverance landing site; ancient lacustrine delta facies',
+    tags: ['Perseverance', 'Delta', 'Sedimentary'],
   },
   {
-    id: "bm-gale-mtsharp",
-    name: "Gale Crater - Mount Sharp",
+    id: 'bm-gale-mtsharp',
+    name: 'Gale Crater - Mount Sharp',
     lat: -4.68,
     lon: 137.38,
     elevation_m: -4120,
-    date_saved: "2026-11-13",
-    geological_context: "MSL Curiosity rover traverse; sulfate and smectite clay facies",
-    tags: ["Curiosity", "Sulfate", "Clay"]
+    date_saved: '2026-11-13',
+    geological_context: 'MSL Curiosity rover traverse; sulfate and smectite clay facies',
+    tags: ['Curiosity', 'Sulfate', 'Clay'],
   },
   {
-    id: "bm-olympus-mons",
-    name: "Olympus Mons Central Caldera",
+    id: 'bm-olympus-mons',
+    name: 'Olympus Mons Central Caldera',
     lat: 18.65,
-    lon: 226.20,
+    lon: 226.2,
     elevation_m: 21287,
-    date_saved: "2026-11-13",
+    date_saved: '2026-11-13',
     geological_context: "Solar system's tallest volcano; collapsed basaltic calderas",
-    tags: ["Volcano", "Shield", "Caldera"]
-  }
+    tags: ['Volcano', 'Shield', 'Caldera'],
+  },
 ];
 
 export const useWorkspaceStore = create<WorkspaceState>()(
   persist(
     (set) => ({
-  isWorkspaceOpen: false,
-  activeStudyId: 'study_jezero_astrobiology',
-  activeTab: 'studies',
-  measurementToolActive: 'none',
-  measurementPoints: [],
-  bookmarks: INITIAL_BOOKMARKS,
-  annotations: [],
-  measurementsHistory: [],
-  setIsWorkspaceOpen: (open) => set({ isWorkspaceOpen: open }),
-  setActiveStudyId: (id) => set({ activeStudyId: id }),
-  setActiveTab: (tab) => set({ activeTab: tab }),
-  setMeasurementToolActive: (tool) => set({
-    measurementToolActive: tool,
-    measurementPoints: []
-  }),
-  addMeasurementPoint: (pt) => set((state) => ({
-    measurementPoints: [...state.measurementPoints, pt]
-  })),
-  clearMeasurementPoints: () => set({ measurementPoints: [] }),
-  addBookmark: (bm) => set((state) => ({
-    bookmarks: [
-      ...state.bookmarks,
-      {
-        ...bm,
-        id: `bm-${Date.now()}`,
-        date_saved: new Date().toISOString().split('T')[0]
-      }
-    ]
-  })),
-  removeBookmark: (id) => set((state) => ({
-    bookmarks: state.bookmarks.filter((b) => b.id !== id)
-  })),
-  addAnnotation: (ann) => set((state) => ({
-    annotations: [
-      ...state.annotations,
-      {
-        ...ann,
-        id: `ann-${Date.now()}`,
-        date_created: new Date().toISOString().split('T')[0]
-      }
-    ]
-  })),
-  removeAnnotation: (id) => set((state) => ({
-    annotations: state.annotations.filter((a) => a.id !== id)
-  })),
-  saveMeasurement: (m) => set((state) => ({
-    measurementsHistory: [
-      ...state.measurementsHistory,
-      {
-        ...m,
-        id: `meas-${Date.now()}`,
-        timestamp: new Date().toISOString()
-      }
-    ]
-  })),
+      isWorkspaceOpen: false,
+      activeStudyId: 'study_jezero_astrobiology',
+      activeTab: 'studies',
+      measurementToolActive: 'none',
+      measurementPoints: [],
+      bookmarks: INITIAL_BOOKMARKS,
+      annotations: [],
+      measurementsHistory: [],
+      setIsWorkspaceOpen: (open) => set({ isWorkspaceOpen: open }),
+      setActiveStudyId: (id) => set({ activeStudyId: id }),
+      setActiveTab: (tab) => set({ activeTab: tab }),
+      setMeasurementToolActive: (tool) =>
+        set({
+          measurementToolActive: tool,
+          measurementPoints: [],
+        }),
+      addMeasurementPoint: (pt) =>
+        set((state) => ({
+          measurementPoints: [...state.measurementPoints, pt],
+        })),
+      clearMeasurementPoints: () => set({ measurementPoints: [] }),
+      addBookmark: (bm) =>
+        set((state) => ({
+          bookmarks: [
+            ...state.bookmarks,
+            {
+              ...bm,
+              id: `bm-${Date.now()}`,
+              date_saved: new Date().toISOString().split('T')[0],
+            },
+          ],
+        })),
+      removeBookmark: (id) =>
+        set((state) => ({
+          bookmarks: state.bookmarks.filter((b) => b.id !== id),
+        })),
+      addAnnotation: (ann) =>
+        set((state) => ({
+          annotations: [
+            ...state.annotations,
+            {
+              ...ann,
+              id: `ann-${Date.now()}`,
+              date_created: new Date().toISOString().split('T')[0],
+            },
+          ],
+        })),
+      removeAnnotation: (id) =>
+        set((state) => ({
+          annotations: state.annotations.filter((a) => a.id !== id),
+        })),
+      saveMeasurement: (m) =>
+        set((state) => ({
+          measurementsHistory: [
+            ...state.measurementsHistory,
+            {
+              ...m,
+              id: `meas-${Date.now()}`,
+              timestamp: new Date().toISOString(),
+            },
+          ],
+        })),
     }),
     {
       name: WORKSPACE_STORAGE_KEY,

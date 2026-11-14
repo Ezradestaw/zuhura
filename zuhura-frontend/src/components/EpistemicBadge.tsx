@@ -99,11 +99,7 @@ export const EpistemicBadge: React.FC<EpistemicBadgeProps> = ({
     >
       <IconComponent className="w-2.5 h-2.5 shrink-0" />
       <span>{config.label}</span>
-      {uncertainty && (
-        <span className="opacity-75 font-normal ml-0.5 tabular-nums">
-          ({uncertainty})
-        </span>
-      )}
+      {uncertainty && <span className="opacity-75 font-normal ml-0.5 tabular-nums">({uncertainty})</span>}
     </button>
   );
 };

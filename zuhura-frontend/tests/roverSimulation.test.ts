@@ -1,9 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import {
-  fetchRegolithTypes,
-  fetchCommWindows,
-  fetchMultiRoverSimulation,
-} from '../src/lib/advancedApiClient';
+import { fetchRegolithTypes, fetchCommWindows, fetchMultiRoverSimulation } from '../src/lib/advancedApiClient';
 
 describe('Rover simulation API client', () => {
   beforeEach(() => {
@@ -105,7 +101,7 @@ describe('Rover simulation API client', () => {
       status: 'success',
       corridor_summary: {
         distance_km: 2.45,
-        direct_distance_km: 2.10,
+        direct_distance_km: 2.1,
         elevation_gain_m: 38.5,
         elevation_loss_m: 12.0,
         max_slope_degrees: 14.2,
@@ -193,7 +189,7 @@ describe('Rover simulation API client', () => {
       ['rover_perseverance', 'scout_hexacopter'],
       'basaltic_sand',
       180.0,
-      0.5
+      0.5,
     );
 
     expect(result.status).toBe('success');

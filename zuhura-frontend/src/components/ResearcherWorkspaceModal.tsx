@@ -51,12 +51,7 @@ export const ResearcherWorkspaceModal: React.FC = () => {
     clearMeasurementPoints,
   } = useWorkspaceStore();
 
-  const {
-    cameraLat,
-    cameraLon,
-    cursorElevation,
-    setCameraPosition,
-  } = useGlobeStore();
+  const { cameraLat, cameraLon, cursorElevation, setCameraPosition } = useGlobeStore();
 
   // Studies state
   const [studies, setStudies] = useState<StudyWorkspaceData[]>([]);
@@ -64,7 +59,9 @@ export const ResearcherWorkspaceModal: React.FC = () => {
   const [hypotheses, setHypotheses] = useState<ScientificHypothesisData[]>([]);
 
   // LaTeX table state
-  const [selectedLatexTable, setSelectedLatexTable] = useState<'crater_morphometry' | 'terramechanics'>('crater_morphometry');
+  const [selectedLatexTable, setSelectedLatexTable] = useState<'crater_morphometry' | 'terramechanics'>(
+    'crater_morphometry',
+  );
   const [latexCode, setLatexCode] = useState<string>('');
   const [copiedLatex, setCopiedLatex] = useState<boolean>(false);
 
@@ -162,7 +159,10 @@ export const ResearcherWorkspaceModal: React.FC = () => {
         observation_type: newObsType,
         title: newObsTitle.trim(),
         notes: newObsNotes.trim(),
-        tags: newObsTags.split(',').map((t) => t.trim()).filter(Boolean),
+        tags: newObsTags
+          .split(',')
+          .map((t) => t.trim())
+          .filter(Boolean),
         epistemic_classification: newObsEpistemic,
         attached_data_products: newObsPds.trim() ? [newObsPds.trim()] : [],
         uncertainty_m: 1.0,
@@ -188,7 +188,9 @@ export const ResearcherWorkspaceModal: React.FC = () => {
         confidence_rating: Number(newHypConfidence),
         linked_evidence_ids: observations.slice(0, 2).map((o) => o.obs_id),
         competing_hypotheses: [],
-        falsification_criteria: newHypFalsification.trim() || 'Falsified if no fine-grained stratified units are identified in cross-bedding facies.',
+        falsification_criteria:
+          newHypFalsification.trim() ||
+          'Falsified if no fine-grained stratified units are identified in cross-bedding facies.',
       });
       setHypotheses((prev) => [created, ...prev]);
       setNewHypStatement('');
@@ -216,8 +218,16 @@ export const ResearcherWorkspaceModal: React.FC = () => {
   const handleDownloadKML = async () => {
     try {
       const waypoints = [
-        { latitude: currentStudy?.target_latitude || 18.38, longitude: currentStudy?.target_longitude || 77.58, elevation_m: -2500.0 },
-        { latitude: (currentStudy?.target_latitude || 18.38) + 0.04, longitude: (currentStudy?.target_longitude || 77.58) - 0.08, elevation_m: -2530.0 },
+        {
+          latitude: currentStudy?.target_latitude || 18.38,
+          longitude: currentStudy?.target_longitude || 77.58,
+          elevation_m: -2500.0,
+        },
+        {
+          latitude: (currentStudy?.target_latitude || 18.38) + 0.04,
+          longitude: (currentStudy?.target_longitude || 77.58) - 0.08,
+          elevation_m: -2530.0,
+        },
       ];
       const kmlText = await exportKmlTraverse(`${currentStudy?.name || 'Martian'} Traverse`, waypoints);
       const blob = new Blob([kmlText], { type: 'application/vnd.google-earth.kml+xml' });
@@ -248,7 +258,10 @@ export const ResearcherWorkspaceModal: React.FC = () => {
       lon: Number(cameraLon.toFixed(4)),
       elevation_m: Math.round(cursorElevation || 0),
       geological_context: bmContext.trim() || 'User saved Martian landmark observation',
-      tags: bmTags.split(',').map((t) => t.trim()).filter(Boolean),
+      tags: bmTags
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean),
     });
     setBmName('');
     setBmContext('');
@@ -296,7 +309,16 @@ export const ResearcherWorkspaceModal: React.FC = () => {
   };
 
   const handleExportCSV = () => {
-    const headers = ['ID', 'Name', 'Latitude_Planetocentric', 'Longitude_East', 'Elevation_Areoid_m', 'Date_Saved', 'Context', 'Tags'];
+    const headers = [
+      'ID',
+      'Name',
+      'Latitude_Planetocentric',
+      'Longitude_East',
+      'Elevation_Areoid_m',
+      'Date_Saved',
+      'Context',
+      'Tags',
+    ];
     const rows = bookmarks.map((b) => [
       b.id,
       `"${b.name.replace(/"/g, '""')}"`,
@@ -321,15 +343,12 @@ export const ResearcherWorkspaceModal: React.FC = () => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-brand-950/45 select-none font-sans">
       <div className="bg-surface-subtle border border-line rounded-3xl shadow-panel w-full max-w-5xl max-h-[92vh] flex flex-col text-ink overflow-hidden font-sans">
-        
         {/* Header with Active Study Selector */}
         <div className="px-5 py-3.5 bg-white border-b border-line flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div>
               <p className="text-[12px] font-medium text-brand-600">Workspace</p>
-              <h2 className="text-base font-semibold tracking-tight text-ink">
-                Studies, notes, and saved places
-              </h2>
+              <h2 className="text-base font-semibold tracking-tight text-ink">Studies, notes, and saved places</h2>
               <div className="flex items-center space-x-2 text-[11px] text-ink-muted mt-0.5">
                 <span>Active Study:</span>
                 <select
@@ -441,7 +460,6 @@ export const ResearcherWorkspaceModal: React.FC = () => {
 
         {/* Tab Content Body */}
         <div className="flex-1 p-5 overflow-y-auto space-y-5 bg-surface-subtle">
-          
           {/* TAB 1: STUDIES OVERVIEW */}
           {activeTab === 'studies' && (
             <div className="space-y-4">
@@ -459,20 +477,23 @@ export const ResearcherWorkspaceModal: React.FC = () => {
                     >
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold ${
-                            s.status === 'ACTIVE'
-                              ? 'bg-surface-subtle text-ink border border-line'
-                              : 'bg-surface-muted text-ink-muted'
-                          }`}>
+                          <span
+                            className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold ${
+                              s.status === 'ACTIVE'
+                                ? 'bg-surface-subtle text-ink border border-line'
+                                : 'bg-surface-muted text-ink-muted'
+                            }`}
+                          >
                             {s.status}
                           </span>
                           <span className="text-[10px] text-ink-muted font-mono">
-                            {s.target_latitude > 0 ? `${s.target_latitude}°N` : `${Math.abs(s.target_latitude)}°S`}, {s.target_longitude}°E
+                            {s.target_latitude > 0 ? `${s.target_latitude}°N` : `${Math.abs(s.target_latitude)}°S`},{' '}
+                            {s.target_longitude}°E
                           </span>
                         </div>
                         <h3 className="text-sm font-bold text-ink">{s.name}</h3>
                         <p className="text-[11px] text-ink-muted line-clamp-3">{s.description}</p>
-                        
+
                         <div className="pt-2 text-[10px] text-ink-faint space-y-1">
                           <div className="flex items-center space-x-1">
                             <User className="w-3 h-3 text-ink-muted" />
@@ -519,11 +540,16 @@ export const ResearcherWorkspaceModal: React.FC = () => {
           {activeTab === 'observations' && (
             <div className="space-y-4">
               {/* Form to log observation */}
-              <form onSubmit={handleCreateObservation} className="p-4 rounded-lg bg-surface-muted border border-line space-y-3">
+              <form
+                onSubmit={handleCreateObservation}
+                className="p-4 rounded-lg bg-surface-muted border border-line space-y-3"
+              >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold text-ink-soft flex items-center space-x-1.5">
                     <Plus className="w-3.5 h-3.5 text-ink" />
-                    <span>Log Scientific Observation at Viewport ({cameraLat.toFixed(2)}°N, {cameraLon.toFixed(2)}°E)</span>
+                    <span>
+                      Log Scientific Observation at Viewport ({cameraLat.toFixed(2)}°N, {cameraLon.toFixed(2)}°E)
+                    </span>
                   </span>
                   <span className="text-[11px] font-mono text-ink">
                     MOLA Elevation: {cursorElevation !== null ? `${cursorElevation.toFixed(0)} m` : '-2500 m'}
@@ -595,14 +621,12 @@ export const ResearcherWorkspaceModal: React.FC = () => {
               <div className="space-y-3">
                 {observations.length === 0 ? (
                   <div className="p-8 text-center text-xs text-ink-faint border border-dashed border-line rounded-lg">
-                    No observations logged for this study yet. Use the form above to record geological or spectral observations.
+                    No observations logged for this study yet. Use the form above to record geological or spectral
+                    observations.
                   </div>
                 ) : (
                   observations.map((obs) => (
-                    <div
-                      key={obs.obs_id}
-                      className="p-4 rounded-lg bg-surface-muted border border-line space-y-2.5"
-                    >
+                    <div key={obs.obs_id} className="p-4 rounded-lg bg-surface-muted border border-line space-y-2.5">
                       <div className="flex items-start justify-between">
                         <div className="space-y-1">
                           <div className="flex items-center space-x-2">
@@ -632,7 +656,8 @@ export const ResearcherWorkspaceModal: React.FC = () => {
 
                       <div className="flex items-center justify-between pt-1 text-[10px] text-ink-faint font-mono">
                         <span>
-                          Coords: {obs.latitude.toFixed(2)}°N, {obs.longitude.toFixed(2)}°E | MOLA: {obs.elevation_m.toLocaleString()} m (±{obs.uncertainty_m}m)
+                          Coords: {obs.latitude.toFixed(2)}°N, {obs.longitude.toFixed(2)}°E | MOLA:{' '}
+                          {obs.elevation_m.toLocaleString()} m (±{obs.uncertainty_m}m)
                         </span>
                         <span>{obs.timestamp}</span>
                       </div>
@@ -647,7 +672,10 @@ export const ResearcherWorkspaceModal: React.FC = () => {
           {activeTab === 'hypotheses' && (
             <div className="space-y-4">
               {/* Form to formulate hypothesis */}
-              <form onSubmit={handleCreateHypothesis} className="p-4 rounded-lg bg-surface-muted border border-line space-y-3">
+              <form
+                onSubmit={handleCreateHypothesis}
+                className="p-4 rounded-lg bg-surface-muted border border-line space-y-3"
+              >
                 <span className="text-xs font-semibold text-ink-soft flex items-center space-x-1.5">
                   <ShieldCheck className="w-3.5 h-3.5 text-ink" />
                   <span>New hypothesis</span>
@@ -716,13 +744,15 @@ export const ResearcherWorkspaceModal: React.FC = () => {
                         <div className="space-y-1.5 max-w-3xl">
                           <div className="flex items-center space-x-2">
                             <span className="text-[10px] text-ink-muted font-bold">{hyp.hypothesis_id}</span>
-                            <span className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold ${
-                              hyp.status === 'SUPPORTED'
-                                ? 'bg-surface-subtle text-ink border border-line'
-                                : hyp.status === 'CONTRADICTED'
-                                ? 'bg-danger-soft text-danger border border-danger-line'
-                                : 'bg-brand-50 text-brand-600 border border-brand-200'
-                            }`}>
+                            <span
+                              className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold ${
+                                hyp.status === 'SUPPORTED'
+                                  ? 'bg-surface-subtle text-ink border border-line'
+                                  : hyp.status === 'CONTRADICTED'
+                                    ? 'bg-danger-soft text-danger border border-danger-line'
+                                    : 'bg-brand-50 text-brand-600 border border-brand-200'
+                              }`}
+                            >
                               {hyp.status}
                             </span>
                             <span className="text-[10px] font-mono text-ink">
@@ -741,8 +771,8 @@ export const ResearcherWorkspaceModal: React.FC = () => {
                               hyp.confidence_rating >= 0.8
                                 ? 'bg-ink'
                                 : hyp.confidence_rating >= 0.5
-                                ? 'bg-brand-700'
-                                : 'bg-line-strong'
+                                  ? 'bg-brand-700'
+                                  : 'bg-line-strong'
                             }`}
                             style={{ width: `${Math.round(hyp.confidence_rating * 100)}%` }}
                           />
@@ -764,7 +794,9 @@ export const ResearcherWorkspaceModal: React.FC = () => {
                       </div>
 
                       <div className="flex items-center justify-between text-[10px] text-ink-faint font-mono">
-                        <span>Formulated: {hyp.date_formulated} | Updated: {hyp.date_updated}</span>
+                        <span>
+                          Formulated: {hyp.date_formulated} | Updated: {hyp.date_updated}
+                        </span>
                         <span>Evidence Count: {hyp.linked_evidence_ids.length}</span>
                       </div>
                     </div>
@@ -777,11 +809,16 @@ export const ResearcherWorkspaceModal: React.FC = () => {
           {/* TAB 5: BOOKMARKS (Saved Landmarks) */}
           {activeTab === 'bookmarks' && (
             <div className="space-y-4">
-              <form onSubmit={handleCreateBookmark} className="p-3.5 rounded-lg bg-surface-muted border border-line space-y-3">
+              <form
+                onSubmit={handleCreateBookmark}
+                className="p-3.5 rounded-lg bg-surface-muted border border-line space-y-3"
+              >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold text-ink-soft flex items-center space-x-1.5">
                     <Plus className="w-3.5 h-3.5 text-ink" />
-                    <span>Bookmark Current Viewport ({cameraLat.toFixed(2)}°N, {cameraLon.toFixed(2)}°E)</span>
+                    <span>
+                      Bookmark Current Viewport ({cameraLat.toFixed(2)}°N, {cameraLon.toFixed(2)}°E)
+                    </span>
                   </span>
                   <span className="text-[11px] font-mono text-ink">
                     MOLA Areoid: {cursorElevation !== null ? `${cursorElevation.toFixed(0)} m` : 'N/A'}
@@ -841,7 +878,10 @@ export const ResearcherWorkspaceModal: React.FC = () => {
                       <p className="text-[11px] text-ink-muted mt-1 line-clamp-2">{b.geological_context}</p>
                       <div className="flex flex-wrap gap-1 mt-2">
                         {b.tags.map((t, i) => (
-                          <span key={i} className="text-[10px] px-1.5 py-0.2 rounded bg-surface-muted text-ink-soft font-mono">
+                          <span
+                            key={i}
+                            className="text-[10px] px-1.5 py-0.2 rounded bg-surface-muted text-ink-soft font-mono"
+                          >
                             #{t}
                           </span>
                         ))}
@@ -873,7 +913,8 @@ export const ResearcherWorkspaceModal: React.FC = () => {
                   Geodesic Surface Measurement Engine
                 </h3>
                 <p className="text-xs text-ink-muted leading-relaxed">
-                  Compute true great-circle surface distances and topographic relief differences on Mars referenced to the IAU/IAG 2015 WGCCRE reference ellipsoid (A = 3,396,190 m, C = 3,376,200 m).
+                  Compute true great-circle surface distances and topographic relief differences on Mars referenced to
+                  the IAU/IAG 2015 WGCCRE reference ellipsoid (A = 3,396,190 m, C = 3,376,200 m).
                 </p>
                 <div className="flex items-center space-x-3 pt-1">
                   <button
@@ -885,7 +926,9 @@ export const ResearcherWorkspaceModal: React.FC = () => {
                     }`}
                   >
                     <Ruler className="w-3.5 h-3.5 text-ink" />
-                    <span>{measurementToolActive === 'ruler' ? 'Ruler Active (Click on Globe)' : 'Activate Geodesic Ruler'}</span>
+                    <span>
+                      {measurementToolActive === 'ruler' ? 'Ruler Active (Click on Globe)' : 'Activate Geodesic Ruler'}
+                    </span>
                   </button>
                   {measurementPoints.length > 0 && (
                     <button
@@ -933,7 +976,8 @@ export const ResearcherWorkspaceModal: React.FC = () => {
                   Scientific Data Product Exports & Publication Generators
                 </h3>
                 <p className="text-xs text-ink-muted">
-                  Export verified research sessions, planetary waypoints, KML traverses, and publication-ready LaTeX tables for AGU, LPSC, and Planetary Science manuscripts.
+                  Export verified research sessions, planetary waypoints, KML traverses, and publication-ready LaTeX
+                  tables for AGU, LPSC, and Planetary Science manuscripts.
                 </p>
               </div>
 
@@ -1052,13 +1096,9 @@ export const ResearcherWorkspaceModal: React.FC = () => {
                   {latexCode || '% Loading LaTeX table snippet...'}
                 </pre>
               </div>
-
             </div>
           )}
-
         </div>
-
-
       </div>
     </div>
   );

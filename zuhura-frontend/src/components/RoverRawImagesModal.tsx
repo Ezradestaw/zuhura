@@ -1,15 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  X,
-  Camera,
-  Search,
-  Filter,
-  Download,
-  Info,
-  ChevronLeft,
-  ChevronRight,
-  Maximize2,
-} from 'lucide-react';
+import { X, Camera, Search, Filter, Download, Info, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
 
 interface RawImageItem {
@@ -102,7 +92,6 @@ export const RoverRawImagesModal: React.FC = () => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-950/60 animate-fadeIn">
       <div className="relative w-full max-w-6xl h-[88vh] bg-white border border-line rounded-xl shadow-2xl flex flex-col overflow-hidden text-ink font-sans">
-        
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 bg-surface-subtle border-b border-line">
           <div className="flex items-center space-x-3">
@@ -111,9 +100,7 @@ export const RoverRawImagesModal: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h2 className="text-base font-bold text-ink">
-                  Rover images
-                </h2>
+                <h2 className="text-base font-bold text-ink">Rover images</h2>
                 <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-success-soft text-success border border-success-line">
                   NASA / JPL EDR
                 </span>
@@ -139,21 +126,23 @@ export const RoverRawImagesModal: React.FC = () => {
           {/* Rover Selector */}
           <div className="flex items-center space-x-2 bg-surface-subtle p-1 rounded-lg border border-line">
             <button
-              onClick={() => { setRover('perseverance'); setPage(1); }}
+              onClick={() => {
+                setRover('perseverance');
+                setPage(1);
+              }}
               className={`px-3 py-1 rounded-md font-mono text-xs transition-all ${
-                rover === 'perseverance'
-                  ? 'bg-brand-700 text-white shadow-sm'
-                  : 'text-ink-muted hover:text-ink'
+                rover === 'perseverance' ? 'bg-brand-700 text-white shadow-sm' : 'text-ink-muted hover:text-ink'
               }`}
             >
               Perseverance (M20)
             </button>
             <button
-              onClick={() => { setRover('curiosity'); setPage(1); }}
+              onClick={() => {
+                setRover('curiosity');
+                setPage(1);
+              }}
               className={`px-3 py-1 rounded-md font-mono text-xs transition-all ${
-                rover === 'curiosity'
-                  ? 'bg-brand-700 text-white shadow-sm'
-                  : 'text-ink-muted hover:text-ink'
+                rover === 'curiosity' ? 'bg-brand-700 text-white shadow-sm' : 'text-ink-muted hover:text-ink'
               }`}
             >
               Curiosity (MSL)
@@ -165,7 +154,10 @@ export const RoverRawImagesModal: React.FC = () => {
             <Filter className="w-4 h-4 text-ink-muted" />
             <select
               value={selectedCamera}
-              onChange={(e) => { setSelectedCamera(e.target.value); setPage(1); }}
+              onChange={(e) => {
+                setSelectedCamera(e.target.value);
+                setPage(1);
+              }}
               className="bg-surface-subtle border border-line rounded-lg px-3 py-1.5 text-xs text-ink focus:outline-none focus:border-brand-600"
             >
               {CAMERAS.map((c) => (
@@ -232,7 +224,12 @@ export const RoverRawImagesModal: React.FC = () => {
               <Camera className="w-10 h-10 stroke-[1.5]" />
               <p className="text-sm">No raw images found matching your filter criteria.</p>
               <button
-                onClick={() => { setSelectedCamera('all'); setSelectedSol(''); setSearchTerm(''); setPage(1); }}
+                onClick={() => {
+                  setSelectedCamera('all');
+                  setSelectedSol('');
+                  setSearchTerm('');
+                  setPage(1);
+                }}
                 className="text-xs text-brand-600 underline"
               >
                 Reset filters
@@ -322,12 +319,8 @@ export const RoverRawImagesModal: React.FC = () => {
             <div className="w-full md:w-96 bg-white border-l border-line p-6 flex flex-col justify-between overflow-y-auto font-sans text-xs">
               <div className="space-y-4">
                 <div>
-                  <span className="text-[10px] text-brand-600 font-bold">
-                    NASA Planetary Observation
-                  </span>
-                  <h3 className="text-base font-bold text-ink mt-0.5">
-                    {selectedImage.camera_name}
-                  </h3>
+                  <span className="text-[10px] text-brand-600 font-bold">NASA Planetary Observation</span>
+                  <h3 className="text-base font-bold text-ink mt-0.5">{selectedImage.camera_name}</h3>
                   <div className="text-ink-muted font-mono text-[11px] mt-1">
                     Image ID: <span className="text-ink">{selectedImage.image_id}</span>
                   </div>
@@ -366,9 +359,7 @@ export const RoverRawImagesModal: React.FC = () => {
 
                 {selectedImage.caption && (
                   <div>
-                    <h4 className="text-[11px] font-bold text-ink-soft mb-1">
-                      Observation Caption
-                    </h4>
+                    <h4 className="text-[11px] font-bold text-ink-soft mb-1">Observation Caption</h4>
                     <p className="text-ink-soft leading-relaxed text-[11px] bg-surface-subtle p-3 rounded-lg border border-line">
                       {selectedImage.caption}
                     </p>
@@ -376,9 +367,7 @@ export const RoverRawImagesModal: React.FC = () => {
                 )}
 
                 <div>
-                  <h4 className="text-[11px] font-bold text-ink-soft mb-1">
-                    Provenance & Attribution
-                  </h4>
+                  <h4 className="text-[11px] font-bold text-ink-soft mb-1">Provenance & Attribution</h4>
                   <p className="text-ink-muted text-[10px] leading-normal">
                     Credit: {selectedImage.credit}. Released under public domain NASA open data policy.
                   </p>
@@ -406,7 +395,6 @@ export const RoverRawImagesModal: React.FC = () => {
             </div>
           </div>
         )}
-
       </div>
     </div>
   );

@@ -100,8 +100,7 @@ export const NavigationRail: React.FC = () => {
     setIsHoverIntelligenceEnabled,
   } = useGlobeStore();
   const { isOpen: isAIOpen, toggleOpen: toggleAI } = useAIStore();
-  const { isWorkspaceOpen, setIsWorkspaceOpen, measurementToolActive, setMeasurementToolActive } =
-    useWorkspaceStore();
+  const { isWorkspaceOpen, setIsWorkspaceOpen, measurementToolActive, setMeasurementToolActive } = useWorkspaceStore();
   const { isEnvironmentModalOpen, setIsEnvironmentModalOpen } = useEnvironmentStore();
 
   const showExplorer = () => setActiveMainView('explorer');

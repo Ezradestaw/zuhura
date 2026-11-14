@@ -17,9 +17,10 @@ export const useProvenanceStore = create<ProvenanceState>((set) => ({
   setIsProvenanceModalOpen: (open) => set({ isProvenanceModalOpen: open }),
   setSelectedDatasetId: (id) => set({ selectedDatasetId: id }),
   setActiveTab: (tab) => set({ activeTab: tab }),
-  openProvenanceModal: (datasetId) => set({
-    isProvenanceModalOpen: true,
-    selectedDatasetId: datasetId || 'MOLA',
-    activeTab: datasetId?.includes('MODEL') ? 'models' : 'datasets',
-  }),
+  openProvenanceModal: (datasetId) =>
+    set({
+      isProvenanceModalOpen: true,
+      selectedDatasetId: datasetId || 'MOLA',
+      activeTab: datasetId?.includes('MODEL') ? 'models' : 'datasets',
+    }),
 }));

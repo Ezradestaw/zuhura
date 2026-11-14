@@ -1,34 +1,13 @@
 import React, { useState } from 'react';
-import {
-  Navigation,
-  X,
-  RefreshCw,
-  Download,
-  ChevronDown,
-  ChevronUp,
-  Radio,
-} from 'lucide-react';
+import { Navigation, X, RefreshCw, Download, ChevronDown, ChevronUp, Radio } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
-import {
-  fetchOptimizedRoute,
-  RoutePlanningResponseData,
-  RouteOptionData,
-} from '../lib/advancedApiClient';
-import {
-  buildTraverseCsv,
-  buildTraverseGeoJson,
-  buildTraverseKml,
-  downloadTextFile,
-} from '../lib/routeExport';
+import { fetchOptimizedRoute, RoutePlanningResponseData, RouteOptionData } from '../lib/advancedApiClient';
+import { buildTraverseCsv, buildTraverseGeoJson, buildTraverseKml, downloadTextFile } from '../lib/routeExport';
 import { MOLA_TRANSECT_STATUS, resolveRouteWithElevation } from '../lib/routeFallback';
 import { EpistemicBadge } from './EpistemicBadge';
 
 export const RoutePlanningDrawer: React.FC = () => {
-  const {
-    isRoutePlannerOpen,
-    setIsRoutePlannerOpen,
-    setActiveNavigationRoute,
-  } = useGlobeStore();
+  const { isRoutePlannerOpen, setIsRoutePlannerOpen, setActiveNavigationRoute } = useGlobeStore();
 
   const PRESETS = [
     {
@@ -43,13 +22,15 @@ export const RoutePlanningDrawer: React.FC = () => {
     },
     {
       name: 'Olympus Mons: Caldera Rim Traverse',
-      start: { lat: 18.40, lon: 226.00, name: 'South Caldera Base' },
-      end: { lat: 18.65, lon: 226.20, name: 'Summit Caldera Edge' },
+      start: { lat: 18.4, lon: 226.0, name: 'South Caldera Base' },
+      end: { lat: 18.65, lon: 226.2, name: 'Summit Caldera Edge' },
     },
   ];
 
   const [travelMode, setTravelMode] = useState<'land' | 'air'>('land');
-  const [activeDetailTab, setActiveDetailTab] = useState<'profile' | 'terramechanics' | 'timeline' | 'comms' | 'risks'>('profile');
+  const [activeDetailTab, setActiveDetailTab] = useState<'profile' | 'terramechanics' | 'timeline' | 'comms' | 'risks'>(
+    'profile',
+  );
 
   const [startLat, setStartLat] = useState<number>(18.38);
   const [startLon, setStartLon] = useState<number>(77.58);
@@ -87,7 +68,8 @@ export const RoutePlanningDrawer: React.FC = () => {
         data.recommended_route = {
           ...data.recommended_route,
           name: 'Flight path',
-          description: 'Straight line between the two points, as a helicopter such as Ingenuity would fly. The profile shows the ground below.',
+          description:
+            'Straight line between the two points, as a helicopter such as Ingenuity would fly. The profile shows the ground below.',
         };
         data.alternative_routes = [];
       }
@@ -101,7 +83,7 @@ export const RoutePlanningDrawer: React.FC = () => {
     }
   };
 
-  const handleSelectPreset = (p: typeof PRESETS[0]) => {
+  const handleSelectPreset = (p: (typeof PRESETS)[0]) => {
     setStartLat(p.start.lat);
     setStartLon(p.start.lon);
     setEndLat(p.end.lat);
@@ -230,9 +212,7 @@ export const RoutePlanningDrawer: React.FC = () => {
 
           {/* Quick Presets */}
           <div className="space-y-1">
-            <span className="text-[10px] text-ink-muted block">
-              Exploration Presets
-            </span>
+            <span className="text-[10px] text-ink-muted block">Exploration Presets</span>
             <div className="flex flex-col gap-1">
               {PRESETS.map((p, idx) => (
                 <button
@@ -329,8 +309,8 @@ export const RoutePlanningDrawer: React.FC = () => {
             </div>
           ) : (
             <p className="text-[11px] leading-relaxed text-ink-muted">
-              A helicopter flies straight over the terrain, so the path is a direct line. The profile shows the
-              ground elevation below it.
+              A helicopter flies straight over the terrain, so the path is a direct line. The profile shows the ground
+              elevation below it.
             </p>
           )}
 
@@ -385,78 +365,97 @@ export const RoutePlanningDrawer: React.FC = () => {
                 </div>
               )}
 
-              {/* Summary Metrics */}
-              <div className="grid grid-cols-4 gap-1 font-mono text-[9px]">
-                <div className="p-1.5 rounded bg-surface-subtle border border-line">
-                  <span className="text-ink-muted block">Distance</span>
-                  <span className="text-ink font-bold">{route.total_distance_km} km</span>
-                </div>
-                <div className="p-1.5 rounded bg-surface-subtle border border-line">
-                  <span className="text-ink-muted block">Max slope</span>
-                  <span className="text-brand-600 font-bold">{route.max_slope_degrees}°</span>
-                </div>
-                <div className="p-1.5 rounded bg-surface-subtle border border-line">
-                  <span className="text-ink-muted block">Est. sols</span>
-                  <span className="text-ink font-bold">{mobility?.estimated_duration_sols ?? 1}d</span>
-                </div>
-                <div className="p-1.5 rounded bg-surface-subtle border border-line">
-                  <span className="text-ink-muted block">RISK</span>
-                  <span className={`font-bold ${risks?.risk_rating === 'BENIGN' ? 'text-ink' : 'text-brand-600'}`}>
-                    {risks?.risk_rating || 'NOMINAL'}
-                  </span>
-                </div>
-              </div>
+              {/* Summary */}
+              {travelMode === 'land' ? (
+                <>
+                  <div className="grid grid-cols-4 gap-1 font-mono text-[9px]">
+                    <div className="p-1.5 rounded bg-surface-subtle border border-line">
+                      <span className="text-ink-muted block">Distance</span>
+                      <span className="text-ink font-bold">{route.total_distance_km} km</span>
+                    </div>
+                    <div className="p-1.5 rounded bg-surface-subtle border border-line">
+                      <span className="text-ink-muted block">Max slope</span>
+                      <span className="text-brand-600 font-bold">{route.max_slope_degrees}°</span>
+                    </div>
+                    <div className="p-1.5 rounded bg-surface-subtle border border-line">
+                      <span className="text-ink-muted block">Est. sols</span>
+                      <span className="text-ink font-bold">{mobility?.estimated_duration_sols ?? 1}d</span>
+                    </div>
+                    <div className="p-1.5 rounded bg-surface-subtle border border-line">
+                      <span className="text-ink-muted block">RISK</span>
+                      <span className={`font-bold ${risks?.risk_rating === 'BENIGN' ? 'text-ink' : 'text-brand-600'}`}>
+                        {risks?.risk_rating || 'NOMINAL'}
+                      </span>
+                    </div>
+                  </div>
 
-              {/* Detail Tabs Switcher */}
-              <div className="flex bg-white p-0.5 rounded border border-line text-[10px] font-mono">
-                <button
-                  onClick={() => setActiveDetailTab('profile')}
-                  className={`flex-1 py-0.5 rounded text-center ${
-                    activeDetailTab === 'profile' ? 'bg-surface-muted text-ink font-bold' : 'text-ink-muted'
-                  }`}
-                >
-                  Elevation
-                </button>
-                <button
-                  onClick={() => setActiveDetailTab('terramechanics')}
-                  className={`flex-1 py-0.5 rounded text-center ${
-                    activeDetailTab === 'terramechanics' ? 'bg-surface-muted text-ink font-bold' : 'text-ink-muted'
-                  }`}
-                >
-                  Soil
-                </button>
-                <button
-                  onClick={() => setActiveDetailTab('timeline')}
-                  className={`flex-1 py-0.5 rounded text-center ${
-                    activeDetailTab === 'timeline' ? 'bg-surface-muted text-brand-600 font-bold' : 'text-ink-muted'
-                  }`}
-                >
-                  Sol
-                </button>
-                <button
-                  onClick={() => setActiveDetailTab('comms')}
-                  className={`flex-1 py-0.5 rounded text-center ${
-                    activeDetailTab === 'comms' ? 'bg-surface-muted text-brand-600 font-bold' : 'text-ink-muted'
-                  }`}
-                >
-                  Comms
-                </button>
-                <button
-                  onClick={() => setActiveDetailTab('risks')}
-                  className={`flex-1 py-0.5 rounded text-center ${
-                    activeDetailTab === 'risks' ? 'bg-surface-muted text-brand-600 font-bold' : 'text-ink-muted'
-                  }`}
-                >
-                  Risks
-                </button>
-              </div>
+                  {/* Detail Tabs Switcher */}
+                  <div className="flex bg-white p-0.5 rounded border border-line text-[10px] font-mono">
+                    <button
+                      onClick={() => setActiveDetailTab('profile')}
+                      className={`flex-1 py-0.5 rounded text-center ${
+                        activeDetailTab === 'profile' ? 'bg-surface-muted text-ink font-bold' : 'text-ink-muted'
+                      }`}
+                    >
+                      Elevation
+                    </button>
+                    <button
+                      onClick={() => setActiveDetailTab('terramechanics')}
+                      className={`flex-1 py-0.5 rounded text-center ${
+                        activeDetailTab === 'terramechanics' ? 'bg-surface-muted text-ink font-bold' : 'text-ink-muted'
+                      }`}
+                    >
+                      Soil
+                    </button>
+                    <button
+                      onClick={() => setActiveDetailTab('timeline')}
+                      className={`flex-1 py-0.5 rounded text-center ${
+                        activeDetailTab === 'timeline' ? 'bg-surface-muted text-brand-600 font-bold' : 'text-ink-muted'
+                      }`}
+                    >
+                      Sol
+                    </button>
+                    <button
+                      onClick={() => setActiveDetailTab('comms')}
+                      className={`flex-1 py-0.5 rounded text-center ${
+                        activeDetailTab === 'comms' ? 'bg-surface-muted text-brand-600 font-bold' : 'text-ink-muted'
+                      }`}
+                    >
+                      Comms
+                    </button>
+                    <button
+                      onClick={() => setActiveDetailTab('risks')}
+                      className={`flex-1 py-0.5 rounded text-center ${
+                        activeDetailTab === 'risks' ? 'bg-surface-muted text-brand-600 font-bold' : 'text-ink-muted'
+                      }`}
+                    >
+                      Risks
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="grid grid-cols-2 gap-1 text-[11px]">
+                  <div className="rounded border border-line bg-surface-subtle p-1.5">
+                    <span className="block text-ink-muted">Distance</span>
+                    <span className="font-semibold text-ink">{route.total_distance_km} km</span>
+                  </div>
+                  <div className="rounded border border-line bg-surface-subtle p-1.5">
+                    <span className="block text-ink-muted">Ground elevation change</span>
+                    <span className="font-semibold text-ink">
+                      +{Math.round(route.elevation_gain_m)} m / −{Math.round(route.elevation_loss_m)} m
+                    </span>
+                  </div>
+                </div>
+              )}
 
               {/* Tab 1: Elevation Profile */}
-              {activeDetailTab === 'profile' && pathD && (
+              {(activeDetailTab === 'profile' || travelMode === 'air') && pathD && (
                 <div className="p-2 rounded bg-surface-muted border border-line space-y-1">
                   <div className="flex justify-between text-[10px] font-mono text-ink-muted">
                     <span>Route Elevation Profile</span>
-                    <span>ΔElev: +{route.elevation_gain_m}m / -{route.elevation_loss_m}m</span>
+                    <span>
+                      ΔElev: +{route.elevation_gain_m}m / -{route.elevation_loss_m}m
+                    </span>
                   </div>
                   <svg width="100%" height={svgH} viewBox={`0 0 ${svgW} ${svgH}`} className="overflow-visible">
                     <path d={areaD} fill="rgba(143, 61, 44, 0.12)" />
@@ -466,7 +465,7 @@ export const RoutePlanningDrawer: React.FC = () => {
               )}
 
               {/* Tab 2: Bekker Terramechanics */}
-              {activeDetailTab === 'terramechanics' && terramech && (
+              {travelMode === 'land' && activeDetailTab === 'terramechanics' && terramech && (
                 <div className="p-2 rounded bg-surface-muted border border-line space-y-1.5 font-mono text-[10px]">
                   <div className="text-ink font-bold text-[11px] flex items-center justify-between">
                     <span>Soil mechanics (Bekker–Wong)</span>
@@ -499,14 +498,19 @@ export const RoutePlanningDrawer: React.FC = () => {
                     </div>
                   </div>
                   <div className="flex justify-between items-center pt-1 border-t border-line text-[9px]">
-                    <span className="text-ink-muted">Shear Risk: <span className="font-bold text-ink-soft">{terramech.soil_shear_risk}</span></span>
-                    <span className="text-ink-muted">Entrapment Risk: <span className="font-bold text-brand-600">{terramech.entrapment_risk_pct}%</span></span>
+                    <span className="text-ink-muted">
+                      Shear Risk: <span className="font-bold text-ink-soft">{terramech.soil_shear_risk}</span>
+                    </span>
+                    <span className="text-ink-muted">
+                      Entrapment Risk:{' '}
+                      <span className="font-bold text-brand-600">{terramech.entrapment_risk_pct}%</span>
+                    </span>
                   </div>
                 </div>
               )}
 
               {/* Tab 3: Sol-by-Sol Timeline */}
-              {activeDetailTab === 'timeline' && solSchedule && (
+              {travelMode === 'land' && activeDetailTab === 'timeline' && solSchedule && (
                 <div className="p-2 rounded bg-surface-muted border border-line space-y-1.5 font-mono text-[10px]">
                   <div className="flex justify-between items-center text-brand-600 font-bold text-[11px]">
                     <span>SOL {solSchedule.sol_number} SCHEDULE (LMST)</span>
@@ -528,7 +532,7 @@ export const RoutePlanningDrawer: React.FC = () => {
               )}
 
               {/* Tab 4: Comms Windows */}
-              {activeDetailTab === 'comms' && solSchedule && (
+              {travelMode === 'land' && activeDetailTab === 'comms' && solSchedule && (
                 <div className="p-2 rounded bg-surface-muted border border-line space-y-1.5 font-mono text-[10px]">
                   <div className="flex justify-between items-center text-brand-600 font-bold text-[11px]">
                     <span>Orbiter and DTE passes</span>
@@ -536,10 +540,17 @@ export const RoutePlanningDrawer: React.FC = () => {
                   </div>
                   <div className="space-y-1">
                     {solSchedule.communication_passes.map((p, idx) => (
-                      <div key={idx} className="p-1.5 rounded bg-white border border-line flex justify-between items-center text-[9px]">
+                      <div
+                        key={idx}
+                        className="p-1.5 rounded bg-white border border-line flex justify-between items-center text-[9px]"
+                      >
                         <div>
-                          <span className="font-bold text-ink block">{p.target} ({p.pass_type === 'ORBITER_RELAY' ? 'Relay' : 'DTE'})</span>
-                          <span className="text-ink-muted">{p.start_time_lmst} - {p.end_time_lmst} LMST ({p.duration_minutes}m)</span>
+                          <span className="font-bold text-ink block">
+                            {p.target} ({p.pass_type === 'ORBITER_RELAY' ? 'Relay' : 'DTE'})
+                          </span>
+                          <span className="text-ink-muted">
+                            {p.start_time_lmst} - {p.end_time_lmst} LMST ({p.duration_minutes}m)
+                          </span>
                         </div>
                         <div className="text-right">
                           <span className="text-ink font-bold block">{p.data_capacity_mbit} Mbit</span>
@@ -552,7 +563,7 @@ export const RoutePlanningDrawer: React.FC = () => {
               )}
 
               {/* Tab 5: Traverse Risks */}
-              {activeDetailTab === 'risks' && risks && (
+              {travelMode === 'land' && activeDetailTab === 'risks' && risks && (
                 <div className="p-2 rounded bg-surface-muted border border-line space-y-1.5 font-mono text-[10px]">
                   <div className="flex justify-between items-center text-brand-600 font-bold text-[11px]">
                     <span>Risk</span>
@@ -632,7 +643,8 @@ export const RoutePlanningDrawer: React.FC = () => {
               </div>
 
               <p className="text-[9px] text-ink-faint italic leading-tight">
-                * Autonomous mission simulation. Not certified for flight operations without manual traversability verification.
+                * Autonomous mission simulation. Not certified for flight operations without manual traversability
+                verification.
               </p>
             </div>
           )}

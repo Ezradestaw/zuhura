@@ -62,7 +62,7 @@ describe('Environment API client', () => {
           id: 'olympus_mons_caldera',
           name: 'Olympus Mons Summit Caldera',
           latitude: 18.65,
-          longitude: 226.20,
+          longitude: 226.2,
           elevation_m: 21229.0,
           thermal_inertia_tiu: 110.0,
           geological_context: 'Highest volcanic summit in the solar system.',
@@ -85,8 +85,8 @@ describe('Environment API client', () => {
     const mockProfile = {
       status: 'success',
       profile: {
-        latitude: -42.70,
-        longitude: 70.00,
+        latitude: -42.7,
+        longitude: 70.0,
         surface_elevation_m: -7152.0,
         solar_longitude_deg: 180.0,
         surface_pressure_pa: 1390.2,
@@ -97,7 +97,7 @@ describe('Environment API client', () => {
         above_water_triple_point: true,
         gas_composition_molar_pct: {
           'Carbon Dioxide (CO2)': 95.32,
-          'Nitrogen (N2)': 2.60,
+          'Nitrogen (N2)': 2.6,
         },
         layers: [
           {
@@ -121,8 +121,8 @@ describe('Environment API client', () => {
     } as any);
 
     const res = await fetchAtmosphericProfile({
-      latitude: -42.70,
-      longitude: 70.00,
+      latitude: -42.7,
+      longitude: 70.0,
       elevation_m: -7152.0,
       ls_deg: 180.0,
     });
@@ -225,7 +225,7 @@ describe('Environment API client', () => {
       budget: {
         latitude: 18.38,
         solar_longitude_deg: 180.0,
-        tau_visible: 0.40,
+        tau_visible: 0.4,
         panel_area_m2: 1.3,
         cell_efficiency: 0.295,
         dust_deposition_factor: 0.85,

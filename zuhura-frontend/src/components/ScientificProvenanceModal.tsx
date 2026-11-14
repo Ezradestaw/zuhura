@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  ShieldCheck,
-  X,
-  ExternalLink,
-  BookOpen,
-  GitCompare,
-  Layers,
-  Database,
-  Info,
-} from 'lucide-react';
+import { ShieldCheck, X, ExternalLink, BookOpen, GitCompare, Layers, Database, Info } from 'lucide-react';
 import { useProvenanceStore } from '../store/provenanceStore';
 import { EpistemicBadge } from './EpistemicBadge';
 
@@ -54,9 +45,7 @@ export const ScientificProvenanceModal: React.FC = () => {
 
   if (!isProvenanceModalOpen) return null;
 
-  const currentDataset =
-    datasets.find((d) => d.original_dataset_id.includes(selectedDatasetId || '')) ||
-    datasets[0];
+  const currentDataset = datasets.find((d) => d.original_dataset_id.includes(selectedDatasetId || '')) || datasets[0];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-brand-950/60 p-4 duration-150 select-none font-sans">
@@ -69,9 +58,7 @@ export const ScientificProvenanceModal: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h2 className="text-sm font-semibold text-ink tracking-wide">
-                  Data provenance
-                </h2>
+                <h2 className="text-sm font-semibold text-ink tracking-wide">Data provenance</h2>
                 <span className="text-[10px] px-1.5 py-0.2 rounded bg-brand-50 text-brand-600 border border-brand-200 font-bold">
                   NASA PDS & IAU
                 </span>
@@ -136,9 +123,7 @@ export const ScientificProvenanceModal: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Dataset Sidebar Selector */}
               <div className="space-y-1.5 border-r border-line pr-3">
-                <div className="text-[10px] text-ink-muted mb-2">
-                  Calibrated Datasets
-                </div>
+                <div className="text-[10px] text-ink-muted mb-2">Calibrated Datasets</div>
                 {datasets.map((d) => (
                   <button
                     key={d.original_dataset_id}
@@ -273,9 +258,9 @@ export const ScientificProvenanceModal: React.FC = () => {
             <div className="space-y-4">
               <div className="p-3 rounded bg-warning-soft border border-warning-line text-xs font-mono text-warning">
                 <span className="font-bold block mb-1">Reconciling models:</span>
-                Zuhura Mars does not arbitrarily pick one scientific hypothesis as absolute truth.
-                When peer-reviewed literature presents competing interpretations, the platform explicitly exposes
-                the empirical evidence, inversion methodologies, and consensus timeline.
+                Zuhura Mars does not arbitrarily pick one scientific hypothesis as absolute truth. When peer-reviewed
+                literature presents competing interpretations, the platform explicitly exposes the empirical evidence,
+                inversion methodologies, and consensus timeline.
               </div>
 
               {competingModels.map((comp, idx) => (
@@ -326,10 +311,7 @@ export const ScientificProvenanceModal: React.FC = () => {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {classifications.map((c) => (
-                  <div
-                    key={c.id}
-                    className="p-3 rounded bg-surface-subtle border border-line space-y-1.5"
-                  >
+                  <div key={c.id} className="p-3 rounded bg-surface-subtle border border-line space-y-1.5">
                     <div className="flex items-center space-x-2">
                       <EpistemicBadge type={c.id} />
                       <span className="text-xs font-bold text-ink">{c.label}</span>

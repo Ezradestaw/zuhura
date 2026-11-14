@@ -33,7 +33,7 @@ export const DEFAULT_TACTICAL_CONFIG: TacticalLayerConfig = {
   slopeHazardVisible: true,
   slopeHazardOpacity: 0.35,
   thermalRegolithVisible: true,
-  thermalRegolithOpacity: 0.30,
+  thermalRegolithOpacity: 0.3,
   scienceTargetsVisible: true,
   radiationShieldingVisible: true,
   radiationShieldingOpacity: 0.25,
@@ -51,10 +51,10 @@ export const SLOPE_HAZARD_ZONES = [
     level: 'impassable',
     colorHex: '#ef4444',
     polygon: [
-      [77.530, 18.420],
+      [77.53, 18.42],
       [77.538, 18.422],
       [77.536, 18.445],
-      [77.528, 18.440],
+      [77.528, 18.44],
     ],
   },
   {
@@ -66,7 +66,7 @@ export const SLOPE_HAZARD_ZONES = [
     polygon: [
       [77.535, 18.394],
       [77.542, 18.395],
-      [77.540, 18.401],
+      [77.54, 18.401],
       [77.533, 18.399],
     ],
   },
@@ -94,7 +94,7 @@ export const SLOPE_HAZARD_ZONES = [
       [77.514, 18.515],
       [77.526, 18.518],
       [77.522, 18.535],
-      [77.510, 18.530],
+      [77.51, 18.53],
     ],
   },
   // Safe Walking Pavement (<12° - Emerald Green)
@@ -105,10 +105,10 @@ export const SLOPE_HAZARD_ZONES = [
     level: 'safe',
     colorHex: '#10b981',
     polygon: [
-      [77.550, 18.410],
+      [77.55, 18.41],
       [77.585, 18.415],
       [77.585, 18.465],
-      [77.550, 18.460],
+      [77.55, 18.46],
     ],
   },
   {
@@ -121,7 +121,7 @@ export const SLOPE_HAZARD_ZONES = [
       [77.515, 18.445],
       [77.528, 18.448],
       [77.525, 18.475],
-      [77.512, 18.470],
+      [77.512, 18.47],
     ],
   },
 ];
@@ -132,7 +132,7 @@ export const SLOPE_HAZARD_ZONES = [
 export function createTacticalEvaEntities(
   viewer: Cesium.Viewer,
   config: TacticalLayerConfig,
-  _onTargetClick?: (targetId: string) => void
+  _onTargetClick?: (targetId: string) => void,
 ): Cesium.Entity[] {
   const createdEntities: Cesium.Entity[] = [];
 
@@ -144,7 +144,7 @@ export function createTacticalEvaEntities(
       JEZERO_HAB_COORDINATES.longitude,
       JEZERO_HAB_COORDINATES.latitude,
       0,
-      MARS_ELLIPSOID
+      MARS_ELLIPSOID,
     ),
     point: {
       pixelSize: 14,
@@ -171,13 +171,9 @@ export function createTacticalEvaEntities(
   // 2. LAYER 1: Slope & Roughness Hazard Layer
   if (config.slopeHazardVisible) {
     SLOPE_HAZARD_ZONES.forEach((zone) => {
-      const positions = zone.polygon.map(([lon, lat]) =>
-        Cesium.Cartesian3.fromDegrees(lon, lat, 0, MARS_ELLIPSOID)
-      );
+      const positions = zone.polygon.map(([lon, lat]) => Cesium.Cartesian3.fromDegrees(lon, lat, 0, MARS_ELLIPSOID));
 
-      const color = Cesium.Color.fromCssColorString(zone.colorHex).withAlpha(
-        config.slopeHazardOpacity
-      );
+      const color = Cesium.Color.fromCssColorString(zone.colorHex).withAlpha(config.slopeHazardOpacity);
 
       const entity = viewer.entities.add({
         id: `eva-${zone.id}`,
@@ -198,13 +194,9 @@ export function createTacticalEvaEntities(
   // 3. LAYER 2: Thermal Inertia & Regolith Firmness Layer
   if (config.thermalRegolithVisible) {
     THEMIS_REGOLITH_ZONES.forEach((zone) => {
-      const positions = zone.polygon.map(([lon, lat]) =>
-        Cesium.Cartesian3.fromDegrees(lon, lat, 0, MARS_ELLIPSOID)
-      );
+      const positions = zone.polygon.map(([lon, lat]) => Cesium.Cartesian3.fromDegrees(lon, lat, 0, MARS_ELLIPSOID));
 
-      const color = Cesium.Color.fromCssColorString(zone.color_hex).withAlpha(
-        config.thermalRegolithOpacity
-      );
+      const color = Cesium.Color.fromCssColorString(zone.color_hex).withAlpha(config.thermalRegolithOpacity);
 
       const entity = viewer.entities.add({
         id: `eva-${zone.id}`,
@@ -228,12 +220,7 @@ export function createTacticalEvaEntities(
       const entity = viewer.entities.add({
         id: `eva-${target.id}`,
         name: `${target.name} [Score: ${target.science_priority_score}/100]`,
-        position: Cesium.Cartesian3.fromDegrees(
-          target.longitude,
-          target.latitude,
-          0,
-          MARS_ELLIPSOID
-        ),
+        position: Cesium.Cartesian3.fromDegrees(target.longitude, target.latitude, 0, MARS_ELLIPSOID),
         point: {
           pixelSize: 12,
           color: Cesium.Color.fromCssColorString('#f59e0b'),
@@ -261,13 +248,9 @@ export function createTacticalEvaEntities(
   // 5. LAYER 4: Solar & Cosmic Radiation Shielding Layer
   if (config.radiationShieldingVisible) {
     RADIATION_SHIELDING_ZONES.forEach((zone) => {
-      const positions = zone.polygon.map(([lon, lat]) =>
-        Cesium.Cartesian3.fromDegrees(lon, lat, 0, MARS_ELLIPSOID)
-      );
+      const positions = zone.polygon.map(([lon, lat]) => Cesium.Cartesian3.fromDegrees(lon, lat, 0, MARS_ELLIPSOID));
 
-      const color = Cesium.Color.fromCssColorString(zone.color_hex).withAlpha(
-        config.radiationShieldingOpacity
-      );
+      const color = Cesium.Color.fromCssColorString(zone.color_hex).withAlpha(config.radiationShieldingOpacity);
 
       const entity = viewer.entities.add({
         id: `eva-${zone.id}`,
@@ -296,7 +279,7 @@ export function syncTacticalCesiumEntities(
   viewer: Cesium.Viewer,
   config: TacticalLayerConfig,
   existingEntities: Cesium.Entity[],
-  onTargetClick?: (targetId: string) => void
+  onTargetClick?: (targetId: string) => void,
 ): Cesium.Entity[] {
   // Remove existing tactical entities
   existingEntities.forEach((entity) => {
@@ -316,26 +299,13 @@ export function syncTacticalCesiumEntities(
  * with hazard color coding (Green: safe, Amber: high exertion, Red: critical hazard)
  * and waypoint markers.
  */
-export function createEvaRouteEntities(
-  viewer: Cesium.Viewer,
-  route: EvaRoutePlan
-): Cesium.Entity[] {
+export function createEvaRouteEntities(viewer: Cesium.Viewer, route: EvaRoutePlan): Cesium.Entity[] {
   const routeEntities: Cesium.Entity[] = [];
 
   // 1. Render micro-segments with ground clamping & hazard colors
   route.segments.forEach((seg, index) => {
-    const p1 = Cesium.Cartesian3.fromDegrees(
-      seg.from.longitude,
-      seg.from.latitude,
-      0,
-      MARS_ELLIPSOID
-    );
-    const p2 = Cesium.Cartesian3.fromDegrees(
-      seg.to.longitude,
-      seg.to.latitude,
-      0,
-      MARS_ELLIPSOID
-    );
+    const p1 = Cesium.Cartesian3.fromDegrees(seg.from.longitude, seg.from.latitude, 0, MARS_ELLIPSOID);
+    const p2 = Cesium.Cartesian3.fromDegrees(seg.to.longitude, seg.to.latitude, 0, MARS_ELLIPSOID);
 
     const segmentColor = Cesium.Color.fromCssColorString(seg.hazard_color);
 
@@ -360,31 +330,14 @@ export function createEvaRouteEntities(
   route.waypoints.forEach((wp, idx) => {
     const isFirst = idx === 0;
     const isLast = idx === route.waypoints.length - 1;
-    const pinColor = isFirst
-      ? '#06b6d4'
-      : isLast
-      ? route.isEmergencyAbort
-        ? '#ef4444'
-        : '#10b981'
-      : '#f59e0b';
+    const pinColor = isFirst ? '#06b6d4' : isLast ? (route.isEmergencyAbort ? '#ef4444' : '#10b981') : '#f59e0b';
 
-    const labelText = wp.name
-      ? wp.name
-      : isFirst
-      ? 'EVA START'
-      : isLast
-      ? 'EVA OBJECTIVE'
-      : `WP-${idx}`;
+    const labelText = wp.name ? wp.name : isFirst ? 'EVA START' : isLast ? 'EVA OBJECTIVE' : `WP-${idx}`;
 
     const wpEntity = viewer.entities.add({
       id: `eva-wp-entity-${idx}-${route.isEmergencyAbort ? 'abort' : 'plan'}`,
       name: labelText,
-      position: Cesium.Cartesian3.fromDegrees(
-        wp.longitude,
-        wp.latitude,
-        0,
-        MARS_ELLIPSOID
-      ),
+      position: Cesium.Cartesian3.fromDegrees(wp.longitude, wp.latitude, 0, MARS_ELLIPSOID),
       point: {
         pixelSize: isFirst || isLast ? 12 : 8,
         color: Cesium.Color.fromCssColorString(pinColor),
@@ -419,20 +372,15 @@ export function updateAstronautMarker(
   position: EvaPoint,
   suitOxygenPct: number,
   suitBatteryPct: number,
-  existingMarker?: Cesium.Entity | null
+  existingMarker?: Cesium.Entity | null,
 ): Cesium.Entity {
-  const cartesian = Cesium.Cartesian3.fromDegrees(
-    position.longitude,
-    position.latitude,
-    0,
-    MARS_ELLIPSOID
-  );
+  const cartesian = Cesium.Cartesian3.fromDegrees(position.longitude, position.latitude, 0, MARS_ELLIPSOID);
 
   if (existingMarker && viewer.entities.contains(existingMarker)) {
     existingMarker.position = new Cesium.ConstantPositionProperty(cartesian);
     if (existingMarker.label) {
       existingMarker.label.text = new Cesium.ConstantProperty(
-        `ARES-EVA-01\nO₂: ${suitOxygenPct}% | BAT: ${suitBatteryPct}%`
+        `ARES-EVA-01\nO₂: ${suitOxygenPct}% | BAT: ${suitBatteryPct}%`,
       );
     }
     return existingMarker;

@@ -32,7 +32,14 @@ describe('Assistant store', () => {
       ok: true,
       json: async () => ({
         answer: 'The crater floor is about -2,600 m.',
-        citations: [{ dataset_id: 'zuhura-mola-megdr-128', title: 'MOLA MEGDR', provider: 'NASA PDS', url: 'https://pds-geosciences.wustl.edu/' }],
+        citations: [
+          {
+            dataset_id: 'zuhura-mola-megdr-128',
+            title: 'MOLA MEGDR',
+            provider: 'NASA PDS',
+            url: 'https://pds-geosciences.wustl.edu/',
+          },
+        ],
       }),
     });
     global.fetch = fetchMock;

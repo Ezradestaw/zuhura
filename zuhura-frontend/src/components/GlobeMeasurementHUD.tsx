@@ -21,13 +21,13 @@ export const GlobeMeasurementHUD: React.FC = () => {
       measurementPoints[i].lat,
       measurementPoints[i].lon,
       measurementPoints[i + 1].lat,
-      measurementPoints[i + 1].lon
+      measurementPoints[i + 1].lon,
     );
   }
 
   // Calculate elevation delta
-  const minElev = measurementPoints.length > 0 ? Math.min(...measurementPoints.map(p => p.elevation_m)) : 0;
-  const maxElev = measurementPoints.length > 0 ? Math.max(...measurementPoints.map(p => p.elevation_m)) : 0;
+  const minElev = measurementPoints.length > 0 ? Math.min(...measurementPoints.map((p) => p.elevation_m)) : 0;
+  const maxElev = measurementPoints.length > 0 ? Math.max(...measurementPoints.map((p) => p.elevation_m)) : 0;
   const elevationRelief = maxElev - minElev;
 
   // Calculate polygon area (spherical excess formula on Mars mean radius R = 3389.5 km)
@@ -129,9 +129,7 @@ export const GlobeMeasurementHUD: React.FC = () => {
           ) : measurementPoints.length === 1 ? (
             <span>First pin set. Click on Mars to add destination station.</span>
           ) : (
-            <span>
-              {measurementPoints.length} vertices pinned. Click Mars to add more or Save.
-            </span>
+            <span>{measurementPoints.length} vertices pinned. Click Mars to add more or Save.</span>
           )}
         </div>
       </div>

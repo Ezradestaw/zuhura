@@ -81,7 +81,7 @@ describe('Researcher Scientific Workspace Store', () => {
     expect(useWorkspaceStore.getState().measurementToolActive).toBe('ruler');
 
     store.addMeasurementPoint({ lat: 18.44, lon: 77.45, elevation_m: -2500 });
-    store.addMeasurementPoint({ lat: 18.48, lon: 77.50, elevation_m: -2480 });
+    store.addMeasurementPoint({ lat: 18.48, lon: 77.5, elevation_m: -2480 });
 
     expect(useWorkspaceStore.getState().measurementPoints.length).toBe(2);
 

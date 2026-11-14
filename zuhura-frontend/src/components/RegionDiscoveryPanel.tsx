@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { X, RefreshCw, Download, ChevronDown, ChevronUp, MapPin } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
-import {
-  fetchDiscoveredRegions,
-  RegionDiscoveryResponseData,
-  DiscoveredRegionData,
-} from '../lib/advancedApiClient';
+import { fetchDiscoveredRegions, RegionDiscoveryResponseData, DiscoveredRegionData } from '../lib/advancedApiClient';
 
 export const RegionDiscoveryPanel: React.FC = () => {
   const {
@@ -123,9 +119,7 @@ export const RegionDiscoveryPanel: React.FC = () => {
             )}
           </button>
 
-          {errorMsg && (
-            <p className="rounded-xl bg-brand-50 px-3 py-2 text-sm text-brand-600">{errorMsg}</p>
-          )}
+          {errorMsg && <p className="rounded-xl bg-brand-50 px-3 py-2 text-sm text-brand-600">{errorMsg}</p>}
 
           {data && (
             <div className="space-y-3 border-t border-line pt-3">
@@ -151,7 +145,8 @@ export const RegionDiscoveryPanel: React.FC = () => {
                       <p className="shrink-0 text-sm tabular-nums text-ink-soft">{reg.surface_area_km2} km²</p>
                     </div>
                     <p className="mt-2 text-[13px] tabular-nums text-ink-soft">
-                      {reg.mean_elevation_m.toFixed(0)} m · slope {reg.mean_slope_degrees.toFixed(1)}° · roughness {reg.roughness_index_tri.toFixed(1)}
+                      {reg.mean_elevation_m.toFixed(0)} m · slope {reg.mean_slope_degrees.toFixed(1)}° · roughness{' '}
+                      {reg.roughness_index_tri.toFixed(1)}
                     </p>
                     <p className="mt-2 text-sm leading-relaxed text-ink-soft">{reg.geological_interpretation}</p>
                     <div className="mt-2 flex items-center justify-between text-[12px]">

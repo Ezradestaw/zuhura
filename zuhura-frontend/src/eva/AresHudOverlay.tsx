@@ -28,17 +28,8 @@ import {
   X,
   Navigation,
 } from 'lucide-react';
-import {
-  JEZERO_SCIENCE_TARGETS,
-  JEZERO_HAB_COORDINATES,
-  ScienceTarget,
-} from './jezeroScienceTargets';
-import {
-  EvaPoint,
-  EvaRoutePlan,
-  planMetabolicEvaRoute,
-  generateEmergencyAbortRoute,
-} from './metabolicPathfinder';
+import { JEZERO_SCIENCE_TARGETS, JEZERO_HAB_COORDINATES, ScienceTarget } from './jezeroScienceTargets';
+import { EvaPoint, EvaRoutePlan, planMetabolicEvaRoute, generateEmergencyAbortRoute } from './metabolicPathfinder';
 import { TacticalLayerConfig } from './tacticalLayers';
 
 interface AresHudOverlayProps {
@@ -109,7 +100,12 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
       waypoints = [
         habPoint,
         { longitude: kodiak.longitude, latitude: kodiak.latitude, elevation_m: kodiak.elevation_m, name: kodiak.name },
-        { longitude: threeForks.longitude, latitude: threeForks.latitude, elevation_m: threeForks.elevation_m, name: threeForks.name },
+        {
+          longitude: threeForks.longitude,
+          latitude: threeForks.latitude,
+          elevation_m: threeForks.elevation_m,
+          name: threeForks.name,
+        },
         habPoint,
       ];
     } else if (presetId === 'preset-carbonate-scarp') {
@@ -117,8 +113,18 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
       const threeForks = JEZERO_SCIENCE_TARGETS.find((t) => t.id === 'target-three-forks')!;
       waypoints = [
         habPoint,
-        { longitude: threeForks.longitude, latitude: threeForks.latitude, elevation_m: threeForks.elevation_m, name: threeForks.name },
-        { longitude: brightAngel.longitude, latitude: brightAngel.latitude, elevation_m: brightAngel.elevation_m, name: brightAngel.name },
+        {
+          longitude: threeForks.longitude,
+          latitude: threeForks.latitude,
+          elevation_m: threeForks.elevation_m,
+          name: threeForks.name,
+        },
+        {
+          longitude: brightAngel.longitude,
+          latitude: brightAngel.latitude,
+          elevation_m: brightAngel.elevation_m,
+          name: brightAngel.name,
+        },
         habPoint,
       ];
     } else if (presetId === 'preset-neretya-canyon') {
@@ -126,8 +132,18 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
       const neretya = JEZERO_SCIENCE_TARGETS.find((t) => t.id === 'target-neretya-vallis')!;
       waypoints = [
         habPoint,
-        { longitude: threeForks.longitude, latitude: threeForks.latitude, elevation_m: threeForks.elevation_m, name: threeForks.name },
-        { longitude: neretya.longitude, latitude: neretya.latitude, elevation_m: neretya.elevation_m, name: neretya.name },
+        {
+          longitude: threeForks.longitude,
+          latitude: threeForks.latitude,
+          elevation_m: threeForks.elevation_m,
+          name: threeForks.name,
+        },
+        {
+          longitude: neretya.longitude,
+          latitude: neretya.latitude,
+          elevation_m: neretya.elevation_m,
+          name: neretya.name,
+        },
         habPoint,
       ];
     }
@@ -154,10 +170,7 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
           }
 
           // Evaluate current segment & trigger alerts
-          const segIndex = Math.min(
-            routePlan.segments.length - 1,
-            Math.floor(next * routePlan.segments.length)
-          );
+          const segIndex = Math.min(routePlan.segments.length - 1, Math.floor(next * routePlan.segments.length));
           const currentSeg = routePlan.segments[segIndex];
 
           if (currentSeg.alert_message) {
@@ -167,20 +180,11 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
           }
 
           // Interpolate current position for 3D astronaut avatar
-          const curLon =
-            currentSeg.from.longitude +
-            (currentSeg.to.longitude - currentSeg.from.longitude) * 0.5;
-          const curLat =
-            currentSeg.from.latitude +
-            (currentSeg.to.latitude - currentSeg.from.latitude) * 0.5;
-          const curElev =
-            currentSeg.from.elevation_m +
-            (currentSeg.to.elevation_m - currentSeg.from.elevation_m) * 0.5;
+          const curLon = currentSeg.from.longitude + (currentSeg.to.longitude - currentSeg.from.longitude) * 0.5;
+          const curLat = currentSeg.from.latitude + (currentSeg.to.latitude - currentSeg.from.latitude) * 0.5;
+          const curElev = currentSeg.from.elevation_m + (currentSeg.to.elevation_m - currentSeg.from.elevation_m) * 0.5;
 
-          onSimulationStep(
-            { longitude: curLon, latitude: curLat, elevation_m: curElev },
-            next
-          );
+          onSimulationStep({ longitude: curLon, latitude: curLat, elevation_m: curElev }, next);
 
           return next;
         });
@@ -194,10 +198,7 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
     if (!routePlan || routePlan.segments.length === 0) return;
 
     // Get current position along route
-    const segIndex = Math.min(
-      routePlan.segments.length - 1,
-      Math.floor(simProgress * routePlan.segments.length)
-    );
+    const segIndex = Math.min(routePlan.segments.length - 1, Math.floor(simProgress * routePlan.segments.length));
     const curPt = routePlan.segments[segIndex].from;
 
     const abortPlan = generateEmergencyAbortRoute(curPt);
@@ -218,9 +219,7 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
   const simulatedBatteryPct = routePlan
     ? Math.max(18, Math.round(100 - simProgress * (100 - routePlan.suit_battery_pct_remaining)))
     : 100;
-  const simulatedRadDose = routePlan
-    ? (simProgress * routePlan.total_radiation_dose_usv).toFixed(1)
-    : '0.0';
+  const simulatedRadDose = routePlan ? (simProgress * routePlan.total_radiation_dose_usv).toFixed(1) : '0.0';
 
   return (
     <div className="fixed inset-0 pointer-events-none z-10 overflow-hidden font-sans select-none">
@@ -297,9 +296,7 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
 
           {/* Battery Gauge */}
           <div className="flex items-center space-x-2">
-            <BatteryCharging
-              className={`w-5 h-5 ${simulatedBatteryPct < 25 ? 'text-danger ' : 'text-success'}`}
-            />
+            <BatteryCharging className={`w-5 h-5 ${simulatedBatteryPct < 25 ? 'text-danger ' : 'text-success'}`} />
             <div>
               <div className="text-[10px] uppercase text-ink-muted font-bold">Battery</div>
               <div className="text-ink font-bold text-xs">{simulatedBatteryPct}%</div>
@@ -470,10 +467,7 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
 
           {/* Progress Bar */}
           <div className="w-full h-1.5 bg-surface-muted rounded-full overflow-hidden border border-line">
-            <div
-              className="h-full bg-success transition-all duration-150"
-              style={{ width: `${simProgress * 100}%` }}
-            />
+            <div className="h-full bg-success transition-all duration-150" style={{ width: `${simProgress * 100}%` }} />
           </div>
         </div>
 
@@ -505,10 +499,7 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
               <Sliders className="w-3.5 h-3.5 text-brand-600" />
               <span>EVA map layers</span>
             </span>
-            <button
-              onClick={() => setIsLayerControlOpen(false)}
-              className="text-ink-muted hover:text-ink"
-            >
+            <button onClick={() => setIsLayerControlOpen(false)} className="text-ink-muted hover:text-ink">
               <X className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -530,9 +521,7 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
                 />
                 <span className="text-[11px] text-ink">1. Slope & Roughness Hazard</span>
               </label>
-              <span className="text-[10px] text-ink-muted">
-                {Math.round(tacticalConfig.slopeHazardOpacity * 100)}%
-              </span>
+              <span className="text-[10px] text-ink-muted">{Math.round(tacticalConfig.slopeHazardOpacity * 100)}%</span>
             </div>
             <input
               type="range"
@@ -652,19 +641,14 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
             {/* Header */}
             <div className="flex items-start justify-between border-b border-line pb-2">
               <div>
-                <div className="text-[10px] uppercase text-brand-600 font-bold">
-                  Science target
-                </div>
+                <div className="text-[10px] uppercase text-brand-600 font-bold">Science target</div>
                 <h3 className="text-sm font-bold text-ink">{selectedTarget.name}</h3>
                 <div className="text-[11px] text-warning font-semibold">
                   Science Priority: {selectedTarget.science_priority_score} / 100 • Astrobiology:{' '}
                   {selectedTarget.astrobiology_potential}
                 </div>
               </div>
-              <button
-                onClick={() => setIsInspectorOpen(false)}
-                className="text-ink-muted hover:text-ink"
-              >
+              <button onClick={() => setIsInspectorOpen(false)} className="text-ink-muted hover:text-ink">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -676,9 +660,7 @@ export const AresHudOverlay: React.FC<AresHudOverlayProps> = ({
 
             {/* Mineral Signatures */}
             <div className="space-y-1.5 text-[11px]">
-              <div className="text-ink-muted font-bold uppercase text-[10px]">
-                CRISM Mineral Signatures:
-              </div>
+              <div className="text-ink-muted font-bold uppercase text-[10px]">CRISM Mineral Signatures:</div>
               <div className="text-success font-semibold bg-success-soft px-2 py-1 rounded border border-success-line">
                 {selectedTarget.crism_mineral_signature}
               </div>

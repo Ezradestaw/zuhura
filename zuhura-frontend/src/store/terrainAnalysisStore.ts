@@ -4,12 +4,7 @@
  */
 
 import { create } from 'zustand';
-import {
-  Coordinate,
-  TerrainProfileResult,
-  PointAnalysisResult,
-  fetchTerrainProfile,
-} from '../lib/terrainApiClient';
+import { Coordinate, TerrainProfileResult, PointAnalysisResult, fetchTerrainProfile } from '../lib/terrainApiClient';
 
 interface TerrainAnalysisState {
   // Transect Profiler
@@ -42,7 +37,7 @@ interface TerrainAnalysisState {
 export const useTerrainAnalysisStore = create<TerrainAnalysisState>((set, get) => ({
   isTransectMode: false,
   transectStart: { latitude: 18.25, longitude: 77.35 },
-  transectEnd: { latitude: 18.50, longitude: 77.80 },
+  transectEnd: { latitude: 18.5, longitude: 77.8 },
   profileData: null,
   isLoadingProfile: false,
   profileError: null,

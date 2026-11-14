@@ -26,12 +26,7 @@ export const FeatureInspector: React.FC = () => {
     const fetchAnalysis = async () => {
       try {
         setLoading(true);
-        const data = await fetchPointAnalysis(
-          selectedFeature.latitude,
-          selectedFeature.longitude,
-          3,
-          true
-        );
+        const data = await fetchPointAnalysis(selectedFeature.latitude, selectedFeature.longitude, 3, true);
         setPointData(data);
         if (data.elevation?.elevation_m !== null && data.elevation?.elevation_m !== undefined) {
           setLiveElevation(data.elevation.elevation_m);
@@ -97,11 +92,13 @@ export const FeatureInspector: React.FC = () => {
         </div>
 
         <div className="mt-3 flex gap-1 rounded-full bg-surface-muted p-1 text-[11px]">
-          {([
-            ['overview', 'Overview'],
-            ['terrain', 'Terrain & Elevation'],
-            ['landmarks', 'Nearby Landmarks'],
-          ] as const).map(([id, label]) => (
+          {(
+            [
+              ['overview', 'Overview'],
+              ['terrain', 'Terrain & Elevation'],
+              ['landmarks', 'Nearby Landmarks'],
+            ] as const
+          ).map(([id, label]) => (
             <button
               key={id}
               type="button"
@@ -124,7 +121,8 @@ export const FeatureInspector: React.FC = () => {
             <p className="text-[12px] text-ink">
               Extent {selectedFeature.diameter_km} km
               <span className="mx-1.5 text-ink">·</span>
-              {displayElev > 0 ? '+' : ''}{displayElev.toLocaleString()} m
+              {displayElev > 0 ? '+' : ''}
+              {displayElev.toLocaleString()} m
             </p>
           </div>
         )}
@@ -139,7 +137,8 @@ export const FeatureInspector: React.FC = () => {
               <div>
                 <dt className="text-ink">Elevation</dt>
                 <dd className="font-medium text-ink tabular-nums">
-                  {displayElev > 0 ? '+' : ''}{displayElev.toLocaleString()} m
+                  {displayElev > 0 ? '+' : ''}
+                  {displayElev.toLocaleString()} m
                 </dd>
               </div>
               <div>
@@ -168,7 +167,11 @@ export const FeatureInspector: React.FC = () => {
                 <dt className="text-ink">Landform</dt>
                 <dd className="text-ink">
                   {pointData?.morphometry?.tpi_classification?.replace(/_/g, ' ') || 'N/A'}
-                  <span className="text-ink"> · relief {pointData?.morphometry?.local_relief_m ?? '--'} m · ±{pointData?.elevation?.vertical_accuracy_m ?? 1} m</span>
+                  <span className="text-ink">
+                    {' '}
+                    · relief {pointData?.morphometry?.local_relief_m ?? '--'} m · ±
+                    {pointData?.elevation?.vertical_accuracy_m ?? 1} m
+                  </span>
                 </dd>
               </div>
             </dl>

@@ -212,7 +212,9 @@ describe('Advanced Planetary Features API Client', () => {
   });
 
   it('generates client geodesic route between departure and arrival pins', async () => {
-    const { generateClientGeodesicRoute, marsDistanceKm } = await import('../src/lib/routeFallback');
+    const { generateClientGeodesicRoute, marsDistanceKm, SYNTHETIC_ROUTE_WARNING } = await import(
+      '../src/lib/routeFallback'
+    );
 
     const dep = { lat: 18.38, lon: 77.58, name: 'Jezero Crater', elevation_m: -2530 };
     const arr = { lat: -4.59, lon: 137.44, name: 'Gale Crater', elevation_m: -4500 };
@@ -224,7 +226,7 @@ describe('Advanced Planetary Features API Client', () => {
     expect(route.status).toBe('fallback_synthetic_simulation');
     expect(route.is_synthetic).toBe(true);
     expect(route.scientific_provenance.source).toBe('DEMO_SYNTHETIC');
-    expect(route.disclaimer).toContain('Simulated Heuristic - Not Calibrated Planetary Data');
+    expect(route.disclaimer).toContain(SYNTHETIC_ROUTE_WARNING);
     expect(route.recommended_route.waypoints.length).toBe(21);
     expect(route.recommended_route.waypoints.every((point) => point.roughness_tri === 0)).toBe(true);
     expect(route.recommended_route.total_distance_km).toBeCloseTo(distance, 0);

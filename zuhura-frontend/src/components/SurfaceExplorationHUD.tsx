@@ -114,9 +114,7 @@ export const SurfaceExplorationHUD: React.FC = () => {
         </button>
       </div>
 
-      <div className="pl-2 border-l border-line text-[10px] text-ink-muted">
-        WASD to walk · Q/E turn · Shift sprint
-      </div>
+      <div className="pl-2 border-l border-line text-[10px] text-ink-muted">WASD to walk · Q/E turn · Shift sprint</div>
 
       {/* Exit Button */}
       <button

@@ -27,8 +27,9 @@ const DEFAULT_LAYERS: ScientificLayer[] = [
     resolution: '232 m/px (L0–10)',
     visible: true,
     opacity: 1.0,
-    description: 'Orthorectified global true-color optical mosaic from Viking Orbiters 1 & 2. Authoritative natural Mars surface basemap.',
-    citation: 'Archinal et al. (2003), USGS Open-File'
+    description:
+      'Orthorectified global true-color optical mosaic from Viking Orbiters 1 & 2. Authoritative natural Mars surface basemap.',
+    citation: 'Archinal et al. (2003), USGS Open-File',
   },
   {
     id: 'zuhura-ctx-jezero',
@@ -39,7 +40,7 @@ const DEFAULT_LAYERS: ScientificLayer[] = [
     visible: true,
     opacity: 1.0,
     description: 'Context Camera calibrated radiance mosaic draped over Western Jezero delta fan and crater floor.',
-    citation: 'Malin et al. (2007), JGR Planets'
+    citation: 'Malin et al. (2007), JGR Planets',
   },
   {
     id: 'zuhura-hirise-jezero',
@@ -50,7 +51,7 @@ const DEFAULT_LAYERS: ScientificLayer[] = [
     visible: true,
     opacity: 1.0,
     description: 'Sub-meter targeted observation footprint over Octavia E. Butler touchdown ellipse and delta scarp.',
-    citation: 'McEwen et al. (2007), JGR Planets'
+    citation: 'McEwen et al. (2007), JGR Planets',
   },
   {
     id: 'zuhura-mola-global-v3-cog',
@@ -60,8 +61,9 @@ const DEFAULT_LAYERS: ScientificLayer[] = [
     resolution: '463 m/px (L0–7)',
     visible: false,
     opacity: 0.75,
-    description: 'Cloud-Optimized GeoTIFF streaming with dynamic scientific color ramp and zero-elevation datum preservation. Toggle to overlay topography.',
-    citation: 'Smith et al. (2001) / Zuhura Stage 3 & 6'
+    description:
+      'Cloud-Optimized GeoTIFF streaming with dynamic scientific color ramp and zero-elevation datum preservation. Toggle to overlay topography.',
+    citation: 'Smith et al. (2001) / Zuhura Stage 3 & 6',
   },
   {
     id: 'zuhura-mola-megdr-128',
@@ -72,7 +74,7 @@ const DEFAULT_LAYERS: ScientificLayer[] = [
     visible: false,
     opacity: 0.8,
     description: 'Mars Orbiter Laser Altimeter global gridded terrain elevation model referenced to GMM-3 areoid.',
-    citation: 'Smith et al. (2001), JGR Planets'
+    citation: 'Smith et al. (2001), JGR Planets',
   },
   {
     id: 'zuhura-themis-ir-jezero',
@@ -82,8 +84,9 @@ const DEFAULT_LAYERS: ScientificLayer[] = [
     resolution: '100 m/px',
     visible: false,
     opacity: 0.8,
-    description: 'Thermal Emission Imaging System calibrated infrared mosaic (Band 9, 12.57 um) measuring surface thermophysical properties.',
-    citation: 'Christensen et al. (2004), Space Science Reviews'
+    description:
+      'Thermal Emission Imaging System calibrated infrared mosaic (Band 9, 12.57 um) measuring surface thermophysical properties.',
+    citation: 'Christensen et al. (2004), Space Science Reviews',
   },
   {
     id: 'zuhura-usgs-sim3292',
@@ -94,7 +97,7 @@ const DEFAULT_LAYERS: ScientificLayer[] = [
     visible: false,
     opacity: 0.6,
     description: 'Global 1:20M-scale stratigraphic unit boundaries and geological contacts.',
-    citation: 'Tanaka et al. (2014), USGS SIM 3292'
+    citation: 'Tanaka et al. (2014), USGS SIM 3292',
   },
   {
     id: 'zuhura-landing-sites',
@@ -105,7 +108,7 @@ const DEFAULT_LAYERS: ScientificLayer[] = [
     visible: true,
     opacity: 1.0,
     description: 'Traverses, landing ellipses, and surface exploration sites.',
-    citation: 'Planetary Data System Analyst Notebook'
+    citation: 'Planetary Data System Analyst Notebook',
   },
   {
     id: 'zuhura-mola-hrsc-blend',
@@ -115,8 +118,9 @@ const DEFAULT_LAYERS: ScientificLayer[] = [
     resolution: '200 m/px (L0–9)',
     visible: false,
     opacity: 0.85,
-    description: 'High-resolution blend of MOLA laser altimetry and Mars Express High Resolution Stereo Camera topographic relief.',
-    citation: 'NASA Mars Trek / DLR HRSC Team'
+    description:
+      'High-resolution blend of MOLA laser altimetry and Mars Express High Resolution Stereo Camera topographic relief.',
+    citation: 'NASA Mars Trek / DLR HRSC Team',
   },
   {
     id: 'zuhura-themis-day-ir',
@@ -126,8 +130,9 @@ const DEFAULT_LAYERS: ScientificLayer[] = [
     resolution: '100 m/px (L0–9)',
     visible: false,
     opacity: 0.8,
-    description: 'Controlled thermal infrared radiance mosaic measuring Martian thermophysical inertia and surface bedrock exposure.',
-    citation: 'Christensen et al. (2004), Space Science Reviews'
+    description:
+      'Controlled thermal infrared radiance mosaic measuring Martian thermophysical inertia and surface bedrock exposure.',
+    citation: 'Christensen et al. (2004), Space Science Reviews',
   },
   {
     id: 'zuhura-tes-clinopyroxene',
@@ -137,8 +142,9 @@ const DEFAULT_LAYERS: ScientificLayer[] = [
     resolution: '3,000 m/px',
     visible: false,
     opacity: 0.75,
-    description: 'Thermal Emission Spectrometer global abundance mapping of calcium-rich clinopyroxene in basaltic terrains.',
-    citation: 'Bandfield et al. (2000), Science / Mars Trek'
+    description:
+      'Thermal Emission Spectrometer global abundance mapping of calcium-rich clinopyroxene in basaltic terrains.',
+    citation: 'Bandfield et al. (2000), Science / Mars Trek',
   },
   {
     id: 'zuhura-mount-sharp-route',
@@ -148,24 +154,20 @@ const DEFAULT_LAYERS: ScientificLayer[] = [
     resolution: 'Sub-meter (PIA23179)',
     visible: true,
     opacity: 1.0,
-    description: 'Curiosity traverse and proposed ascent route up Mount Sharp (Aeolis Mons) through Vera Rubin Ridge and Glen Torridon clays.',
-    citation: 'NASA Science / JPL Photojournal PIA23179'
-  }
+    description:
+      'Curiosity traverse and proposed ascent route up Mount Sharp (Aeolis Mons) through Vera Rubin Ridge and Glen Torridon clays.',
+    citation: 'NASA Science / JPL Photojournal PIA23179',
+  },
 ];
-
 
 export const useLayerStore = create<LayerState>((set) => ({
   layers: DEFAULT_LAYERS,
   toggleLayer: (id) =>
     set((state) => ({
-      layers: state.layers.map((l) =>
-        l.id === id ? { ...l, visible: !l.visible } : l
-      ),
+      layers: state.layers.map((l) => (l.id === id ? { ...l, visible: !l.visible } : l)),
     })),
   setOpacity: (id, opacity) =>
     set((state) => ({
-      layers: state.layers.map((l) =>
-        l.id === id ? { ...l, opacity: Math.max(0, Math.min(1, opacity)) } : l
-      ),
+      layers: state.layers.map((l) => (l.id === id ? { ...l, opacity: Math.max(0, Math.min(1, opacity)) } : l)),
     })),
 }));

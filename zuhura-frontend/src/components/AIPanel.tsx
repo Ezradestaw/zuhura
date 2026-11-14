@@ -41,34 +41,39 @@ function renderInline(text: string): React.ReactNode[] {
 function stripLatex(text: string): string {
   return text
     .replace(/\\text\{([^}]*)\}/g, '$1')
-    .replace(/\\(pm|approx|times|circ|deg)\b/g, (_, cmd: string) => ({ pm: '±', approx: '≈', times: '×', circ: '°', deg: '°' })[cmd] ?? '')
+    .replace(
+      /\\(pm|approx|times|circ|deg)\b/g,
+      (_, cmd: string) => ({ pm: '±', approx: '≈', times: '×', circ: '°', deg: '°' })[cmd] ?? '',
+    )
     .replace(/\$([^$\n]+)\$/g, '$1');
 }
 
 function renderMarkdown(text: string): React.ReactNode {
-  return stripLatex(text).split('\n').map((line, i) => {
-    const trimmed = line.trim();
-    if (!trimmed) return <div key={i} className="h-2" />;
-    if (/^(-{3,}|\*{3,}|_{3,})$/.test(trimmed)) return null;
-    const heading = trimmed.match(/^#{1,4}\s+(.*)$/);
-    if (heading) {
-      return (
-        <p key={i} className="pt-1 font-semibold">
-          {renderInline(heading[1])}
-        </p>
-      );
-    }
-    const bullet = trimmed.match(/^[-*]\s+(.*)$/);
-    if (bullet) {
-      return (
-        <div key={i} className="flex gap-2 pl-1">
-          <span aria-hidden="true">•</span>
-          <span>{renderInline(bullet[1])}</span>
-        </div>
-      );
-    }
-    return <p key={i}>{renderInline(trimmed)}</p>;
-  });
+  return stripLatex(text)
+    .split('\n')
+    .map((line, i) => {
+      const trimmed = line.trim();
+      if (!trimmed) return <div key={i} className="h-2" />;
+      if (/^(-{3,}|\*{3,}|_{3,})$/.test(trimmed)) return null;
+      const heading = trimmed.match(/^#{1,4}\s+(.*)$/);
+      if (heading) {
+        return (
+          <p key={i} className="pt-1 font-semibold">
+            {renderInline(heading[1])}
+          </p>
+        );
+      }
+      const bullet = trimmed.match(/^[-*]\s+(.*)$/);
+      if (bullet) {
+        return (
+          <div key={i} className="flex gap-2 pl-1">
+            <span aria-hidden="true">•</span>
+            <span>{renderInline(bullet[1])}</span>
+          </div>
+        );
+      }
+      return <p key={i}>{renderInline(trimmed)}</p>;
+    });
 }
 
 const Message: React.FC<{ message: ChatMessage }> = ({ message }) => {

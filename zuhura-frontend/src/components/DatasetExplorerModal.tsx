@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  X,
-  Search,
-  Filter,
-  Layers,
-  Database,
-  ExternalLink,
-  ChevronLeft,
-  ChevronRight,
-} from 'lucide-react';
+import { X, Search, Filter, Layers, Database, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
 
 interface TrekLayer {
@@ -105,7 +96,6 @@ export const DatasetExplorerModal: React.FC = () => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-950/60 animate-fadeIn">
       <div className="relative w-full max-w-6xl h-[88vh] bg-white border border-line rounded-xl shadow-2xl flex flex-col overflow-hidden text-ink font-sans">
-        
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 bg-surface-subtle border-b border-line">
           <div className="flex items-center space-x-3">
@@ -114,15 +104,14 @@ export const DatasetExplorerModal: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h2 className="text-base font-bold text-ink">
-                  Datasets
-                </h2>
+                <h2 className="text-base font-bold text-ink">Datasets</h2>
                 <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-brand-50 text-brand-600 border border-brand-200">
                   NASA Mars Trek • USGS Astrogeology • PDS
                 </span>
               </div>
               <p className="text-xs text-ink-muted">
-                Search, filter, and stream authentic planetary imagery, topography, mineralogy, and geological map layers
+                Search, filter, and stream authentic planetary imagery, topography, mineralogy, and geological map
+                layers
               </p>
             </div>
           </div>
@@ -138,11 +127,14 @@ export const DatasetExplorerModal: React.FC = () => {
         <div className="px-6 py-3 bg-surface-subtle border-b border-line flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center space-x-2">
             <Filter className="w-3.5 h-3.5 text-ink-muted" />
-            
+
             {/* Category */}
             <select
               value={category}
-              onChange={(e) => { setCategory(e.target.value); setPage(1); }}
+              onChange={(e) => {
+                setCategory(e.target.value);
+                setPage(1);
+              }}
               className="bg-surface-subtle border border-line rounded-lg px-2.5 py-1.5 text-xs text-ink focus:outline-none focus:border-brand-600"
             >
               {CATEGORIES.map((c) => (
@@ -155,7 +147,10 @@ export const DatasetExplorerModal: React.FC = () => {
             {/* Mission */}
             <select
               value={mission}
-              onChange={(e) => { setMission(e.target.value); setPage(1); }}
+              onChange={(e) => {
+                setMission(e.target.value);
+                setPage(1);
+              }}
               className="bg-surface-subtle border border-line rounded-lg px-2.5 py-1.5 text-xs text-ink focus:outline-none focus:border-brand-600"
             >
               {MISSIONS.map((m) => (
@@ -203,7 +198,13 @@ export const DatasetExplorerModal: React.FC = () => {
               <Layers className="w-10 h-10 stroke-[1.5]" />
               <p className="text-sm">No layers match the current criteria.</p>
               <button
-                onClick={() => { setCategory('all'); setMission('all'); setInstrument('all'); setSearchQuery(''); setPage(1); }}
+                onClick={() => {
+                  setCategory('all');
+                  setMission('all');
+                  setInstrument('all');
+                  setSearchQuery('');
+                  setPage(1);
+                }}
                 className="text-xs text-brand-600 underline"
               >
                 Reset filters
@@ -247,9 +248,7 @@ export const DatasetExplorerModal: React.FC = () => {
                     </div>
 
                     {layer.description && (
-                      <p className="text-ink-muted text-[11px] line-clamp-2 leading-relaxed">
-                        {layer.description}
-                      </p>
+                      <p className="text-ink-muted text-[11px] line-clamp-2 leading-relaxed">{layer.description}</p>
                     )}
                   </div>
 
@@ -309,12 +308,8 @@ export const DatasetExplorerModal: React.FC = () => {
             <div className="relative w-full max-w-2xl bg-white border border-line rounded-xl p-6 space-y-4 shadow-2xl text-xs">
               <div className="flex items-center justify-between border-b border-line pb-3">
                 <div>
-                  <span className="text-[10px] text-brand-600 font-bold">
-                    OGC WMTS Scientific Product
-                  </span>
-                  <h3 className="text-base font-bold text-ink mt-0.5">
-                    {selectedLayer.title}
-                  </h3>
+                  <span className="text-[10px] text-brand-600 font-bold">OGC WMTS Scientific Product</span>
+                  <h3 className="text-base font-bold text-ink mt-0.5">{selectedLayer.title}</h3>
                 </div>
                 <button
                   onClick={() => setSelectedLayer(null)}
@@ -331,7 +326,9 @@ export const DatasetExplorerModal: React.FC = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-ink-muted">Category / Type:</span>
-                  <span className="text-brand-600 font-bold">{selectedLayer.category} ({selectedLayer.product_type})</span>
+                  <span className="text-brand-600 font-bold">
+                    {selectedLayer.category} ({selectedLayer.product_type})
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-ink-muted">Mission:</span>
@@ -361,9 +358,7 @@ export const DatasetExplorerModal: React.FC = () => {
 
               {selectedLayer.description && (
                 <div>
-                  <h4 className="text-[11px] font-bold text-ink-soft mb-1">
-                    Dataset Description
-                  </h4>
+                  <h4 className="text-[11px] font-bold text-ink-soft mb-1">Dataset Description</h4>
                   <p className="text-ink-soft text-[11px] leading-relaxed bg-surface-muted p-3 rounded-lg border border-line">
                     {selectedLayer.description}
                   </p>
@@ -391,7 +386,6 @@ export const DatasetExplorerModal: React.FC = () => {
             </div>
           </div>
         )}
-
       </div>
     </div>
   );

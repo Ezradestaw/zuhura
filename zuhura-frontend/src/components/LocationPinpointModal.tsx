@@ -1,18 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  X,
-  Upload,
-  MapPin,
-  Camera,
-  RefreshCw,
-  ArrowRight,
-} from 'lucide-react';
+import { X, Upload, MapPin, Camera, RefreshCw, ArrowRight } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
-import {
-  uploadPinpointImage,
-  PinpointResultData,
-  PinpointCandidateData,
-} from '../lib/advancedApiClient';
+import { uploadPinpointImage, PinpointResultData, PinpointCandidateData } from '../lib/advancedApiClient';
 
 export const LocationPinpointModal: React.FC = () => {
   const { isPinpointOpen, setIsPinpointOpen, setCameraPosition } = useGlobeStore();
@@ -137,7 +126,8 @@ export const LocationPinpointModal: React.FC = () => {
             <p className="text-sm font-medium text-brand-600">Landscape match</p>
             <h2 className="mt-0.5 text-xl font-semibold tracking-tight">Where was this photo taken?</h2>
             <p className="mt-1 max-w-xl text-sm text-ink-soft">
-              Add a rover or orbital picture. The matcher compares it with known terrain and returns the most likely places.
+              Add a rover or orbital picture. The matcher compares it with known terrain and returns the most likely
+              places.
             </p>
           </div>
           <button
@@ -153,7 +143,13 @@ export const LocationPinpointModal: React.FC = () => {
           <div className="flex flex-col gap-4 lg:col-span-5">
             {isCameraOn ? (
               <div className="flex flex-col gap-2">
-                <video ref={videoRef} autoPlay playsInline muted className="h-56 w-full rounded-2xl bg-space object-cover" />
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  playsInline
+                  muted
+                  className="h-56 w-full rounded-2xl bg-space object-cover"
+                />
                 <div className="flex gap-2">
                   <button
                     type="button"
@@ -174,33 +170,33 @@ export const LocationPinpointModal: React.FC = () => {
               </div>
             ) : (
               <>
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className="flex min-h-[180px] flex-col items-center justify-center rounded-2xl border border-dashed border-line-strong bg-white px-4 py-5 text-center hover:border-brand-600"
-              >
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  onChange={handleFileChange}
-                  className="hidden"
-                />
-                {previewUrl ? (
-                  <div className="relative w-full">
-                    <img src={previewUrl} alt="Uploaded landscape" className="h-44 w-full rounded-xl object-cover" />
-                    <span className="absolute bottom-2 right-2 rounded-full bg-brand-950/75 px-2 py-1 text-[11px] text-white">
-                      {selectedFile?.name}
-                    </span>
-                  </div>
-                ) : (
-                  <>
-                    <Upload className="h-6 w-6 text-brand-600" />
-                    <span className="mt-3 text-sm font-medium">Choose a photo</span>
-                    <span className="mt-1 text-[12px] text-ink-muted">JPEG, PNG, or WebP, up to 10 MB</span>
-                  </>
-                )}
-              </button>
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="flex min-h-[180px] flex-col items-center justify-center rounded-2xl border border-dashed border-line-strong bg-white px-4 py-5 text-center hover:border-brand-600"
+                >
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={handleFileChange}
+                    className="hidden"
+                  />
+                  {previewUrl ? (
+                    <div className="relative w-full">
+                      <img src={previewUrl} alt="Uploaded landscape" className="h-44 w-full rounded-xl object-cover" />
+                      <span className="absolute bottom-2 right-2 rounded-full bg-brand-950/75 px-2 py-1 text-[11px] text-white">
+                        {selectedFile?.name}
+                      </span>
+                    </div>
+                  ) : (
+                    <>
+                      <Upload className="h-6 w-6 text-brand-600" />
+                      <span className="mt-3 text-sm font-medium">Choose a photo</span>
+                      <span className="mt-1 text-[12px] text-ink-muted">JPEG, PNG, or WebP, up to 10 MB</span>
+                    </>
+                  )}
+                </button>
                 <button
                   type="button"
                   onClick={startCamera}
@@ -247,24 +243,21 @@ export const LocationPinpointModal: React.FC = () => {
               {isLoading ? 'Comparing the terrain' : 'Find this place'}
             </button>
 
-            {errorMsg && (
-              <p className="rounded-xl bg-brand-50 px-3 py-2 text-sm text-brand-600">{errorMsg}</p>
-            )}
+            {errorMsg && <p className="rounded-xl bg-brand-50 px-3 py-2 text-sm text-brand-600">{errorMsg}</p>}
           </div>
 
           <div className="flex flex-col gap-3 lg:col-span-7">
             <div className="flex items-baseline justify-between">
               <h3 className="text-base font-semibold">Possible places</h3>
-              {result && (
-                <span className="text-sm text-ink-muted">{result.candidates_found} checked</span>
-              )}
+              {result && <span className="text-sm text-ink-muted">{result.candidates_found} checked</span>}
             </div>
 
             {!result && !isLoading && (
               <div className="flex flex-1 flex-col items-start justify-center rounded-2xl bg-white px-5 py-10">
                 <MapPin className="h-5 w-5 text-brand-600" />
                 <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink-soft">
-                  Matches will list a name, coordinates, elevation, and why the photo fits. You can fly the globe to any of them.
+                  Matches will list a name, coordinates, elevation, and why the photo fits. You can fly the globe to any
+                  of them.
                 </p>
               </div>
             )}
@@ -295,9 +288,8 @@ export const LocationPinpointModal: React.FC = () => {
                       <p className="mt-3 text-[13px] tabular-nums text-ink-soft">
                         {cand.latitude.toFixed(2)}°N, {cand.longitude.toFixed(2)}°E
                         <span className="mx-1.5 text-ink-faint">·</span>
-                        {cand.elevation_m.toLocaleString()} m
-                        <span className="mx-1.5 text-ink-faint">·</span>
-                        ±{cand.uncertainty_radius_km} km
+                        {cand.elevation_m.toLocaleString()} m<span className="mx-1.5 text-ink-faint">·</span>±
+                        {cand.uncertainty_radius_km} km
                       </p>
                       {cand.matched_morphology.length > 0 && (
                         <p className="mt-2 text-[13px] text-ink-soft">{cand.matched_morphology.join(' · ')}</p>
@@ -322,7 +314,9 @@ export const LocationPinpointModal: React.FC = () => {
         </div>
 
         <div className="flex items-center justify-between gap-4 border-t border-line px-5 py-3 text-[12px] text-ink-muted sm:px-7">
-          <span>A research match, using edge correlation against orbital terrain. Treat the radius as the uncertainty.</span>
+          <span>
+            A research match, using edge correlation against orbital terrain. Treat the radius as the uncertainty.
+          </span>
           <button onClick={() => setIsPinpointOpen(false)} className="shrink-0 font-medium text-ink hover:underline">
             Close
           </button>

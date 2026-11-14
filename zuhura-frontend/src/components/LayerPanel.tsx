@@ -1,16 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Layers,
-  Eye,
-  EyeOff,
-  Sliders,
-  ChevronDown,
-  ChevronRight,
-  Info,
-  Sun,
-  Globe,
-  TrendingUp,
-} from 'lucide-react';
+import { Layers, Eye, EyeOff, Sliders, ChevronDown, ChevronRight, Info, Sun, Globe, TrendingUp } from 'lucide-react';
 import { useLayerStore, ScientificLayer } from '../store/layerStore';
 import { useGlobeStore } from '../store/globeStore';
 import { useTerrainAnalysisStore } from '../store/terrainAnalysisStore';
@@ -32,13 +21,8 @@ export const LayerPanel: React.FC = () => {
     setIsLayerPanelCollapsed,
     activeMainView,
   } = useGlobeStore();
-  const {
-    isTransectMode,
-    setIsTransectMode,
-    setTransectStart,
-    setTransectEnd,
-    executeTransectQuery,
-  } = useTerrainAnalysisStore();
+  const { isTransectMode, setIsTransectMode, setTransectStart, setTransectEnd, executeTransectQuery } =
+    useTerrainAnalysisStore();
 
   const [selectedInfo, setSelectedInfo] = useState<ScientificLayer | null>(null);
 
@@ -60,9 +44,7 @@ export const LayerPanel: React.FC = () => {
       <div className="flex items-center justify-between px-3.5 py-2.5 bg-surface-subtle border-b border-line">
         <div className="flex items-center space-x-2">
           <Layers className="w-4 h-4 text-brand-600" />
-          <span className="font-semibold text-xs text-ink">
-            Scientific Layers
-          </span>
+          <span className="font-semibold text-xs text-ink">Scientific Layers</span>
           <span className="px-1.5 py-0.2 rounded bg-brand-50 border border-brand-200 text-brand-600 text-[10px] font-mono font-bold">
             {visibleCount}/{layers.length}
           </span>
@@ -84,9 +66,7 @@ export const LayerPanel: React.FC = () => {
               <div
                 key={layer.id}
                 className={`p-2 rounded border transition-all ${
-                  layer.visible
-                    ? 'bg-surface-subtle border-line shadow-sm'
-                    : 'bg-white border-line opacity-60'
+                  layer.visible ? 'bg-surface-subtle border-line shadow-sm' : 'bg-white border-line opacity-60'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -94,20 +74,22 @@ export const LayerPanel: React.FC = () => {
                     <button
                       onClick={() => toggleLayer(layer.id)}
                       className={`p-1 rounded transition-colors ${
-                        layer.visible
-                          ? 'text-brand-600 hover:text-brand-600'
-                          : 'text-ink-muted hover:text-ink-soft'
+                        layer.visible ? 'text-brand-600 hover:text-brand-600' : 'text-ink-muted hover:text-ink-soft'
                       }`}
                     >
                       {layer.visible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                     </button>
-                    <span className="text-xs font-medium text-ink truncate">
-                      {layer.name}
-                    </span>
+                    <span className="text-xs font-medium text-ink truncate">{layer.name}</span>
                   </div>
                   <div className="flex items-center space-x-1.5">
                     <EpistemicBadge
-                      type={layer.category === 'imagery' ? 'OBSERVED' : layer.category === 'topography' ? 'MEASURED' : 'DERIVED'}
+                      type={
+                        layer.category === 'imagery'
+                          ? 'OBSERVED'
+                          : layer.category === 'topography'
+                            ? 'MEASURED'
+                            : 'DERIVED'
+                      }
                       datasetId={layer.id}
                       compact
                     />
@@ -181,9 +163,7 @@ export const LayerPanel: React.FC = () => {
                 </option>
               ))}
             </select>
-            <div className="mt-1 text-[10px] text-ink-muted font-mono">
-              IAU 2015 Mars Ellipsoid & MOLA GMM-3 areoid
-            </div>
+            <div className="mt-1 text-[10px] text-ink-muted font-mono">IAU 2015 Mars Ellipsoid & MOLA GMM-3 areoid</div>
           </div>
 
           {/* Dynamic Solar Illumination & Vertex Normals */}
@@ -271,7 +251,7 @@ export const LayerPanel: React.FC = () => {
                   <button
                     onClick={() => {
                       setTransectStart({ latitude: 18.25, longitude: 77.35 });
-                      setTransectEnd({ latitude: 18.50, longitude: 77.80 });
+                      setTransectEnd({ latitude: 18.5, longitude: 77.8 });
                       executeTransectQuery();
                     }}
                     className="text-left px-2 py-1 rounded bg-surface-subtle hover:bg-surface-muted text-ink truncate"
@@ -280,8 +260,8 @@ export const LayerPanel: React.FC = () => {
                   </button>
                   <button
                     onClick={() => {
-                      setTransectStart({ latitude: 18.65, longitude: 226.20 });
-                      setTransectEnd({ latitude: 18.65, longitude: 228.00 });
+                      setTransectStart({ latitude: 18.65, longitude: 226.2 });
+                      setTransectEnd({ latitude: 18.65, longitude: 228.0 });
                       executeTransectQuery();
                     }}
                     className="text-left px-2 py-1 rounded bg-surface-subtle hover:bg-surface-muted text-ink truncate"

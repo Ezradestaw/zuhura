@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  X,
-  Compass,
-  Download,
-  ExternalLink,
-  Mountain,
-} from 'lucide-react';
+import { X, Compass, Download, ExternalLink, Mountain } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
 
 interface GeologicalUnit {
@@ -47,12 +41,7 @@ interface MountSharpData {
 }
 
 export const MountSharpExplorationModal: React.FC = () => {
-  const {
-    isMountSharpModalOpen,
-    setIsMountSharpModalOpen,
-    setSelectedTerrain,
-    setCameraPosition,
-  } = useGlobeStore();
+  const { isMountSharpModalOpen, setIsMountSharpModalOpen, setSelectedTerrain, setCameraPosition } = useGlobeStore();
 
   const [activeTab, setActiveTab] = useState<'overview' | 'animation' | 'stratigraphy' | 'instruments'>('overview');
   const [data, setData] = useState<MountSharpData | null>(null);
@@ -82,7 +71,6 @@ export const MountSharpExplorationModal: React.FC = () => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-950/60 animate-fadeIn">
       <div className="relative w-full max-w-5xl h-[86vh] bg-white border border-line rounded-xl shadow-2xl flex flex-col overflow-hidden text-ink font-sans">
-        
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 bg-surface-subtle border-b border-line">
           <div className="flex items-center space-x-3">
@@ -91,9 +79,7 @@ export const MountSharpExplorationModal: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h2 className="text-base font-bold text-ink">
-                  Curiosity's Proposed Path Up Mount Sharp
-                </h2>
+                <h2 className="text-base font-bold text-ink">Curiosity's Proposed Path Up Mount Sharp</h2>
                 <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-brand-50 text-brand-600 border border-brand-200">
                   PIA23179 / MSL
                 </span>
@@ -103,7 +89,7 @@ export const MountSharpExplorationModal: React.FC = () => {
               </p>
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-2">
             <button
               onClick={handleFlyToMountSharp}
@@ -127,9 +113,7 @@ export const MountSharpExplorationModal: React.FC = () => {
           <button
             onClick={() => setActiveTab('overview')}
             className={`px-3 py-1.5 rounded-md font-mono transition-all ${
-              activeTab === 'overview'
-                ? 'bg-surface-muted text-ink font-semibold'
-                : 'text-ink-muted hover:text-ink'
+              activeTab === 'overview' ? 'bg-surface-muted text-ink font-semibold' : 'text-ink-muted hover:text-ink'
             }`}
           >
             Scientific Overview
@@ -137,9 +121,7 @@ export const MountSharpExplorationModal: React.FC = () => {
           <button
             onClick={() => setActiveTab('animation')}
             className={`px-3 py-1.5 rounded-md font-mono transition-all ${
-              activeTab === 'animation'
-                ? 'bg-surface-muted text-ink font-semibold'
-                : 'text-ink-muted hover:text-ink'
+              activeTab === 'animation' ? 'bg-surface-muted text-ink font-semibold' : 'text-ink-muted hover:text-ink'
             }`}
           >
             Rover Route Animation (GIF)
@@ -147,9 +129,7 @@ export const MountSharpExplorationModal: React.FC = () => {
           <button
             onClick={() => setActiveTab('stratigraphy')}
             className={`px-3 py-1.5 rounded-md font-mono transition-all ${
-              activeTab === 'stratigraphy'
-                ? 'bg-surface-muted text-ink font-semibold'
-                : 'text-ink-muted hover:text-ink'
+              activeTab === 'stratigraphy' ? 'bg-surface-muted text-ink font-semibold' : 'text-ink-muted hover:text-ink'
             }`}
           >
             Geological Stratigraphy Units
@@ -157,9 +137,7 @@ export const MountSharpExplorationModal: React.FC = () => {
           <button
             onClick={() => setActiveTab('instruments')}
             className={`px-3 py-1.5 rounded-md font-mono transition-all ${
-              activeTab === 'instruments'
-                ? 'bg-surface-muted text-ink font-semibold'
-                : 'text-ink-muted hover:text-ink'
+              activeTab === 'instruments' ? 'bg-surface-muted text-ink font-semibold' : 'text-ink-muted hover:text-ink'
             }`}
           >
             Contributing Instruments
@@ -194,11 +172,13 @@ export const MountSharpExplorationModal: React.FC = () => {
                     </div>
 
                     <div className="bg-surface-subtle p-4 rounded-xl border border-line space-y-2 text-xs">
-                      <h3 className="text-ink font-bold text-[11px]">
-                        Mission summary
-                      </h3>
+                      <h3 className="text-ink font-bold text-[11px]">Mission summary</h3>
                       <p className="text-ink-soft leading-relaxed">
-                        This authoritative dataset illustrates the multi-year ascent route for NASA's Mars Science Laboratory (Curiosity) rover climbing Mount Sharp (Aeolis Mons) in Gale Crater. Rising 5.5 kilometers above the crater floor, Mount Sharp preserves a sedimentary record spanning billions of years of Martian climate evolution, from an ancient warm and wet lacustrine environment to today's hyper-arid desert.
+                        This authoritative dataset illustrates the multi-year ascent route for NASA's Mars Science
+                        Laboratory (Curiosity) rover climbing Mount Sharp (Aeolis Mons) in Gale Crater. Rising 5.5
+                        kilometers above the crater floor, Mount Sharp preserves a sedimentary record spanning billions
+                        of years of Martian climate evolution, from an ancient warm and wet lacustrine environment to
+                        today's hyper-arid desert.
                       </p>
                     </div>
                   </div>
@@ -286,7 +266,8 @@ export const MountSharpExplorationModal: React.FC = () => {
                     />
                   </div>
                   <p className="text-xs text-ink-muted font-mono text-center max-w-2xl">
-                    NASA animation demonstrating Curiosity's traverse ascending from the clay-bearing unit into the sulfate-bearing unit and Gediz Vallis channel.
+                    NASA animation demonstrating Curiosity's traverse ascending from the clay-bearing unit into the
+                    sulfate-bearing unit and Gediz Vallis channel.
                   </p>
                 </div>
               )}
@@ -327,21 +308,14 @@ export const MountSharpExplorationModal: React.FC = () => {
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {data.contributing_instruments.map((inst, idx) => (
-                      <div
-                        key={idx}
-                        className="p-4 rounded-xl bg-surface-subtle border border-line space-y-2 text-xs"
-                      >
+                      <div key={idx} className="p-4 rounded-xl bg-surface-subtle border border-line space-y-2 text-xs">
                         <div className="flex items-center justify-between">
                           <span className="text-sm font-bold text-ink font-mono">
                             {inst.mission} • {inst.instrument}
                           </span>
-                          <span className="text-[10px] font-mono text-brand-600 font-semibold">
-                            {inst.institution}
-                          </span>
+                          <span className="text-[10px] font-mono text-brand-600 font-semibold">{inst.institution}</span>
                         </div>
-                        <p className="text-ink-soft text-[11px] leading-relaxed">
-                          {inst.purpose}
-                        </p>
+                        <p className="text-ink-soft text-[11px] leading-relaxed">{inst.purpose}</p>
                       </div>
                     ))}
                   </div>
@@ -353,9 +327,7 @@ export const MountSharpExplorationModal: React.FC = () => {
 
         {/* Modal Footer */}
         <div className="px-6 py-3 bg-surface-subtle border-t border-line flex items-center justify-between text-xs text-ink-muted">
-          <div className="text-[10px]">
-            Attribution: {data?.credit || 'NASA / JPL-Caltech / ESA / MSSS / USGS'}
-          </div>
+          <div className="text-[10px]">Attribution: {data?.credit || 'NASA / JPL-Caltech / ESA / MSSS / USGS'}</div>
           <a
             href={data?.provenance.source_url}
             target="_blank"
@@ -366,7 +338,6 @@ export const MountSharpExplorationModal: React.FC = () => {
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>
-
       </div>
     </div>
   );

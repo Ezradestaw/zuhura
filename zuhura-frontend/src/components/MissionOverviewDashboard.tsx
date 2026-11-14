@@ -27,7 +27,8 @@ export const MissionOverviewDashboard: React.FC = () => {
       lon: 77.58,
       elevation: -2530,
       diameter: '49 km',
-      geology: 'Fan-delta system embedded in ancient Noachian/Early Hesperian impact basin with smectite clay phyllosilicates.',
+      geology:
+        'Fan-delta system embedded in ancient Noachian/Early Hesperian impact basin with smectite clay phyllosilicates.',
       status: 'Perseverance landing site (2021)',
       camera: { lat: 18.38, lon: 77.58, alt: 180000 },
       badge: 'Delta scarp',
@@ -40,7 +41,8 @@ export const MissionOverviewDashboard: React.FC = () => {
       lon: 137.44,
       elevation: -4503,
       diameter: '154 km',
-      geology: 'Central 5.5 km layered sedimentary mound Aeolis Mons recording a shift from clay to sulfate-bearing units.',
+      geology:
+        'Central 5.5 km layered sedimentary mound Aeolis Mons recording a shift from clay to sulfate-bearing units.',
       status: 'Curiosity landing site (2012)',
       camera: { lat: -4.59, lon: 137.44, alt: 180000 },
       badge: 'Sulfate unit',
@@ -53,7 +55,8 @@ export const MissionOverviewDashboard: React.FC = () => {
       lon: 283.0,
       elevation: -1372,
       diameter: '4,000 km',
-      geology: 'Equatorial canyon system up to about 7 km deep with hydrated sulfate deposits and recurring slope lineae (RSL).',
+      geology:
+        'Equatorial canyon system up to about 7 km deep with hydrated sulfate deposits and recurring slope lineae (RSL).',
       status: 'Studied from orbit',
       camera: { lat: -9.5, lon: 283.0, alt: 850000 },
       badge: 'Tectonic rift',
@@ -66,14 +69,15 @@ export const MissionOverviewDashboard: React.FC = () => {
       lon: 226.2,
       elevation: 20015,
       diameter: '624 km',
-      geology: 'Largest shield volcano in Solar System, towering 21.2 km above datum with multiple nested summit collapse calderas.',
+      geology:
+        'Largest shield volcano in Solar System, towering 21.2 km above datum with multiple nested summit collapse calderas.',
       status: 'Elevation reference',
       camera: { lat: 18.65, lon: 226.2, alt: 500000 },
       badge: 'Shield volcano',
     },
   ];
 
-  const handleFlyToZone = (zone: typeof EXPLORATION_ZONES[0]) => {
+  const handleFlyToZone = (zone: (typeof EXPLORATION_ZONES)[0]) => {
     setSelectedTerrain(zone.id);
     setSelectedFeature({
       id: `${zone.id}-feature`,
@@ -174,14 +178,17 @@ export const MissionOverviewDashboard: React.FC = () => {
               >
                 <div className="flex items-center justify-between gap-3 text-[12px] text-ink-muted">
                   <span>{zone.badge}</span>
-                  <span className="tabular-nums">{zone.lat.toFixed(2)}°, {zone.lon.toFixed(2)}°</span>
+                  <span className="tabular-nums">
+                    {zone.lat.toFixed(2)}°, {zone.lon.toFixed(2)}°
+                  </span>
                 </div>
                 <h3 className="mt-2 text-lg font-semibold tracking-tight">{zone.name}</h3>
                 <p className="mt-1 text-[13px] text-brand-600">{zone.mission}</p>
                 <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-soft">{zone.geology}</p>
                 <div className="mt-4 flex items-center justify-between text-[13px]">
                   <span className="tabular-nums text-ink-soft">
-                    {zone.elevation > 0 ? '+' : ''}{zone.elevation.toLocaleString()} m · {zone.diameter}
+                    {zone.elevation > 0 ? '+' : ''}
+                    {zone.elevation.toLocaleString()} m · {zone.diameter}
                   </span>
                   <span className="inline-flex items-center gap-1 font-medium text-ink">
                     Open <ArrowRight className="h-3.5 w-3.5" />
@@ -230,12 +237,22 @@ export const MissionOverviewDashboard: React.FC = () => {
                 {[
                   ['1', 'Mars Viking MDIM 2.1', 'Viking Orbiter Visual Imaging', '231.5 m/px', 'Global', 'Validated'],
                   ['2', 'MRO CTX Jezero Mosaic', 'Context Camera (MRO)', '5.55 m/px', 'Jezero and Gale', 'Calibrated'],
-                  ['3', 'MRO HiRISE strip', 'High Resolution Imaging Science', '0.25–0.50 m/px', 'Perseverance route', 'Active'],
+                  [
+                    '3',
+                    'MRO HiRISE strip',
+                    'High Resolution Imaging Science',
+                    '0.25–0.50 m/px',
+                    'Perseverance route',
+                    'Active',
+                  ],
                   ['DEM', 'MGS MOLA MEGDR 128', 'Mars Orbiter Laser Altimeter', '463 m/px', 'Global baseline', 'Datum'],
                 ].map((row) => (
                   <tr key={row[0]} className="border-t border-line">
                     {row.map((cell, index) => (
-                      <td key={cell} className={`py-3 ${index === 0 || index === 5 ? 'px-5' : 'px-3'} ${index === 1 ? 'font-medium text-ink' : ''}`}>
+                      <td
+                        key={cell}
+                        className={`py-3 ${index === 0 || index === 5 ? 'px-5' : 'px-3'} ${index === 1 ? 'font-medium text-ink' : ''}`}
+                      >
                         {cell}
                       </td>
                     ))}

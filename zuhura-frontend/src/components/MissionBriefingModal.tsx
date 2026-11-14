@@ -46,8 +46,8 @@ export const MissionBriefingModal: React.FC = () => {
       title: 'Coordinates and elevation',
       text: (
         <>
-          Positions use the IAU 2015 reference ellipsoid for Mars (equatorial radius 3,396,190 m, polar radius
-          3,376,200 m). Elevations are given relative to the MOLA areoid, the Martian equivalent of sea level.
+          Positions use the IAU 2015 reference ellipsoid for Mars (equatorial radius 3,396,190 m, polar radius 3,376,200
+          m). Elevations are given relative to the MOLA areoid, the Martian equivalent of sea level.
         </>
       ),
     },
@@ -56,8 +56,8 @@ export const MissionBriefingModal: React.FC = () => {
       title: 'Rover route planning',
       text: (
         <>
-          Routes are found with an A* search over the elevation model. The cost of each step accounts for slope,
-          wheel slip and sinkage in loose soil (Bekker model), and the energy the rover would need.
+          Routes are found with an A* search over the elevation model. The cost of each step accounts for slope, wheel
+          slip and sinkage in loose soil (Bekker model), and the energy the rover would need.
         </>
       ),
     },
@@ -66,9 +66,9 @@ export const MissionBriefingModal: React.FC = () => {
       title: 'Planetary interior',
       text: (
         <>
-          The interior model follows InSight seismic results. It compares the original core estimate (Stähler et
-          al., 2021) with the later model that adds a molten silicate layer above a smaller core (Samuel et al.,
-          2023; Khan et al., 2023).
+          The interior model follows InSight seismic results. It compares the original core estimate (Stähler et al.,
+          2021) with the later model that adds a molten silicate layer above a smaller core (Samuel et al., 2023; Khan
+          et al., 2023).
         </>
       ),
     },
@@ -77,8 +77,8 @@ export const MissionBriefingModal: React.FC = () => {
       title: 'How values are labelled',
       text: (
         <>
-          Every value is marked as observed, measured, derived, model estimate or simulated, and links to the
-          dataset or publication it comes from.
+          Every value is marked as observed, measured, derived, model estimate or simulated, and links to the dataset or
+          publication it comes from.
         </>
       ),
     },
@@ -120,8 +120,8 @@ export const MissionBriefingModal: React.FC = () => {
               About Zuhura Mars
             </h2>
             <p className="mt-1 max-w-2xl text-sm text-ink-muted">
-              A web application for exploring Mars with published elevation, imagery and seismic data: view the
-              globe, plan rover routes, study the interior and ask questions about any location.
+              A web application for exploring Mars with published elevation, imagery and seismic data: view the globe,
+              plan rover routes, study the interior and ask questions about any location.
             </p>
           </div>
           <button
@@ -150,8 +150,8 @@ export const MissionBriefingModal: React.FC = () => {
           <section>
             <h3 className="text-sm font-semibold">Imagery resolution</h3>
             <p className="mt-1 text-xs text-ink-muted">
-              The globe loads finer imagery as you zoom in: Viking global mosaic (232 m/px), MOLA elevation
-              (463 m/px), CTX (about 6 m/px) and HiRISE (0.25 m/px) where coverage exists.
+              The globe loads finer imagery as you zoom in: Viking global mosaic (232 m/px), MOLA elevation (463 m/px),
+              CTX (about 6 m/px) and HiRISE (0.25 m/px) where coverage exists.
             </p>
           </section>
 

@@ -65,7 +65,7 @@ describe('Visual intelligence API client', () => {
     const features = await fetchDetectedFeatures(18.38, 77.58, 50.0);
     expect(features).toHaveLength(2);
     expect(features[0].feature_type).toBe('impact_crater');
-    expect(features[0].confidence_score).toBeGreaterThan(0.90);
+    expect(features[0].confidence_score).toBeGreaterThan(0.9);
     expect(features[1].feature_type).toBe('layered_sediments');
   });
 
@@ -106,7 +106,7 @@ describe('Visual intelligence API client', () => {
       spectral_indices: {
         iron_oxide_index: 1.45,
         phyllosilicate_clay_index: 0.085,
-        olivine_mafic_index: 0.040,
+        olivine_mafic_index: 0.04,
         hydrated_mineral_index: 0.065,
         dominant_mineralogy: 'PHYLLOSILICATE_SMECTITE_CLAYS',
         mineral_description: 'Fe/Mg-smectite clays and magnesium carbonates',
@@ -150,8 +150,8 @@ describe('Visual intelligence API client', () => {
         {
           change_id: 'change_01',
           change_type: 'NEW_IMPACT_CRATER',
-          location_latitude: 3.50,
-          location_longitude: 135.20,
+          location_latitude: 3.5,
+          location_longitude: 135.2,
           bounding_box_pixels: { x: 512, y: 480, w: 150, h: 150 },
           relative_albedo_delta_pct: -65.0,
           confidence_score: 0.99,
@@ -195,8 +195,8 @@ describe('Visual intelligence API client', () => {
       inlier_matches_count: 245,
       inlier_ratio: 0.7656,
       homography_matrix_3x3: [
-        [1.0235, -0.0330, 12.4],
-        [0.0330, 1.0235, -8.7],
+        [1.0235, -0.033, 12.4],
+        [0.033, 1.0235, -8.7],
         [0.0, 0.0, 1.0],
       ],
       subpixel_alignment_rmse_pixels: 0.285,
@@ -222,7 +222,7 @@ describe('Visual intelligence API client', () => {
       .mockResolvedValueOnce({ ok: true, json: async () => mockSuperRes } as any);
 
     const reg = await fetchImageRegistration();
-    expect(reg.subpixel_alignment_rmse_pixels).toBeLessThan(0.40);
+    expect(reg.subpixel_alignment_rmse_pixels).toBeLessThan(0.4);
     expect(reg.registration_quality).toBe('SUBPIXEL_EXCELLENT');
 
     const sr = await fetchSuperResolution(6.0, 2.0);

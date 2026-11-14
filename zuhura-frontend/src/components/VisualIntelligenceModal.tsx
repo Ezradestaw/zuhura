@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Eye,
-  X,
-  RefreshCw,
-  Scan,
-  Sparkles,
-  Activity,
-  TrendingUp,
-} from 'lucide-react';
+import { Eye, X, RefreshCw, Scan, Sparkles, Activity, TrendingUp } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
 import {
   fetchDetectedFeatures,
@@ -26,11 +18,7 @@ import {
 import { EpistemicBadge } from './EpistemicBadge';
 
 export const VisualIntelligenceModal: React.FC = () => {
-  const {
-    isVisualIntelligenceOpen,
-    setIsVisualIntelligenceOpen,
-    setCameraPosition,
-  } = useGlobeStore();
+  const { isVisualIntelligenceOpen, setIsVisualIntelligenceOpen, setCameraPosition } = useGlobeStore();
 
   const [activeTab, setActiveTab] = useState<'features' | 'multispectral' | 'changes' | 'registration'>('features');
 
@@ -56,8 +44,8 @@ export const VisualIntelligenceModal: React.FC = () => {
     { name: 'Kodiak Butte Delta Front', lat: 18.42, lon: 77.48, diam: 3.2 },
     { name: 'Séítah TAR Dune Field', lat: 18.36, lon: 77.54, diam: 1.8 },
     { name: 'Gale Mt Sharp Sulfate Benches', lat: -4.68, lon: 137.38, diam: 154.0 },
-    { name: 'Palikir Crater Equatorward RSL', lat: -41.60, lon: 202.30, diam: 15.6 },
-    { name: 'Newton Crater Gullies', lat: -40.50, lon: 158.10, diam: 298.0 },
+    { name: 'Palikir Crater Equatorward RSL', lat: -41.6, lon: 202.3, diam: 15.6 },
+    { name: 'Newton Crater Gullies', lat: -40.5, lon: 158.1, diam: 298.0 },
   ];
 
   const handleLoadData = async (targetLat: number, targetLon: number, diam: number = 25.0) => {
@@ -94,7 +82,7 @@ export const VisualIntelligenceModal: React.FC = () => {
 
   if (!isVisualIntelligenceOpen) return null;
 
-  const handleSelectAnchor = (a: typeof ANCHOR_SITES[0]) => {
+  const handleSelectAnchor = (a: (typeof ANCHOR_SITES)[0]) => {
     setLat(a.lat);
     setLon(a.lon);
     setCraterDiameter(a.diam);
@@ -113,9 +101,7 @@ export const VisualIntelligenceModal: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="font-bold text-sm text-ink">
-                  Visual intelligence
-                </span>
+                <span className="font-bold text-sm text-ink">Visual intelligence</span>
                 <EpistemicBadge type="OBSERVED" compact />
                 <EpistemicBadge type="DERIVED" compact />
               </div>
@@ -197,9 +183,7 @@ export const VisualIntelligenceModal: React.FC = () => {
         {/* Tab Body */}
         <div className="p-5 overflow-y-auto flex-1 space-y-4 text-xs">
           {errorMsg && (
-            <div className="p-3 rounded bg-danger-soft border border-danger-line text-danger">
-              {errorMsg}
-            </div>
+            <div className="p-3 rounded bg-danger-soft border border-danger-line text-danger">{errorMsg}</div>
           )}
 
           {isLoading ? (
@@ -245,11 +229,16 @@ export const VisualIntelligenceModal: React.FC = () => {
                         </div>
                         <div className="p-2.5 rounded bg-surface-subtle border border-line">
                           <span className="text-ink-muted block text-[10px]">d/D RATIO</span>
-                          <span className="text-warning font-bold text-sm">{selectedCrater.depth_to_diameter_ratio}</span>
+                          <span className="text-warning font-bold text-sm">
+                            {selectedCrater.depth_to_diameter_ratio}
+                          </span>
                         </div>
                         <div className="p-2.5 rounded bg-surface-subtle border border-line">
                           <span className="text-ink-muted block text-[10px]">Ejecta type</span>
-                          <span className="text-success font-bold text-xs truncate block" title={selectedCrater.ejecta_blanket_type}>
+                          <span
+                            className="text-success font-bold text-xs truncate block"
+                            title={selectedCrater.ejecta_blanket_type}
+                          >
                             {selectedCrater.ejecta_blanket_type.replace(/_/g, ' ')}
                           </span>
                         </div>
@@ -281,7 +270,9 @@ export const VisualIntelligenceModal: React.FC = () => {
                           <div className="flex items-center space-x-2 text-[10px] font-mono text-ink-muted">
                             <span className="uppercase text-warning">{f.feature_type.replace(/_/g, ' ')}</span>
                             <span>•</span>
-                            <span>{f.bounding_box.width_m}m × {f.bounding_box.height_m}m</span>
+                            <span>
+                              {f.bounding_box.width_m}m × {f.bounding_box.height_m}m
+                            </span>
                           </div>
                           <p className="text-[10px] text-ink-muted font-sans leading-snug">
                             {f.scientific_significance}
@@ -385,12 +376,16 @@ export const VisualIntelligenceModal: React.FC = () => {
                           Δ{spectralResult.thermal_inertia.diurnal_temperature_amplitude_k} K
                         </span>
                         <span className="text-[9px] text-ink-muted block">
-                          {spectralResult.thermal_inertia.nighttime_ir_temp_k}K → {spectralResult.thermal_inertia.daytime_ir_temp_k}K
+                          {spectralResult.thermal_inertia.nighttime_ir_temp_k}K →{' '}
+                          {spectralResult.thermal_inertia.daytime_ir_temp_k}K
                         </span>
                       </div>
                       <div className="p-2.5 rounded bg-surface-subtle border border-line">
                         <span className="text-ink-muted block text-[10px]">Sediment class</span>
-                        <span className="text-success font-bold text-xs truncate block" title={spectralResult.thermal_inertia.grain_size_classification}>
+                        <span
+                          className="text-success font-bold text-xs truncate block"
+                          title={spectralResult.thermal_inertia.grain_size_classification}
+                        >
                           {spectralResult.thermal_inertia.grain_size_classification.replace(/_/g, ' ')}
                         </span>
                         <span className="text-[9px] text-ink-muted block">Regolith Physical Facies</span>
@@ -409,7 +404,9 @@ export const VisualIntelligenceModal: React.FC = () => {
               {activeTab === 'changes' && changesResult && (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-[11px] font-mono text-ink-muted">
-                    <span>SURVEILLANCE EPOCHS: {changesResult.epoch_1_date} TO {changesResult.epoch_2_date}</span>
+                    <span>
+                      SURVEILLANCE EPOCHS: {changesResult.epoch_1_date} TO {changesResult.epoch_2_date}
+                    </span>
                     <span className="text-danger font-bold">{changesResult.total_changes_detected} Dynamic Events</span>
                   </div>
 
@@ -425,7 +422,11 @@ export const VisualIntelligenceModal: React.FC = () => {
                               {c.change_type.replace(/_/g, ' ')}
                             </span>
                             <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-danger-soft text-danger border border-danger-line">
-                              Albedo {c.relative_albedo_delta_pct > 0 ? `+${c.relative_albedo_delta_pct}` : c.relative_albedo_delta_pct}%
+                              Albedo{' '}
+                              {c.relative_albedo_delta_pct > 0
+                                ? `+${c.relative_albedo_delta_pct}`
+                                : c.relative_albedo_delta_pct}
+                              %
                             </span>
                           </div>
                           <span className="text-[10px] font-mono text-ink-muted">
@@ -433,11 +434,10 @@ export const VisualIntelligenceModal: React.FC = () => {
                           </span>
                         </div>
                         <div className="text-[10px] font-mono text-ink-muted">
-                          Coords: {c.location_latitude.toFixed(2)}°N, {c.location_longitude.toFixed(2)}°E • Observed between {c.first_observed_epoch} and {c.second_observed_epoch}
+                          Coords: {c.location_latitude.toFixed(2)}°N, {c.location_longitude.toFixed(2)}°E • Observed
+                          between {c.first_observed_epoch} and {c.second_observed_epoch}
                         </div>
-                        <p className="text-[11px] text-ink-soft font-sans leading-relaxed">
-                          {c.description}
-                        </p>
+                        <p className="text-[11px] text-ink-soft font-sans leading-relaxed">{c.description}</p>
                       </div>
                     ))}
                   </div>
@@ -488,13 +488,17 @@ export const VisualIntelligenceModal: React.FC = () => {
                         <span className="text-warning font-bold text-sm">
                           {registrationResult.rotation_angle_degrees}°
                         </span>
-                        <span className="text-[9px] text-ink-muted block">Scale: {registrationResult.projective_scale_factor}x</span>
+                        <span className="text-[9px] text-ink-muted block">
+                          Scale: {registrationResult.projective_scale_factor}x
+                        </span>
                       </div>
                     </div>
 
                     {/* Homography Matrix View */}
                     <div className="p-2.5 rounded bg-surface-subtle font-mono text-[10px] space-y-1">
-                      <span className="text-ink-muted uppercase text-[9px] block">Projective Homography Matrix (H 3×3):</span>
+                      <span className="text-ink-muted uppercase text-[9px] block">
+                        Projective Homography Matrix (H 3×3):
+                      </span>
                       <div className="text-ink-soft">
                         {registrationResult.homography_matrix_3x3.map((row, rIdx) => (
                           <div key={rIdx} className="flex justify-between max-w-xs">
@@ -517,7 +521,8 @@ export const VisualIntelligenceModal: React.FC = () => {
                         </span>
                       </div>
                       <span className="font-mono text-brand-600 text-[11px] font-bold">
-                        {superResResult.original_resolution_m_per_px}m → {superResResult.enhanced_resolution_m_per_px}m ({superResResult.enhancement_factor}x)
+                        {superResResult.original_resolution_m_per_px}m → {superResResult.enhanced_resolution_m_per_px}m
+                        ({superResResult.enhancement_factor}x)
                       </span>
                     </div>
 
@@ -536,7 +541,10 @@ export const VisualIntelligenceModal: React.FC = () => {
                       <span className="text-[10px] text-ink-muted">Subtle Features Revealed:</span>
                       <div className="flex flex-wrap gap-1.5">
                         {superResResult.features_revealed.map((f, idx) => (
-                          <span key={idx} className="px-2 py-0.5 rounded bg-surface-subtle border border-brand-600 text-[10px] text-brand-600">
+                          <span
+                            key={idx}
+                            className="px-2 py-0.5 rounded bg-surface-subtle border border-brand-600 text-[10px] text-brand-600"
+                          >
                             {f}
                           </span>
                         ))}

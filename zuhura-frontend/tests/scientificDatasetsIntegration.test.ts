@@ -15,7 +15,7 @@ vi.mock('cesium', () => {
       public west: number,
       public south: number,
       public east: number,
-      public north: number
+      public north: number,
     ) {}
     static fromDegrees(west: number, south: number, east: number, north: number) {
       return new MockRectangle(west, south, east, north);

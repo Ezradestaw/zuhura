@@ -57,21 +57,11 @@ export const App: React.FC = () => {
   } = useGlobeStore();
 
   const { isOpen: isAIOpen, toggleOpen: toggleAI } = useAIStore();
-  const {
-    isWorkspaceOpen,
-    setIsWorkspaceOpen,
-    setMeasurementToolActive,
-  } = useWorkspaceStore();
+  const { isWorkspaceOpen, setIsWorkspaceOpen, setMeasurementToolActive } = useWorkspaceStore();
 
-  const {
-    isProvenanceModalOpen,
-    setIsProvenanceModalOpen,
-  } = useProvenanceStore();
+  const { isProvenanceModalOpen, setIsProvenanceModalOpen } = useProvenanceStore();
 
-  const {
-    isEnvironmentModalOpen,
-    setIsEnvironmentModalOpen,
-  } = useEnvironmentStore();
+  const { isEnvironmentModalOpen, setIsEnvironmentModalOpen } = useEnvironmentStore();
 
   const [globeEpoch, setGlobeEpoch] = useState(0);
 

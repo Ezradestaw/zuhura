@@ -1,14 +1,6 @@
 import React from 'react';
 import type { LucideIcon } from 'lucide-react';
-import {
-  Activity,
-  CircleHelp,
-  Eye,
-  EyeOff,
-  Layers,
-  MessageSquare,
-  Navigation,
-} from 'lucide-react';
+import { Activity, CircleHelp, Eye, EyeOff, Layers, MessageSquare, Navigation } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
 import { useAIStore } from '../store/aiStore';
 

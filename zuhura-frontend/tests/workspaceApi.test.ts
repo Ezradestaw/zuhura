@@ -242,7 +242,8 @@ describe('Workspace API client', () => {
       expect(manifest.geojson.type).toBe('FeatureCollection');
       expect(manifest.citation).toContain('Dr. Vance');
 
-      const mockKml = '<?xml version="1.0"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>Traverse</name></Document></kml>';
+      const mockKml =
+        '<?xml version="1.0"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>Traverse</name></Document></kml>';
       vi.spyOn(global, 'fetch').mockResolvedValueOnce({
         ok: true,
         text: async () => mockKml,

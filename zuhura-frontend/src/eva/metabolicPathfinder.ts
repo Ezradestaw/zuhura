@@ -7,9 +7,7 @@
  * and high radiation ridges.
  */
 
-import {
-  JEZERO_HAB_COORDINATES,
-} from './jezeroScienceTargets';
+import { JEZERO_HAB_COORDINATES } from './jezeroScienceTargets';
 
 export interface EvaPoint {
   longitude: number;
@@ -66,12 +64,7 @@ const O2_CALORIC_EQUIVALENT_J_PER_G = 14050.0; // ~14.05 kJ per gram of metaboli
 /**
  * Calculates Vincenty great-elliptic ground distance on the IAU 2015 Mars Ellipsoid.
  */
-export function calculateMarsGroundDistance(
-  lon1: number,
-  lat1: number,
-  lon2: number,
-  lat2: number
-): number {
+export function calculateMarsGroundDistance(lon1: number, lat1: number, lon2: number, lat2: number): number {
   const radLat1 = (lat1 * Math.PI) / 180.0;
   const radLat2 = (lat2 * Math.PI) / 180.0;
   const radLon1 = (lon1 * Math.PI) / 180.0;
@@ -104,11 +97,11 @@ export function evaluateJezeroElevation(lon: number, lat: number): number {
   const northChannelRise = Math.max(0, (lat - 18.44) * 2200.0);
 
   // Kodiak Butte localized remnant mound (center: 77.5385, 18.3970)
-  const dKodiak = calculateMarsGroundDistance(lon, lat, 77.5385, 18.3970);
+  const dKodiak = calculateMarsGroundDistance(lon, lat, 77.5385, 18.397);
   const kodiakMound = dKodiak < 600.0 ? Math.cos((dKodiak / 600.0) * (Math.PI / 2)) * 130.0 : 0.0;
 
   // Belva Crater depression (center: 77.5670, 18.4120, diameter: 1000m)
-  const dBelva = calculateMarsGroundDistance(lon, lat, 77.5670, 18.4120);
+  const dBelva = calculateMarsGroundDistance(lon, lat, 77.567, 18.412);
   const belvaPit = dBelva < 500.0 ? -Math.cos((dBelva / 500.0) * (Math.PI / 2)) * 85.0 : 0.0;
 
   return Math.round(baseFloorElev + westDeltaRise + northChannelRise + kodiakMound + belvaPit);
@@ -117,12 +110,15 @@ export function evaluateJezeroElevation(lon: number, lat: number): number {
 /**
  * Checks thermal inertia & regolith slip penalty at a coordinate.
  */
-export function evaluateRegolithSlipPenalty(lon: number, lat: number): {
+export function evaluateRegolithSlipPenalty(
+  lon: number,
+  lat: number,
+): {
   penalty: number;
   surface: string;
 } {
   // South Séítah aeolian ripple sand trap (77.515°–77.535°E, 18.410°–18.430°N)
-  if (lon >= 77.515 && lon <= 77.535 && lat >= 18.410 && lat <= 18.430) {
+  if (lon >= 77.515 && lon <= 77.535 && lat >= 18.41 && lat <= 18.43) {
     return {
       penalty: 1.35, // +35% metabolic burn penalty
       surface: 'Unconsolidated Aeolian Sand Ripples (High Slip Risk)',
@@ -130,7 +126,7 @@ export function evaluateRegolithSlipPenalty(lon: number, lat: number): {
   }
 
   // Western delta carbonate outcrops (firm bedrock)
-  if (lon >= 77.540 && lon <= 77.570 && lat >= 18.420 && lat <= 18.465) {
+  if (lon >= 77.54 && lon <= 77.57 && lat >= 18.42 && lat <= 18.465) {
     return {
       penalty: 1.0,
       surface: 'Consolidated Delta Carbonate Bedrock (Optimal Footing)',
@@ -139,7 +135,7 @@ export function evaluateRegolithSlipPenalty(lon: number, lat: number): {
 
   // Standard pebble gravel regolith
   return {
-    penalty: 1.10,
+    penalty: 1.1,
     surface: 'Compacted Regolith Pavement',
   };
 }
@@ -149,12 +145,12 @@ export function evaluateRegolithSlipPenalty(lon: number, lat: number): {
  */
 export function evaluateRadiationDoseRate(lon: number, lat: number): number {
   // Cliff shadow pocket along western delta scarp provides ~42% shielding
-  if (lon >= 77.532 && lon <= 77.550 && lat >= 18.425 && lat <= 18.455) {
+  if (lon >= 77.532 && lon <= 77.55 && lat >= 18.425 && lat <= 18.455) {
     return 16.5; // uSv/hr (Shielded pocket)
   }
 
   // Ridge top / high plateau (elevated cosmic ray & solar particle exposure)
-  if (lon < 77.525 || lat > 18.510) {
+  if (lon < 77.525 || lat > 18.51) {
     return 42.0; // uSv/hr (Exposed ridge)
   }
 
@@ -166,16 +162,8 @@ export function evaluateRadiationDoseRate(lon: number, lat: number): number {
  * Physics-grounded metabolic cost calculation between two terrain stations.
  * Utilizes the Minetti-Margaria energy equation adapted for Martian gravity (0.38g).
  */
-export function calculateSegmentMetabolicCost(
-  from: EvaPoint,
-  to: EvaPoint
-): RouteSegment {
-  const distance_m = calculateMarsGroundDistance(
-    from.longitude,
-    from.latitude,
-    to.longitude,
-    to.latitude
-  );
+export function calculateSegmentMetabolicCost(from: EvaPoint, to: EvaPoint): RouteSegment {
+  const distance_m = calculateMarsGroundDistance(from.longitude, from.latitude, to.longitude, to.latitude);
 
   const deltaElev_m = to.elevation_m - from.elevation_m;
   const gradient = distance_m > 0 ? deltaElev_m / distance_m : 0.0;
@@ -183,12 +171,12 @@ export function calculateSegmentMetabolicCost(
 
   const { penalty: slipPenalty, surface: surfaceType } = evaluateRegolithSlipPenalty(
     (from.longitude + to.longitude) / 2.0,
-    (from.latitude + to.latitude) / 2.0
+    (from.latitude + to.latitude) / 2.0,
   );
 
   const radDoseRate_usv_hr = evaluateRadiationDoseRate(
     (from.longitude + to.longitude) / 2.0,
-    (from.latitude + to.latitude) / 2.0
+    (from.latitude + to.latitude) / 2.0,
   );
 
   // Minetti Martian Cost of Transport Equation: C_w in J/(kg*m)
@@ -267,10 +255,7 @@ export function calculateSegmentMetabolicCost(
  * Bio-Topographic Metabolic A* Route Planner:
  * Generates an optimized low-metabolic EVA traverse between waypoints.
  */
-export function planMetabolicEvaRoute(
-  waypoints: EvaPoint[],
-  isEmergencyAbort: boolean = false
-): EvaRoutePlan {
+export function planMetabolicEvaRoute(waypoints: EvaPoint[], isEmergencyAbort: boolean = false): EvaRoutePlan {
   if (waypoints.length === 0) {
     // Default fallback from Hab to Three Forks
     const start: EvaPoint = {
@@ -278,8 +263,8 @@ export function planMetabolicEvaRoute(
       isHab: true,
     };
     const end: EvaPoint = {
-      longitude: 77.5480,
-      latitude: 18.4350,
+      longitude: 77.548,
+      latitude: 18.435,
       elevation_m: -2505.0,
       name: 'Three Forks Delta Margin',
     };
@@ -344,7 +329,7 @@ export function planMetabolicEvaRoute(
   const totalMetabolicKcal = totalMetabolicJ / 4184.0;
   const o2RemainingPct = Math.max(0, 100.0 - (totalO2G / USABLE_OXYGEN_TANK_G) * 100.0);
   const batteryRemainingPct = Math.max(0, 100.0 - (totalBatteryWh / USABLE_BATTERY_WH) * 100.0);
-  const avgO2BurnRateKgHr = totalDurSec > 0 ? (totalO2G / 1000.0) / (totalDurSec / 3600.0) : 0.075;
+  const avgO2BurnRateKgHr = totalDurSec > 0 ? totalO2G / 1000.0 / (totalDurSec / 3600.0) : 0.075;
 
   return {
     waypoints,

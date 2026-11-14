@@ -101,7 +101,10 @@ describe('Scientific route integrity', () => {
     const route = terrainProfileToRoute(profileFixture, 'rover_perseverance').recommended_route;
     const geojson = buildTraverseGeoJson(route) as {
       type: string;
-      features: Array<{ geometry: { type: string }; properties: { cumulative_distance_km?: number; slope_degrees?: number } }>;
+      features: Array<{
+        geometry: { type: string };
+        properties: { cumulative_distance_km?: number; slope_degrees?: number };
+      }>;
     };
     expect(geojson.type).toBe('FeatureCollection');
     expect(geojson.features[0].geometry.type).toBe('LineString');

@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Navigation,
-  MapPin,
-  Flag,
-  RotateCcw,
-  X,
-  Download,
-  Truck,
-  Sparkles,
-} from 'lucide-react';
+import { Navigation, MapPin, Flag, RotateCcw, X, Download, Truck, Sparkles } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
 import { fetchOptimizedRoute } from '../lib/advancedApiClient';
 import { buildTraverseGeoJson, downloadTextFile } from '../lib/routeExport';
@@ -43,7 +34,7 @@ export const PinpointRouteHUD: React.FC = () => {
           departurePoint.lon,
           arrivalPoint.lat,
           arrivalPoint.lon,
-          profile
+          profile,
         );
         setActiveNavigationRoute(res);
         setPinpointStep('route_ready');
@@ -55,9 +46,7 @@ export const PinpointRouteHUD: React.FC = () => {
     }
   };
 
-  const routeIsSynthetic = Boolean(
-    activeNavigationRoute?.is_synthetic || routeDetails?.is_synthetic,
-  );
+  const routeIsSynthetic = Boolean(activeNavigationRoute?.is_synthetic || routeDetails?.is_synthetic);
 
   const handleExportGeoJSON = () => {
     if (!routeDetails?.waypoints) return;
@@ -144,12 +133,11 @@ export const PinpointRouteHUD: React.FC = () => {
               <div className="p-2.5 rounded-lg bg-success-soft border border-success-line flex items-start space-x-2">
                 <MapPin className="w-4 h-4 text-success shrink-0 mt-0.5" />
                 <div className="min-w-0">
-                  <div className="text-[10px] text-success font-bold">
-                    Departure (Start)
-                  </div>
+                  <div className="text-[10px] text-success font-bold">Departure (Start)</div>
                   <div className="font-semibold text-ink truncate">{departurePoint.name}</div>
                   <div className="text-[10px] font-mono text-ink-muted">
-                    {departurePoint.lat.toFixed(2)}°, {departurePoint.lon.toFixed(2)}° | {Math.round(departurePoint.elevation_m)} m
+                    {departurePoint.lat.toFixed(2)}°, {departurePoint.lon.toFixed(2)}° |{' '}
+                    {Math.round(departurePoint.elevation_m)} m
                   </div>
                 </div>
               </div>
@@ -159,12 +147,11 @@ export const PinpointRouteHUD: React.FC = () => {
               <div className="p-2.5 rounded-lg bg-danger-soft border border-danger-line flex items-start space-x-2">
                 <Flag className="w-4 h-4 text-danger shrink-0 mt-0.5" />
                 <div className="min-w-0">
-                  <div className="text-[10px] text-danger font-bold">
-                    Arrival (Target)
-                  </div>
+                  <div className="text-[10px] text-danger font-bold">Arrival (Target)</div>
                   <div className="font-semibold text-ink truncate">{arrivalPoint.name}</div>
                   <div className="text-[10px] font-mono text-ink-muted">
-                    {arrivalPoint.lat.toFixed(2)}°, {arrivalPoint.lon.toFixed(2)}° | {Math.round(arrivalPoint.elevation_m)} m
+                    {arrivalPoint.lat.toFixed(2)}°, {arrivalPoint.lon.toFixed(2)}° |{' '}
+                    {Math.round(arrivalPoint.elevation_m)} m
                   </div>
                 </div>
               </div>
@@ -186,9 +173,7 @@ export const PinpointRouteHUD: React.FC = () => {
               <div className="grid grid-cols-3 gap-2 text-center font-mono">
                 <div className="p-2 rounded bg-surface-subtle border border-line">
                   <div className="text-[9px] text-ink-muted uppercase tracking-wider">Distance</div>
-                  <div className="text-sm font-bold text-warning">
-                    {routeDetails.total_distance_km.toFixed(1)} km
-                  </div>
+                  <div className="text-sm font-bold text-warning">{routeDetails.total_distance_km.toFixed(1)} km</div>
                 </div>
                 <div className="p-2 rounded bg-surface-subtle border border-line">
                   <div className="text-[9px] text-ink-muted uppercase tracking-wider">Climb</div>
