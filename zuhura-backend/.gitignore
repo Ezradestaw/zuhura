@@ -37,5 +37,3 @@ htmlcov/
 .env
 .env.local
 
-# External local repositories / links
-src/zuhura_data/
