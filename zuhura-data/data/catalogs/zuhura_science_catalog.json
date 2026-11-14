@@ -1,0 +1,2190 @@
+{
+  "catalog_name": "Zuhura Mars Digital Twin Unified Scientific Catalog",
+  "version": "1.0.0",
+  "generated_at": "2026-11-02T17:17:21.325570Z",
+  "geodetic_framework": {
+    "ellipsoid_model": "IAU/IAG 2015 WGCCRE Mars Biaxial Ellipsoid",
+    "equatorial_radius_a_m": 3396190.0,
+    "polar_radius_c_m": 3376200.0,
+    "flattening": 0.005886007555525457,
+    "latitude_convention": "planetocentric",
+    "longitude_convention": "east_positive",
+    "vertical_datum": "MOLA GMM-3 Areoid (Potential Reference Surface)"
+  },
+  "products": [
+    {
+      "dataset_id": "zuhura-mola-global-v3-cog",
+      "dataset_family": "mola",
+      "mission": "Mars Global Surveyor",
+      "instrument": "MOLA",
+      "product_id": "mola_global_meg128_cog",
+      "observation_id": "MGS_MOLA_GLOBAL_MEG128",
+      "product_type": "raster_elevation",
+      "product_level": "mosaic",
+      "acquisition_time": "2001-05-01T00:00:00Z",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 0.0,
+          "max_lon": 360.0,
+          "min_lat": -88.0,
+          "max_lat": 88.0,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": null,
+        "geojson": null,
+        "center_lat": 0.0,
+        "center_lon": 180.0
+      },
+      "temporal_coverage": null,
+      "native_crs": "Mars_simpCyl_c180 (IAU:49900 Sphere R=3396km, Central Meridian 180E)",
+      "dimensions": [
+        46080,
+        22528,
+        1
+      ],
+      "resolution": 463.0577,
+      "data_type": "Int16",
+      "units": "meters",
+      "calibration": {
+        "calibration_level": "Level 3 Topographic Elevation",
+        "formula": "Elevation referenced to MOLA GMM-3 areoid potential surface",
+        "dark_current_corrected": null,
+        "radiometrically_calibrated": true,
+        "photometrically_corrected": null,
+        "atmospheric_corrected": null,
+        "thermal_model": null,
+        "calibration_notes": null
+      },
+      "spectral_information": null,
+      "nodata_policy": {
+        "nodata_value": null,
+        "sentinel_values": {},
+        "datum_zero_is_valid": true,
+        "description": "Continuous global DEM. 0m elevation represents valid areoid datum."
+      },
+      "source_archive": "NASA PDS Geosciences Node",
+      "source_uri": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/",
+      "storage_path": "data/processed/mola/global_v3/mola_global_meg128_cog.tif",
+      "checksum": {
+        "path": "data/processed/mola/global_v3/mola_global_meg128_cog.tif",
+        "sha256": "verified_cog_hash",
+        "size_bytes": 1007977752,
+        "role": null
+      },
+      "processing_history": {
+        "current_status": "scientifically_validated",
+        "status_log": [],
+        "steps": [
+          {
+            "step_id": "step-mola-cog-v3",
+            "step_name": "Stage 3 MOLA Global COG Generation",
+            "software": "GDAL",
+            "version": "3.13.3",
+            "timestamp": "2026-11-02T17:17:21.325713Z",
+            "parameters": {
+              "compression": "DEFLATE",
+              "predictor": 2,
+              "blocksize": 512,
+              "resampling": "BILINEAR",
+              "overview_levels": [
+                2,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128
+              ]
+            },
+            "input_files": [
+              {
+                "path": "data/processed/mola/meg128_v2/",
+                "sha256": "multi_tile_v2_set",
+                "size_bytes": null,
+                "role": null
+              }
+            ],
+            "output_files": [
+              {
+                "path": "data/processed/mola/global_v3/mola_global_meg128_cog.tif",
+                "sha256": "verified_cog_hash",
+                "size_bytes": 1007977752,
+                "role": null
+              }
+            ],
+            "scientific_assumptions": "Preserves all 136,772 zero-elevation datum pixels. NoData is None.",
+            "operator": "Zuhura Planetary Automated Pipeline"
+          }
+        ]
+      },
+      "validation_status": "scientifically_validated",
+      "scientific_limitations": "Spatial resolution is ~463 m/px. Narrow topographic features <1 km may be smoothed.",
+      "family_attributes": {}
+    },
+    {
+      "dataset_id": "zuhura-mola-polar-n-v2",
+      "dataset_family": "mola",
+      "mission": "Mars Global Surveyor",
+      "instrument": "MOLA",
+      "product_id": "megt_n_128_1.tif",
+      "observation_id": "MOLA_NORTH_POLE",
+      "product_type": "raster_elevation",
+      "product_level": "derived_product",
+      "acquisition_time": "2001-05-01T00:00:00Z",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 0.0,
+          "max_lon": 360.0,
+          "min_lat": 87.0,
+          "max_lat": 90.0,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": null,
+        "geojson": null,
+        "center_lat": 90.0,
+        "center_lon": 0.0
+      },
+      "temporal_coverage": null,
+      "native_crs": "Polar Stereographic (Sphere R=3376.2km, CenterLat=90.0)",
+      "dimensions": [
+        10240,
+        10240,
+        1
+      ],
+      "resolution": 460.3899,
+      "data_type": "Float32",
+      "units": "meters",
+      "calibration": {
+        "calibration_level": "Level 3 Physical Elevation",
+        "formula": "elevation_m = (stored_DN * 0.25) - 8000.0",
+        "dark_current_corrected": null,
+        "radiometrically_calibrated": true,
+        "photometrically_corrected": null,
+        "atmospheric_corrected": null,
+        "thermal_model": null,
+        "calibration_notes": null
+      },
+      "spectral_information": null,
+      "nodata_policy": {
+        "nodata_value": -99999.0,
+        "sentinel_values": {},
+        "datum_zero_is_valid": false,
+        "description": "DN=0 background values outside circular polar coverage masked to -99999.0."
+      },
+      "source_archive": "NASA PDS Geosciences Node",
+      "source_uri": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/polar/",
+      "storage_path": "data/processed/mola/polar_v2/megt_n_128_1.tif",
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "scientifically_validated",
+      "scientific_limitations": "Elevation range: -7034.5m to 980.0m.",
+      "family_attributes": {}
+    },
+    {
+      "dataset_id": "zuhura-mola-polar-s-v2",
+      "dataset_family": "mola",
+      "mission": "Mars Global Surveyor",
+      "instrument": "MOLA",
+      "product_id": "megt_s_128_1.tif",
+      "observation_id": "MOLA_SOUTH_POLE",
+      "product_type": "raster_elevation",
+      "product_level": "derived_product",
+      "acquisition_time": "2001-05-01T00:00:00Z",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 0.0,
+          "max_lon": 360.0,
+          "min_lat": -90.0,
+          "max_lat": -87.0,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": null,
+        "geojson": null,
+        "center_lat": -90.0,
+        "center_lon": 0.0
+      },
+      "temporal_coverage": null,
+      "native_crs": "Polar Stereographic (Sphere R=3376.2km, CenterLat=-90.0)",
+      "dimensions": [
+        10240,
+        10240,
+        1
+      ],
+      "resolution": 460.3899,
+      "data_type": "Float32",
+      "units": "meters",
+      "calibration": {
+        "calibration_level": "Level 3 Physical Elevation",
+        "formula": "elevation_m = (stored_DN * 0.25) - 8000.0",
+        "dark_current_corrected": null,
+        "radiometrically_calibrated": true,
+        "photometrically_corrected": null,
+        "atmospheric_corrected": null,
+        "thermal_model": null,
+        "calibration_notes": null
+      },
+      "spectral_information": null,
+      "nodata_policy": {
+        "nodata_value": -99999.0,
+        "sentinel_values": {},
+        "datum_zero_is_valid": false,
+        "description": "DN=0 background values outside circular polar coverage masked to -99999.0."
+      },
+      "source_archive": "NASA PDS Geosciences Node",
+      "source_uri": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/polar/",
+      "storage_path": "data/processed/mola/polar_v2/megt_s_128_1.tif",
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "scientifically_validated",
+      "scientific_limitations": "Elevation range: -7946.0m to 6126.0m.",
+      "family_attributes": {}
+    },
+    {
+      "dataset_id": "zuhura-viking-mdim21",
+      "dataset_family": "viking_mdim",
+      "mission": "Viking Orbiter",
+      "instrument": "Viking Visual Imaging Subsystem (VIS)",
+      "product_id": "Mars_Viking_MDIM21_ClrMosaic_global_232m",
+      "observation_id": "VIKING_MDIM_21_GLOBAL",
+      "product_type": "raster_imagery",
+      "product_level": "mosaic",
+      "acquisition_time": "1980-01-01T00:00:00Z",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 0.0,
+          "max_lon": 360.0,
+          "min_lat": -90.0,
+          "max_lat": 90.0,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": null,
+        "geojson": null,
+        "center_lat": 0.0,
+        "center_lon": 0.0
+      },
+      "temporal_coverage": null,
+      "native_crs": "SimpleCylindrical Mars (R=3396190m, Center Meridian=0)",
+      "dimensions": [
+        92160,
+        46080,
+        3
+      ],
+      "resolution": 231.5418,
+      "data_type": "Byte",
+      "units": "RGB_DN",
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "USGS Astrogeology",
+      "source_uri": "https://astrogeology.usgs.gov/search/map/Mars/Viking/MDIM21",
+      "storage_path": "data/raw/viking/mdim21/Mars_Viking_MDIM21_ClrMosaic_global_232m.tiff",
+      "checksum": {
+        "path": "data/raw/viking/mdim21/Mars_Viking_MDIM21_ClrMosaic_global_232m.tiff",
+        "sha256": "554f1170998b4cd00359defa48600307e52c49f921c282d842361ad45082aa31",
+        "size_bytes": 12742411029,
+        "role": null
+      },
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "scientifically_validated",
+      "scientific_limitations": "Historical Viking mosaic with variable illumination and atmospheric haze.",
+      "family_attributes": {}
+    },
+    {
+      "dataset_id": "zuhura-themis-ir-jezero",
+      "dataset_family": "themis",
+      "mission": "2001 Mars Odyssey",
+      "instrument": "THEMIS",
+      "product_id": "I02413002RDR",
+      "observation_id": "I02413002",
+      "product_type": "spectral_cube",
+      "product_level": "calibrated",
+      "acquisition_time": "2002-07-01T05:28:53.115000Z",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 76.207,
+          "max_lon": 78.507,
+          "min_lat": 12.452,
+          "max_lat": 24.494,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((76.815 24.494, 78.507 12.485, 77.952 12.452, 76.207 24.458, 76.815 24.494))",
+        "geojson": null,
+        "center_lat": 18.477,
+        "center_lon": 77.384
+      },
+      "temporal_coverage": {
+        "start_time": "2002-07-01T05:26:53.385000Z",
+        "stop_time": "2002-07-01T05:30:52.845000Z",
+        "solar_longitude_deg": 34.853,
+        "martian_year": null,
+        "orbit_number": 2413
+      },
+      "native_crs": "Mars 2000 Simple Cylindrical / ISIS Spectral Qube",
+      "dimensions": [
+        320,
+        7184,
+        10
+      ],
+      "resolution": 100.0,
+      "data_type": "Int16",
+      "units": "W/(m^2*sr*um)",
+      "calibration": {
+        "calibration_level": "Level 2 Calibrated Spectral Radiance (IRRDR)",
+        "formula": "Radiance = DN * scaling_factor + offset",
+        "dark_current_corrected": null,
+        "radiometrically_calibrated": true,
+        "photometrically_corrected": null,
+        "atmospheric_corrected": null,
+        "thermal_model": "Physical infrared calibrated radiance; distinct from kinetic surface temperature",
+        "calibration_notes": null
+      },
+      "spectral_information": {
+        "band_count": 10,
+        "spectral_range_um": "6.78 - 14.88",
+        "bands": [
+          {
+            "band_number": 1,
+            "band_name": null,
+            "center_wavelength_um": 6.78,
+            "bandwidth_um": null,
+            "units": "W/(m^2*sr*um)"
+          },
+          {
+            "band_number": 2,
+            "band_name": null,
+            "center_wavelength_um": 6.78,
+            "bandwidth_um": null,
+            "units": "W/(m^2*sr*um)"
+          },
+          {
+            "band_number": 3,
+            "band_name": null,
+            "center_wavelength_um": 7.93,
+            "bandwidth_um": null,
+            "units": "W/(m^2*sr*um)"
+          },
+          {
+            "band_number": 4,
+            "band_name": null,
+            "center_wavelength_um": 8.56,
+            "bandwidth_um": null,
+            "units": "W/(m^2*sr*um)"
+          },
+          {
+            "band_number": 5,
+            "band_name": null,
+            "center_wavelength_um": 9.35,
+            "bandwidth_um": null,
+            "units": "W/(m^2*sr*um)"
+          },
+          {
+            "band_number": 6,
+            "band_name": null,
+            "center_wavelength_um": 10.21,
+            "bandwidth_um": null,
+            "units": "W/(m^2*sr*um)"
+          },
+          {
+            "band_number": 7,
+            "band_name": null,
+            "center_wavelength_um": 11.04,
+            "bandwidth_um": null,
+            "units": "W/(m^2*sr*um)"
+          },
+          {
+            "band_number": 8,
+            "band_name": null,
+            "center_wavelength_um": 11.79,
+            "bandwidth_um": null,
+            "units": "W/(m^2*sr*um)"
+          },
+          {
+            "band_number": 9,
+            "band_name": null,
+            "center_wavelength_um": 12.57,
+            "bandwidth_um": null,
+            "units": "W/(m^2*sr*um)"
+          },
+          {
+            "band_number": 10,
+            "band_name": null,
+            "center_wavelength_um": 14.88,
+            "bandwidth_um": null,
+            "units": "W/(m^2*sr*um)"
+          }
+        ]
+      },
+      "nodata_policy": null,
+      "source_archive": "NASA PDS / ASU Mars Space Flight Facility",
+      "source_uri": "/home/anonymous/Zuhura/zuhura-data/data/raw/themis/I02413002RDR.QUB",
+      "storage_path": "data/raw/themis/I02413002RDR.QUB",
+      "checksum": {
+        "path": "/home/anonymous/Zuhura/zuhura-data/data/raw/themis/I02413002RDR.QUB",
+        "sha256": "e4514d4a0ea5b12b7954bbf39fec56f22231a07f825512d1be31ccc533eddb94",
+        "size_bytes": 13894300,
+        "role": null
+      },
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "scientifically_validated",
+      "scientific_limitations": "Requires atmospheric correction and emissivity modeling before deriving mineralogy or thermal inertia.",
+      "family_attributes": {}
+    },
+    {
+      "dataset_id": "zuhura-ctx-jezero",
+      "dataset_family": "ctx",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "Context Camera (CTX)",
+      "product_id": "P02_001820_1984_XI_18N282W",
+      "observation_id": "P02_001820_1984",
+      "product_type": "raster_imagery",
+      "product_level": "calibrated",
+      "acquisition_time": "2006-11-20T17:39:48.337000Z",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.04,
+          "max_lon": 77.62,
+          "min_lat": 17.8814,
+          "max_lat": 18.654,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.53 18.654, 77.62 17.9408, 77.13 17.8814, 77.04 18.5946, 77.53 18.654))",
+        "geojson": null,
+        "center_lat": 18.268,
+        "center_lon": 77.33
+      },
+      "temporal_coverage": {
+        "start_time": "2006-11-20T17:39:48.337000Z",
+        "stop_time": null,
+        "solar_longitude_deg": 151.19,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 Equirectangular / Unprojected Raw Frame",
+      "dimensions": [
+        5056,
+        7168,
+        1
+      ],
+      "resolution": 5.55,
+      "data_type": "Byte",
+      "units": "DN",
+      "calibration": {
+        "calibration_level": "Level 1B EDR Raw Optical Frame",
+        "formula": null,
+        "dark_current_corrected": false,
+        "radiometrically_calibrated": false,
+        "photometrically_corrected": null,
+        "atmospheric_corrected": null,
+        "thermal_model": null,
+        "calibration_notes": null
+      },
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Imaging Node / Malin Space Science Systems",
+      "source_uri": "https://planetarydata.jpl.nasa.gov/img/data/mro/ctx/mrox_0023/data/P02_001820_1984_XI_18N282W.IMG",
+      "storage_path": "data/raw/ctx/P02_001820_1984_XI_18N282W.IMG",
+      "checksum": {
+        "path": "/home/anonymous/Zuhura/zuhura-data/data/raw/ctx/P02_001820_1984_XI_18N282W.IMG",
+        "sha256": "044ba99584d9cba66fdd0ebf42cee505a2bc0cdeb0a0f66a5d9ddc214bb14ce4",
+        "size_bytes": 36246464,
+        "role": null
+      },
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "scientifically_validated",
+      "scientific_limitations": "Raw EDR readout requires ISIS3/USGS pipeline calibration (ctxcal/ctxevenodd) for quantitative reflectance analysis.",
+      "family_attributes": {}
+    },
+    {
+      "dataset_id": "zuhura-hirise-jezero",
+      "dataset_family": "hirise",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "HiRISE",
+      "product_id": "PSP_004299_1985_MRGB",
+      "observation_id": "PSP_004299_1985",
+      "product_type": "raster_imagery",
+      "product_level": "map_projected",
+      "acquisition_time": "2007-06-25T03:59:10.518000Z",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.5158,
+          "max_lon": 77.6537,
+          "min_lat": 18.2876,
+          "max_lat": 18.5834,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.6537 18.2996, 77.5531 18.2876, 77.5158 18.5714, 77.6166 18.5834, 77.6537 18.2996))",
+        "geojson": null,
+        "center_lat": 18.398,
+        "center_lon": 77.585
+      },
+      "temporal_coverage": {
+        "start_time": "2007-06-25T03:59:10.518000Z",
+        "stop_time": null,
+        "solar_longitude_deg": 193.78,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Equirectangular Mars (Sphere R=3396.19km, Lat0=18.0N, Lon0=77.0E)",
+      "dimensions": [
+        2048,
+        4744,
+        3
+      ],
+      "resolution": 0.25,
+      "data_type": "Byte",
+      "units": "Calibrated I/F Reflectance (Color MRGB Browse Preview)",
+      "calibration": {
+        "calibration_level": "Level 3 Map-Projected RDR & Browse",
+        "formula": null,
+        "dark_current_corrected": null,
+        "radiometrically_calibrated": true,
+        "photometrically_corrected": true,
+        "atmospheric_corrected": null,
+        "thermal_model": null,
+        "calibration_notes": null
+      },
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS / University of Arizona PIRL",
+      "source_uri": "https://hirise.lpl.arizona.edu/PDS/EXTRAS/RDR/PSP/ORB_004200_004299/PSP_004299_1985/",
+      "storage_path": "data/raw/hirise/PSP_004299_1985_MRGB.abrowse.jpg",
+      "checksum": {
+        "path": "/home/anonymous/Zuhura/zuhura-data/data/raw/hirise/PSP_004299_1985_MRGB.LBL",
+        "sha256": "e88dbbcffff077700ee39777a1946dc1500fb6943e5ccab4e836d4f2dc89a97f",
+        "size_bytes": 8284,
+        "role": null
+      },
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "scientifically_validated",
+      "scientific_limitations": "Sub-meter observation covering western delta front. Detached cartographic labels and browse proxy; full 2.5 GB JP2 archived.",
+      "family_attributes": {}
+    },
+    {
+      "dataset_id": "zuhura-themis-ode-i02706002rdr",
+      "dataset_family": "themis",
+      "mission": "2001 Mars Odyssey",
+      "instrument": "THEMIS",
+      "product_id": "I02706002RDR",
+      "observation_id": "ODY_THM_TEAM",
+      "product_type": "spectral_cube",
+      "product_level": "calibrated",
+      "acquisition_time": "2002-07-25T09:06:16.982000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.913,
+          "max_lon": 79.379,
+          "min_lat": 18.675,
+          "max_lat": 24.721,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.913 18.705, 78.773 24.721, 79.379 24.69, 78.487 18.675, 77.913 18.705))",
+        "geojson": null,
+        "center_lat": 21.7,
+        "center_lon": 78.633
+      },
+      "temporal_coverage": {
+        "start_time": "2002-07-25T09:06:16.982000",
+        "stop_time": null,
+        "solar_longitude_deg": 45.701,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 100.0,
+      "data_type": "Int16",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=I02706002RDR&product_idGeo=22116641",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "58.127",
+        "emission_angle": "1.792",
+        "phase_angle": "58.065",
+        "external_url": "https://viewer.mars.asu.edu/planetview/inst/themis/I02706002"
+      }
+    },
+    {
+      "dataset_id": "zuhura-themis-ode-i02731002rdr",
+      "dataset_family": "themis",
+      "mission": "2001 Mars Odyssey",
+      "instrument": "THEMIS",
+      "product_id": "I02731002RDR",
+      "observation_id": "ODY_THM_TEAM",
+      "product_type": "spectral_cube",
+      "product_level": "calibrated",
+      "acquisition_time": "2002-07-27T10:30:23.606000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 76.229,
+          "max_lon": 78.543,
+          "min_lat": 13.679,
+          "max_lat": 25.72,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((76.229 13.707, 77.931 25.72, 78.543 25.688, 76.785 13.679, 76.229 13.707))",
+        "geojson": null,
+        "center_lat": 19.705,
+        "center_lon": 77.357
+      },
+      "temporal_coverage": {
+        "start_time": "2002-07-27T10:30:23.606000",
+        "stop_time": null,
+        "solar_longitude_deg": 46.616,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 100.0,
+      "data_type": "Int16",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=I02731002RDR&product_idGeo=22117047",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "58.446",
+        "emission_angle": "1.704",
+        "phase_angle": "58.338",
+        "external_url": "https://viewer.mars.asu.edu/planetview/inst/themis/I02731002"
+      }
+    },
+    {
+      "dataset_id": "zuhura-themis-ode-i02756002rdr",
+      "dataset_family": "themis",
+      "mission": "2001 Mars Odyssey",
+      "instrument": "THEMIS",
+      "product_id": "I02756002RDR",
+      "observation_id": "ODY_THM_TEAM",
+      "product_type": "spectral_cube",
+      "product_level": "calibrated",
+      "acquisition_time": "2002-07-29T11:53:13.134000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 75.713,
+          "max_lon": 77.616,
+          "min_lat": 17.11,
+          "max_lat": 26.149,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((75.713 17.14, 77.001 26.149, 77.616 26.118, 76.281 17.11, 75.713 17.14))",
+        "geojson": null,
+        "center_lat": 21.634,
+        "center_lon": 76.643
+      },
+      "temporal_coverage": {
+        "start_time": "2002-07-29T11:53:13.134000",
+        "stop_time": null,
+        "solar_longitude_deg": 47.53,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 100.0,
+      "data_type": "Int16",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=I02756002RDR&product_idGeo=22117487",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "58.385",
+        "emission_angle": "1.703",
+        "phase_angle": "58.301",
+        "external_url": "https://viewer.mars.asu.edu/planetview/inst/themis/I02756002"
+      }
+    },
+    {
+      "dataset_id": "zuhura-themis-ode-i02800006rdr",
+      "dataset_family": "themis",
+      "mission": "2001 Mars Odyssey",
+      "instrument": "THEMIS",
+      "product_id": "I02800006RDR",
+      "observation_id": "ODY_THM_TEAM",
+      "product_type": "spectral_cube",
+      "product_level": "calibrated",
+      "acquisition_time": "2002-08-02T02:03:22.224000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 75.511,
+          "max_lon": 76.975,
+          "min_lat": 18.518,
+          "max_lat": 24.572,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((76.115 24.572, 76.975 18.553, 76.401 18.518, 75.511 24.536, 76.115 24.572))",
+        "geojson": null,
+        "center_lat": 21.546,
+        "center_lon": 76.255
+      },
+      "temporal_coverage": {
+        "start_time": "2002-08-02T02:03:22.224000",
+        "stop_time": null,
+        "solar_longitude_deg": 49.122,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 100.0,
+      "data_type": "Int16",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=I02800006RDR&product_idGeo=22118732",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "108.562",
+        "emission_angle": "0.259",
+        "phase_angle": "108.734",
+        "external_url": "https://viewer.mars.asu.edu/planetview/inst/themis/I02800006"
+      }
+    },
+    {
+      "dataset_id": "zuhura-themis-ode-i03430002rdr",
+      "dataset_family": "themis",
+      "mission": "2001 Mars Odyssey",
+      "instrument": "THEMIS",
+      "product_id": "I03430002RDR",
+      "observation_id": "ODY_THM_TEAM",
+      "product_type": "spectral_cube",
+      "product_level": "calibrated",
+      "acquisition_time": "2002-09-22T23:28:15.505000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.719,
+          "max_lon": 79.598,
+          "min_lat": 15.166,
+          "max_lat": 24.218,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.719 15.198, 78.996 24.218, 79.598 24.183, 78.278 15.166, 77.719 15.198))",
+        "geojson": null,
+        "center_lat": 19.696,
+        "center_lon": 78.639
+      },
+      "temporal_coverage": {
+        "start_time": "2002-09-22T23:28:15.505000",
+        "stop_time": null,
+        "solar_longitude_deg": 71.874,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 100.0,
+      "data_type": "Int16",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=I03430002RDR&product_idGeo=22127285",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "62.153",
+        "emission_angle": "1.687",
+        "phase_angle": "61.83",
+        "external_url": "https://viewer.mars.asu.edu/planetview/inst/themis/I03430002"
+      }
+    },
+    {
+      "dataset_id": "zuhura-themis-ode-r03524001rdr",
+      "dataset_family": "themis",
+      "mission": "2001 Mars Odyssey",
+      "instrument": "THEMIS",
+      "product_id": "R03524001RDR",
+      "observation_id": "ODY_THM_TEAM",
+      "product_type": "spectral_cube",
+      "product_level": "calibrated",
+      "acquisition_time": "2002-09-30T16:23:38.623000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 76.631,
+          "max_lon": 77.278,
+          "min_lat": 18.587,
+          "max_lat": 19.071,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.214 19.071, 77.278 18.618, 76.697 18.587, 76.631 19.04, 77.214 19.071))",
+        "geojson": null,
+        "center_lat": 18.829,
+        "center_lon": 76.956
+      },
+      "temporal_coverage": {
+        "start_time": "2002-09-30T16:23:38.623000",
+        "stop_time": null,
+        "solar_longitude_deg": 75.237,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 100.0,
+      "data_type": "Int16",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=R03524001RDR&product_idGeo=22183128",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "102.777",
+        "emission_angle": "2.181",
+        "phase_angle": "101.8",
+        "external_url": "https://viewer.mars.asu.edu/planetview/inst/themis/R03524001"
+      }
+    },
+    {
+      "dataset_id": "zuhura-themis-ode-i04635005rdr",
+      "dataset_family": "themis",
+      "mission": "2001 Mars Odyssey",
+      "instrument": "THEMIS",
+      "product_id": "I04635005RDR",
+      "observation_id": "ODY_THM_TEAM",
+      "product_type": "spectral_cube",
+      "product_level": "calibrated",
+      "acquisition_time": "2002-12-31T03:07:28.570000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 78.256,
+          "max_lon": 81.316,
+          "min_lat": 1.29,
+          "max_lat": 19.382,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((78.834 19.382, 81.316 1.318, 80.786 1.29, 78.256 19.351, 78.834 19.382))",
+        "geojson": null,
+        "center_lat": 10.346,
+        "center_lon": 79.813
+      },
+      "temporal_coverage": {
+        "start_time": "2002-12-31T03:07:28.570000",
+        "stop_time": null,
+        "solar_longitude_deg": 116.039,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 100.0,
+      "data_type": "Int16",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=I04635005RDR&product_idGeo=22217927",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "102.199",
+        "emission_angle": "0.331",
+        "phase_angle": "102.389",
+        "external_url": "https://viewer.mars.asu.edu/planetview/inst/themis/I04635005"
+      }
+    },
+    {
+      "dataset_id": "zuhura-themis-ode-i05727011rdr",
+      "dataset_family": "themis",
+      "mission": "2001 Mars Odyssey",
+      "instrument": "THEMIS",
+      "product_id": "I05727011RDR",
+      "observation_id": "ODY_THM_TEAM",
+      "product_type": "spectral_cube",
+      "product_level": "calibrated",
+      "acquisition_time": "2003-03-31T01:20:41.324000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 74.725,
+          "max_lon": 77.779,
+          "min_lat": 0.482,
+          "max_lat": 18.557,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((74.725 0.513, 77.203 18.557, 77.779 18.524, 75.255 0.482, 74.725 0.513))",
+        "geojson": null,
+        "center_lat": 9.533,
+        "center_lon": 76.227
+      },
+      "temporal_coverage": {
+        "start_time": "2003-03-31T01:20:41.324000",
+        "stop_time": null,
+        "solar_longitude_deg": 160.425,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 100.0,
+      "data_type": "Int16",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=I05727011RDR&product_idGeo=22282643",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "77.812",
+        "emission_angle": "1.565",
+        "phase_angle": "77.8",
+        "external_url": "https://viewer.mars.asu.edu/planetview/inst/themis/I05727011"
+      }
+    },
+    {
+      "dataset_id": "zuhura-themis-ode-r05771010rdr",
+      "dataset_family": "themis",
+      "mission": "2001 Mars Odyssey",
+      "instrument": "THEMIS",
+      "product_id": "R05771010RDR",
+      "observation_id": "ODY_THM_TEAM",
+      "product_type": "spectral_cube",
+      "product_level": "calibrated",
+      "acquisition_time": "2003-04-03T15:25:34.485000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.725,
+          "max_lon": 78.367,
+          "min_lat": 17.872,
+          "max_lat": 18.357,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((78.304 18.357, 78.367 17.903, 77.79 17.872, 77.725 18.325, 78.304 18.357))",
+        "geojson": null,
+        "center_lat": 18.114,
+        "center_lon": 78.048
+      },
+      "temporal_coverage": {
+        "start_time": "2003-04-03T15:25:34.485000",
+        "stop_time": null,
+        "solar_longitude_deg": 162.332,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 100.0,
+      "data_type": "Int16",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=R05771010RDR&product_idGeo=22297654",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "99.362",
+        "emission_angle": "2.147",
+        "phase_angle": "99.137",
+        "external_url": "https://viewer.mars.asu.edu/planetview/inst/themis/R05771010"
+      }
+    },
+    {
+      "dataset_id": "zuhura-ctx-ode-p02-001965-1988-xn-18n281w",
+      "dataset_family": "ctx",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "CTX",
+      "product_id": "P02_001965_1988_XN_18N281W",
+      "observation_id": "MRO_CTX_TEAM",
+      "product_type": "raster_imagery",
+      "product_level": "calibrated",
+      "acquisition_time": "2006-12-27T13:38:00.326000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 78.28,
+          "max_lon": 79.01,
+          "min_lat": 17.6734,
+          "max_lat": 19.5755,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((78.77 19.5755, 79.01 17.7328, 78.52 17.6734, 78.28 19.516, 78.77 19.5755))",
+        "geojson": null,
+        "center_lat": 18.6245,
+        "center_lon": 78.6443
+      },
+      "temporal_coverage": {
+        "start_time": "2006-12-27T13:38:00.326000",
+        "stop_time": null,
+        "solar_longitude_deg": 157.06,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 5.55,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=P02_001965_1988_XN_18N281W&product_idGeo=9034441",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "52.48",
+        "emission_angle": "0.09",
+        "phase_angle": "52.47",
+        "external_url": null
+      }
+    },
+    {
+      "dataset_id": "zuhura-ctx-ode-p03-002387-1987-xi-18n282w",
+      "dataset_family": "ctx",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "CTX",
+      "product_id": "P03_002387_1987_XI_18N282W",
+      "observation_id": "MRO_CTX_TEAM",
+      "product_type": "raster_imagery",
+      "product_level": "calibrated",
+      "acquisition_time": "2007-01-29T10:49:18.409000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.05,
+          "max_lon": 77.75,
+          "min_lat": 17.6932,
+          "max_lat": 19.3773,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.54 19.3773, 77.75 17.7427, 77.26 17.6932, 77.05 19.3178, 77.54 19.3773))",
+        "geojson": null,
+        "center_lat": 18.5306,
+        "center_lon": 77.4016
+      },
+      "temporal_coverage": {
+        "start_time": "2007-01-29T10:49:18.409000",
+        "stop_time": null,
+        "solar_longitude_deg": 174.79,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 5.55,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=P03_002387_1987_XI_18N282W&product_idGeo=9036444",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "55.64",
+        "emission_angle": "1.85",
+        "phase_angle": "57.49",
+        "external_url": null
+      }
+    },
+    {
+      "dataset_id": "zuhura-ctx-ode-p04-002664-1988-xi-18n282w",
+      "dataset_family": "ctx",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "CTX",
+      "product_id": "P04_002664_1988_XI_18N282W",
+      "observation_id": "MRO_CTX_TEAM",
+      "product_type": "raster_imagery",
+      "product_level": "calibrated",
+      "acquisition_time": "2007-02-20T00:50:53.260000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 76.93,
+          "max_lon": 77.77,
+          "min_lat": 17.7823,
+          "max_lat": 19.6845,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.55 19.6845, 77.77 17.8517, 77.16 17.7823, 76.93 19.625, 77.55 19.6845))",
+        "geojson": null,
+        "center_lat": 18.7388,
+        "center_lon": 77.3522
+      },
+      "temporal_coverage": {
+        "start_time": "2007-02-20T00:50:53.260000",
+        "stop_time": null,
+        "solar_longitude_deg": 186.99,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 5.55,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=P04_002664_1988_XI_18N282W&product_idGeo=9037812",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "60.18",
+        "emission_angle": "26.99",
+        "phase_angle": "33.7",
+        "external_url": null
+      }
+    },
+    {
+      "dataset_id": "zuhura-ctx-ode-p04-002743-1987-xi-18n282w",
+      "dataset_family": "ctx",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "CTX",
+      "product_id": "P04_002743_1987_XI_18N282W",
+      "observation_id": "MRO_CTX_TEAM",
+      "product_type": "raster_imagery",
+      "product_level": "calibrated",
+      "acquisition_time": "2007-02-26T04:35:24.708000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.2,
+          "max_lon": 77.8,
+          "min_lat": 18.0993,
+          "max_lat": 18.872,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.71 18.872, 77.8 18.1587, 77.3 18.0993, 77.2 18.8125, 77.71 18.872))",
+        "geojson": null,
+        "center_lat": 18.4858,
+        "center_lon": 77.5006
+      },
+      "temporal_coverage": {
+        "start_time": "2007-02-26T04:35:24.708000",
+        "stop_time": null,
+        "solar_longitude_deg": 190.55,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 5.55,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=P04_002743_1987_XI_18N282W&product_idGeo=9038150",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "58",
+        "emission_angle": "8.99",
+        "phase_angle": "66.85",
+        "external_url": null
+      }
+    },
+    {
+      "dataset_id": "zuhura-ctx-ode-p05-002809-1975-xi-17n283w",
+      "dataset_family": "ctx",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "CTX",
+      "product_id": "P05_002809_1975_XI_17N283W",
+      "observation_id": "MRO_CTX_TEAM",
+      "product_type": "raster_imagery",
+      "product_level": "calibrated",
+      "acquisition_time": "2007-03-03T08:00:46.011000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 75.89,
+          "max_lon": 77.05,
+          "min_lat": 14.6536,
+          "max_lat": 19.9223,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((76.39 19.9223, 77.05 14.713, 76.57 14.6536, 75.89 19.8628, 76.39 19.9223))",
+        "geojson": null,
+        "center_lat": 17.288,
+        "center_lon": 76.4813
+      },
+      "temporal_coverage": {
+        "start_time": "2007-03-03T08:00:46.011000",
+        "stop_time": null,
+        "solar_longitude_deg": 193.55,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 5.55,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=P05_002809_1975_XI_17N283W&product_idGeo=9038429",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "58.81",
+        "emission_angle": "0.12",
+        "phase_angle": "58.91",
+        "external_url": null
+      }
+    },
+    {
+      "dataset_id": "zuhura-ctx-ode-p06-003376-1987-xn-18n283w",
+      "dataset_family": "ctx",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "CTX",
+      "product_id": "P06_003376_1987_XN_18N283W",
+      "observation_id": "MRO_CTX_TEAM",
+      "product_type": "raster_imagery",
+      "product_level": "calibrated",
+      "acquisition_time": "2007-04-16T12:20:35.257000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 76.44,
+          "max_lon": 77.61,
+          "min_lat": 15.8811,
+          "max_lat": 21.1414,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((76.95 21.1414, 77.61 15.9405, 77.13 15.8811, 76.44 21.0919, 76.95 21.1414))",
+        "geojson": null,
+        "center_lat": 18.5171,
+        "center_lon": 77.0338
+      },
+      "temporal_coverage": {
+        "start_time": "2007-04-16T12:20:35.257000",
+        "stop_time": null,
+        "solar_longitude_deg": 220.22,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 5.55,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=P06_003376_1987_XN_18N283W&product_idGeo=9040475",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "62.41",
+        "emission_angle": "0.09",
+        "phase_angle": "62.45",
+        "external_url": null
+      }
+    },
+    {
+      "dataset_id": "zuhura-ctx-ode-p06-003442-1987-xi-18n282w",
+      "dataset_family": "ctx",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "CTX",
+      "product_id": "P06_003442_1987_XI_18N282W",
+      "observation_id": "MRO_CTX_TEAM",
+      "product_type": "raster_imagery",
+      "product_level": "calibrated",
+      "acquisition_time": "2007-04-21T15:46:10.821000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 76.86,
+          "max_lon": 77.67,
+          "min_lat": 17.7922,
+          "max_lat": 19.6845,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.46 19.6845, 77.67 17.8517, 77.08 17.7922, 76.86 19.625, 77.46 19.6845))",
+        "geojson": null,
+        "center_lat": 18.7388,
+        "center_lon": 77.2671
+      },
+      "temporal_coverage": {
+        "start_time": "2007-04-21T15:46:10.821000",
+        "stop_time": null,
+        "solar_longitude_deg": 223.42,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 5.55,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=P06_003442_1987_XI_18N282W&product_idGeo=9040795",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "64.43",
+        "emission_angle": "24.9",
+        "phase_angle": "42.48",
+        "external_url": null
+      }
+    },
+    {
+      "dataset_id": "zuhura-ctx-ode-p06-003521-1971-xi-17n282w",
+      "dataset_family": "ctx",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "CTX",
+      "product_id": "P06_003521_1971_XI_17N282W",
+      "observation_id": "MRO_CTX_TEAM",
+      "product_type": "raster_imagery",
+      "product_level": "calibrated",
+      "acquisition_time": "2007-04-27T19:30:16.545000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.37,
+          "max_lon": 78.57,
+          "min_lat": 14.2973,
+          "max_lat": 19.5656,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.87 19.5656, 78.57 14.3567, 78.08 14.2973, 77.37 19.5061, 77.87 19.5656))",
+        "geojson": null,
+        "center_lat": 16.9323,
+        "center_lon": 77.9782
+      },
+      "temporal_coverage": {
+        "start_time": "2007-04-27T19:30:16.545000",
+        "stop_time": null,
+        "solar_longitude_deg": 227.26,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 5.55,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=P06_003521_1971_XI_17N282W&product_idGeo=9041280",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "61.54",
+        "emission_angle": "7.14",
+        "phase_angle": "68.07",
+        "external_url": null
+      }
+    },
+    {
+      "dataset_id": "zuhura-ctx-ode-p13-006000-1974-xi-17n283w",
+      "dataset_family": "ctx",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "CTX",
+      "product_id": "P13_006000_1974_XI_17N283W",
+      "observation_id": "MRO_CTX_TEAM",
+      "product_type": "raster_imagery",
+      "product_level": "calibrated",
+      "acquisition_time": "2007-11-06T23:33:37.231000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 75.88,
+          "max_lon": 77.17,
+          "min_lat": 14.5051,
+          "max_lat": 19.7836,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((76.48 19.7836, 77.17 14.5744, 76.59 14.5051, 75.88 19.7142, 76.48 19.7836))",
+        "geojson": null,
+        "center_lat": 17.1453,
+        "center_lon": 76.5339
+      },
+      "temporal_coverage": {
+        "start_time": "2007-11-06T23:33:37.231000",
+        "stop_time": null,
+        "solar_longitude_deg": 343.25,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 5.55,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=P13_006000_1974_XI_17N283W&product_idGeo=9064173",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "39.04",
+        "emission_angle": "24.94",
+        "phase_angle": "61.95",
+        "external_url": null
+      }
+    },
+    {
+      "dataset_id": "zuhura-hirise-ode-esp-011630-1985-color",
+      "dataset_family": "hirise",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "HiRISE",
+      "product_id": "ESP_011630_1985_COLOR",
+      "observation_id": "UA",
+      "product_type": "raster_imagery",
+      "product_level": "map_projected",
+      "acquisition_time": "2009-01-18T17:24:13.521000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 78.0995,
+          "max_lon": 78.1573,
+          "min_lat": 18.3187,
+          "max_lat": 18.6036,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((78.1573 18.3211, 78.1371 18.3187, 78.0995 18.6012, 78.1198 18.6036, 78.1573 18.3211))",
+        "geojson": null,
+        "center_lat": 18.4612,
+        "center_lon": 78.1284
+      },
+      "temporal_coverage": {
+        "start_time": "2009-01-18T17:24:13.521000",
+        "stop_time": null,
+        "solar_longitude_deg": 193.783889,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 0.25,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=ESP_011630_1985_COLOR&product_idGeo=13464947",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "60.545514",
+        "emission_angle": "3.51535",
+        "phase_angle": "64.035912",
+        "external_url": "http://www.uahirise.org/ESP_011630_1985"
+      }
+    },
+    {
+      "dataset_id": "zuhura-hirise-ode-esp-011630-1985-red",
+      "dataset_family": "hirise",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "HiRISE",
+      "product_id": "ESP_011630_1985_RED",
+      "observation_id": "UA",
+      "product_type": "raster_imagery",
+      "product_level": "map_projected",
+      "acquisition_time": "2009-01-18T17:24:13.511000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 78.0597,
+          "max_lon": 78.1971,
+          "min_lat": 18.3139,
+          "max_lat": 18.6081,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((78.1971 18.3257, 78.0972 18.3139, 78.0597 18.5963, 78.1596 18.6081, 78.1971 18.3257))",
+        "geojson": null,
+        "center_lat": 18.461,
+        "center_lon": 78.1285
+      },
+      "temporal_coverage": {
+        "start_time": "2009-01-18T17:24:13.511000",
+        "stop_time": null,
+        "solar_longitude_deg": 193.783889,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 0.25,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=ESP_011630_1985_RED&product_idGeo=13464948",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "60.545664",
+        "emission_angle": "3.516606",
+        "phase_angle": "64.03777",
+        "external_url": "http://www.uahirise.org/ESP_011630_1985"
+      }
+    },
+    {
+      "dataset_id": "zuhura-hirise-ode-esp-016219-1980-color",
+      "dataset_family": "hirise",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "HiRISE",
+      "product_id": "ESP_016219_1980_COLOR",
+      "observation_id": "UA",
+      "product_type": "raster_imagery",
+      "product_level": "map_projected",
+      "acquisition_time": "2010-01-11T07:10:02.540000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.2436,
+          "max_lon": 77.3354,
+          "min_lat": 17.6187,
+          "max_lat": 18.1536,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.3354 17.6214, 77.3088 17.6187, 77.2436 18.1509, 77.2698 18.1536, 77.3354 17.6214))",
+        "geojson": null,
+        "center_lat": 17.8862,
+        "center_lon": 77.2896
+      },
+      "temporal_coverage": {
+        "start_time": "2010-01-11T07:10:02.540000",
+        "stop_time": null,
+        "solar_longitude_deg": 36.299537,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 0.25,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=ESP_016219_1980_COLOR&product_idGeo=13520157",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "42.293737",
+        "emission_angle": "30.228442",
+        "phase_angle": "12.928684",
+        "external_url": "http://www.uahirise.org/ESP_016219_1980"
+      }
+    },
+    {
+      "dataset_id": "zuhura-hirise-ode-esp-016219-1980-red",
+      "dataset_family": "hirise",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "HiRISE",
+      "product_id": "ESP_016219_1980_RED",
+      "observation_id": "UA",
+      "product_type": "raster_imagery",
+      "product_level": "map_projected",
+      "acquisition_time": "2010-01-11T07:10:02.521000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.1925,
+          "max_lon": 77.3885,
+          "min_lat": 17.6124,
+          "max_lat": 18.158,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.3885 17.6259, 77.2571 17.6124, 77.1925 18.1448, 77.3222 18.158, 77.3885 17.6259))",
+        "geojson": null,
+        "center_lat": 17.8854,
+        "center_lon": 77.2906
+      },
+      "temporal_coverage": {
+        "start_time": "2010-01-11T07:10:02.521000",
+        "stop_time": null,
+        "solar_longitude_deg": 36.299537,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 0.25,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=ESP_016219_1980_RED&product_idGeo=13520168",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "42.294549",
+        "emission_angle": "30.236685",
+        "phase_angle": "12.921094",
+        "external_url": "http://www.uahirise.org/ESP_016219_1980"
+      }
+    },
+    {
+      "dataset_id": "zuhura-hirise-ode-esp-016364-1980-color",
+      "dataset_family": "hirise",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "HiRISE",
+      "product_id": "ESP_016364_1980_COLOR",
+      "observation_id": "UA",
+      "product_type": "raster_imagery",
+      "product_level": "map_projected",
+      "acquisition_time": "2010-01-22T14:19:41.519000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.2469,
+          "max_lon": 77.3289,
+          "min_lat": 17.6514,
+          "max_lat": 18.1364,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.3289 17.6537, 77.3074 17.6514, 77.2469 18.134, 77.2683 18.1364, 77.3289 17.6537))",
+        "geojson": null,
+        "center_lat": 17.8939,
+        "center_lon": 77.288
+      },
+      "temporal_coverage": {
+        "start_time": "2010-01-22T14:19:41.519000",
+        "stop_time": null,
+        "solar_longitude_deg": 41.388514,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 0.25,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=ESP_016364_1980_COLOR&product_idGeo=13840800",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "41.567199",
+        "emission_angle": "15.310992",
+        "phase_angle": "26.62461",
+        "external_url": "http://www.uahirise.org/ESP_016364_1980"
+      }
+    },
+    {
+      "dataset_id": "zuhura-hirise-ode-esp-016364-1980-red",
+      "dataset_family": "hirise",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "HiRISE",
+      "product_id": "ESP_016364_1980_RED",
+      "observation_id": "UA",
+      "product_type": "raster_imagery",
+      "product_level": "map_projected",
+      "acquisition_time": "2010-01-22T14:19:41.502000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.2051,
+          "max_lon": 77.3714,
+          "min_lat": 17.6459,
+          "max_lat": 18.1402,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.3714 17.6576, 77.2655 17.6459, 77.2051 18.1286, 77.3106 18.1402, 77.3714 17.6576))",
+        "geojson": null,
+        "center_lat": 17.8931,
+        "center_lon": 77.2884
+      },
+      "temporal_coverage": {
+        "start_time": "2010-01-22T14:19:41.502000",
+        "stop_time": null,
+        "solar_longitude_deg": 41.388514,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 0.25,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=ESP_016364_1980_RED&product_idGeo=13840803",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "41.567434",
+        "emission_angle": "15.313996",
+        "phase_angle": "26.621394",
+        "external_url": "http://www.uahirise.org/ESP_016364_1980"
+      }
+    },
+    {
+      "dataset_id": "zuhura-hirise-ode-esp-016443-1980-color",
+      "dataset_family": "hirise",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "HiRISE",
+      "product_id": "ESP_016443_1980_COLOR",
+      "observation_id": "UA",
+      "product_type": "raster_imagery",
+      "product_level": "map_projected",
+      "acquisition_time": "2010-01-28T18:03:51.118000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.0721,
+          "max_lon": 77.1657,
+          "min_lat": 17.5561,
+          "max_lat": 18.0731,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.1657 17.5591, 77.1415 17.5561, 77.0721 18.07, 77.0963 18.0731, 77.1657 17.5591))",
+        "geojson": null,
+        "center_lat": 17.8146,
+        "center_lon": 77.1189
+      },
+      "temporal_coverage": {
+        "start_time": "2010-01-28T18:03:51.118000",
+        "stop_time": null,
+        "solar_longitude_deg": 44.14171,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 0.25,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=ESP_016443_1980_COLOR&product_idGeo=13841711",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "38.687651",
+        "emission_angle": "25.48447",
+        "phase_angle": "63.681238",
+        "external_url": "http://www.uahirise.org/ESP_016443_1980"
+      }
+    },
+    {
+      "dataset_id": "zuhura-hirise-ode-esp-016443-1980-red",
+      "dataset_family": "hirise",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "HiRISE",
+      "product_id": "ESP_016443_1980_RED",
+      "observation_id": "UA",
+      "product_type": "raster_imagery",
+      "product_level": "map_projected",
+      "acquisition_time": "2010-01-28T18:03:51.100000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.0244,
+          "max_lon": 77.2132,
+          "min_lat": 17.549,
+          "max_lat": 18.0782,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.2132 17.5643, 77.0937 17.549, 77.0244 18.063, 77.1437 18.0782, 77.2132 17.5643))",
+        "geojson": null,
+        "center_lat": 17.8136,
+        "center_lon": 77.1187
+      },
+      "temporal_coverage": {
+        "start_time": "2010-01-28T18:03:51.100000",
+        "stop_time": null,
+        "solar_longitude_deg": 44.14171,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 0.25,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=ESP_016443_1980_RED&product_idGeo=13841716",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "38.687417",
+        "emission_angle": "25.487005",
+        "phase_angle": "63.68316",
+        "external_url": "http://www.uahirise.org/ESP_016443_1980"
+      }
+    },
+    {
+      "dataset_id": "zuhura-hirise-ode-esp-016509-1980-color",
+      "dataset_family": "hirise",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "HiRISE",
+      "product_id": "ESP_016509_1980_COLOR",
+      "observation_id": "UA",
+      "product_type": "raster_imagery",
+      "product_level": "map_projected",
+      "acquisition_time": "2010-02-02T21:29:10.696000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.1754,
+          "max_lon": 77.2438,
+          "min_lat": 17.6347,
+          "max_lat": 18.0127,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.2438 17.6371, 77.2238 17.6347, 77.1754 18.0104, 77.1954 18.0127, 77.2438 17.6371))",
+        "geojson": null,
+        "center_lat": 17.8237,
+        "center_lon": 77.2096
+      },
+      "temporal_coverage": {
+        "start_time": "2010-02-02T21:29:10.696000",
+        "stop_time": null,
+        "solar_longitude_deg": 46.432443,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 0.25,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=ESP_016509_1980_COLOR&product_idGeo=13842788",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "40.777891",
+        "emission_angle": "3.143121",
+        "phase_angle": "43.763387",
+        "external_url": "http://www.uahirise.org/ESP_016509_1980"
+      }
+    },
+    {
+      "dataset_id": "zuhura-hirise-ode-esp-016509-1980-red",
+      "dataset_family": "hirise",
+      "mission": "Mars Reconnaissance Orbiter",
+      "instrument": "HiRISE",
+      "product_id": "ESP_016509_1980_RED",
+      "observation_id": "UA",
+      "product_type": "raster_imagery",
+      "product_level": "map_projected",
+      "acquisition_time": "2010-02-02T21:29:10.679000",
+      "spatial_coverage": {
+        "bbox": {
+          "min_lon": 77.1359,
+          "max_lon": 77.2834,
+          "min_lat": 17.6292,
+          "max_lat": 18.0166,
+          "longitude_convention": "east_positive",
+          "latitude_convention": "planetocentric"
+        },
+        "geometry_wkt": "POLYGON ((77.2834 17.6409, 77.1844 17.6292, 77.1359 18.0049, 77.235 18.0166, 77.2834 17.6409))",
+        "geojson": null,
+        "center_lat": 17.8229,
+        "center_lon": 77.2097
+      },
+      "temporal_coverage": {
+        "start_time": "2010-02-02T21:29:10.679000",
+        "stop_time": null,
+        "solar_longitude_deg": 46.432443,
+        "martian_year": null,
+        "orbit_number": null
+      },
+      "native_crs": "Mars 2000 IAU Geodetic Framework",
+      "dimensions": null,
+      "resolution": 0.25,
+      "data_type": "Byte",
+      "units": null,
+      "calibration": null,
+      "spectral_information": null,
+      "nodata_policy": null,
+      "source_archive": "NASA PDS Orbital Data Explorer",
+      "source_uri": "https://ode.rsl.wustl.edu/mars/indexproductpage.aspx?product_id=ESP_016509_1980_RED&product_idGeo=13842791",
+      "storage_path": null,
+      "checksum": null,
+      "processing_history": {
+        "current_status": "discovered",
+        "status_log": [],
+        "steps": []
+      },
+      "validation_status": "discovered",
+      "scientific_limitations": null,
+      "family_attributes": {
+        "incidence_angle": "40.777817",
+        "emission_angle": "3.144099",
+        "phase_angle": "43.763632",
+        "external_url": "http://www.uahirise.org/ESP_016509_1980"
+      }
+    }
+  ]
+}

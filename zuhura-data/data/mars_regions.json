@@ -1,0 +1,800 @@
+[
+  {
+    "id": "reg-tharsis",
+    "name": "Tharsis Region",
+    "type": "Volcanic Plateau (Continental Rise)",
+    "center": [
+      -112.5,
+      5.0
+    ],
+    "bounds": [
+      [
+        -135,
+        -20
+      ],
+      [
+        -90,
+        -20
+      ],
+      [
+        -90,
+        30
+      ],
+      [
+        -135,
+        30
+      ],
+      [
+        -135,
+        -20
+      ]
+    ],
+    "area_sqkm": 8500000,
+    "elev_range_m": [
+      3000,
+      21287
+    ],
+    "color": "#ff5722",
+    "description": "Vast volcanic plateau elevated up to 10 km above surrounding lowlands, hosting the colossal Tharsis Montes and Olympus Mons.",
+    "geology": "Extensive Hesperian-to-Amazonian basaltic lava flows underlain by a massive mantle plume swell.",
+    "key_features": [
+      "Olympus Mons",
+      "Ascraeus Mons",
+      "Pavonis Mons",
+      "Arsia Mons",
+      "Noctis Labyrinthus"
+    ]
+  },
+  {
+    "id": "reg-arabia-terra",
+    "name": "Arabia Terra",
+    "type": "Ancient Highland Terra",
+    "center": [
+      22.5,
+      15.0
+    ],
+    "bounds": [
+      [
+        0,
+        0
+      ],
+      [
+        45,
+        0
+      ],
+      [
+        45,
+        30
+      ],
+      [
+        0,
+        30
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "area_sqkm": 5200000,
+    "elev_range_m": [
+      -3000,
+      2000
+    ],
+    "color": "#ffb300",
+    "description": "Heavily cratered, ancient Noachian highland terrain exhibiting cyclic layered deposits and remnants of supervolcano calderas.",
+    "geology": "Noachian crust with explosive volcanism and ancient friable layered sulfate deposits.",
+    "key_features": [
+      "Cassini Crater",
+      "Eden Patera",
+      "Oxia Planum",
+      "Pasteur Crater"
+    ]
+  },
+  {
+    "id": "reg-terra-cimmeria",
+    "name": "Terra Cimmeria",
+    "type": "Cratered Highland Continent",
+    "center": [
+      140.0,
+      -35.0
+    ],
+    "bounds": [
+      [
+        110,
+        -65
+      ],
+      [
+        170,
+        -65
+      ],
+      [
+        170,
+        -10
+      ],
+      [
+        110,
+        -10
+      ],
+      [
+        110,
+        -65
+      ]
+    ],
+    "area_sqkm": 6800000,
+    "elev_range_m": [
+      1000,
+      4500
+    ],
+    "color": "#8d6e63",
+    "description": "Densely cratered southern highlands preserving the strongest magnetic crustal stripes, indicating an ancient Martian core dynamo.",
+    "geology": "Ancient Noachian basement with remanent crustal magnetization and valley network incisions.",
+    "key_features": [
+      "Gusev Crater (adjacent)",
+      "Ma'adim Vallis",
+      "Ariane Lacus"
+    ]
+  },
+  {
+    "id": "reg-terra-sirenum",
+    "name": "Terra Sirenum",
+    "type": "Highland Terra",
+    "center": [
+      -150.0,
+      -35.0
+    ],
+    "bounds": [
+      [
+        -180,
+        -65
+      ],
+      [
+        -120,
+        -65
+      ],
+      [
+        -120,
+        -10
+      ],
+      [
+        -180,
+        -10
+      ],
+      [
+        -180,
+        -65
+      ]
+    ],
+    "area_sqkm": 6200000,
+    "elev_range_m": [
+      500,
+      3500
+    ],
+    "color": "#a1887f",
+    "description": "Rugged southern upland characterized by recurring slope lineae (RSL), chloride mineral salt flats, and inverted river channels.",
+    "geology": "Noachian-to-Hesperian impact breccia and chloride salt playa deposits.",
+    "key_features": [
+      "Newton Crater",
+      "Sirenum Fossae",
+      "Gorgonum Chaos"
+    ]
+  },
+  {
+    "id": "reg-xanthe-terra",
+    "name": "Xanthe Terra",
+    "type": "Equatorial Highland Terra",
+    "center": [
+      -50.0,
+      10.0
+    ],
+    "bounds": [
+      [
+        -60,
+        0
+      ],
+      [
+        -40,
+        0
+      ],
+      [
+        -40,
+        20
+      ],
+      [
+        -60,
+        20
+      ],
+      [
+        -60,
+        0
+      ]
+    ],
+    "area_sqkm": 2100000,
+    "elev_range_m": [
+      -1500,
+      1500
+    ],
+    "color": "#d4e157",
+    "description": "Highland border zone carved by dramatic sinuous valleys and outflow channels draining toward Chryse Planitia.",
+    "geology": "Sapping valley systems, incised river gorges, and fractured bedrock.",
+    "key_features": [
+      "Nanedi Valles",
+      "Shalbatana Vallis",
+      "Maja Valles"
+    ]
+  },
+  {
+    "id": "reg-noachis-terra",
+    "name": "Noachis Terra",
+    "type": "Highland Terra",
+    "center": [
+      30.0,
+      -45.0
+    ],
+    "bounds": [
+      [
+        0,
+        -65
+      ],
+      [
+        60,
+        -65
+      ],
+      [
+        60,
+        -25
+      ],
+      [
+        0,
+        -25
+      ],
+      [
+        0,
+        -65
+      ]
+    ],
+    "area_sqkm": 5900000,
+    "elev_range_m": [
+      1000,
+      3500
+    ],
+    "color": "#795548",
+    "description": "The type locality for the Noachian geological epoch (~4.1-3.7 Ga); ancient heavily cratered terrain situated between Argyre and Hellas basins.",
+    "geology": "Primitive planetary crust heavily degraded by the Late Heavy Bombardment.",
+    "key_features": [
+      "Maunder Crater",
+      "Russell Crater",
+      "Proctor Dunes"
+    ]
+  },
+  {
+    "id": "reg-elysium",
+    "name": "Elysium Region",
+    "type": "Volcanic Province",
+    "center": [
+      155.0,
+      15.0
+    ],
+    "bounds": [
+      [
+        135,
+        0
+      ],
+      [
+        175,
+        0
+      ],
+      [
+        175,
+        35
+      ],
+      [
+        135,
+        35
+      ],
+      [
+        135,
+        0
+      ]
+    ],
+    "area_sqkm": 4300000,
+    "elev_range_m": [
+      -2500,
+      13900
+    ],
+    "color": "#ef5350",
+    "description": "The second largest volcanic center on Mars, characterized by Elysium Mons, Hecates Tholus, Albor Tholus, and young Cerberus Fossae fissures.",
+    "geology": "Late Hesperian to Amazonian shield volcanism and catastrophic flood lavas.",
+    "key_features": [
+      "Elysium Mons",
+      "Hecates Tholus",
+      "Albor Tholus",
+      "Cerberus Fossae"
+    ]
+  },
+  {
+    "id": "reg-amazonis-planitia",
+    "name": "Amazonis Planitia",
+    "type": "Lowland Plain",
+    "center": [
+      -160.0,
+      15.0
+    ],
+    "bounds": [
+      [
+        -180,
+        0
+      ],
+      [
+        -140,
+        0
+      ],
+      [
+        -140,
+        30
+      ],
+      [
+        -180,
+        30
+      ],
+      [
+        -180,
+        0
+      ]
+    ],
+    "area_sqkm": 4900000,
+    "elev_range_m": [
+      -4000,
+      -2000
+    ],
+    "color": "#ffca28",
+    "description": "One of the smoothest and least cratered plains on Mars, defining the youngest Martian epoch (the Amazonian).",
+    "geology": "Extremely young, pristine basaltic flood lavas thinly blanketed by bright atmospheric dust.",
+    "key_features": [
+      "Medusae Fossae Formation",
+      "Gordii Dorsum",
+      "Lycus Sulci"
+    ]
+  },
+  {
+    "id": "reg-arcadia-planitia",
+    "name": "Arcadia Planitia",
+    "type": "Smooth Lowland Plain",
+    "center": [
+      -100.0,
+      45.0
+    ],
+    "bounds": [
+      [
+        -120,
+        30
+      ],
+      [
+        -80,
+        30
+      ],
+      [
+        -80,
+        60
+      ],
+      [
+        -120,
+        60
+      ],
+      [
+        -120,
+        30
+      ]
+    ],
+    "area_sqkm": 4500000,
+    "elev_range_m": [
+      -4500,
+      -2000
+    ],
+    "color": "#26a69a",
+    "description": "Northern smooth plain holding vast, shallow subsurface water ice sheets accessible within 1-2 meters of the surface.",
+    "geology": "Glacio-lacustrine and volcanic plains with periglacial polygon patterned ground.",
+    "key_features": [
+      "Castorio Crater",
+      "Erebus Montes",
+      "Subsurface Ice Sheets"
+    ]
+  },
+  {
+    "id": "reg-utopia-planitia",
+    "name": "Utopia Planitia",
+    "type": "Giant Lowland Impact Basin",
+    "center": [
+      115.0,
+      45.0
+    ],
+    "bounds": [
+      [
+        90,
+        30
+      ],
+      [
+        140,
+        30
+      ],
+      [
+        140,
+        60
+      ],
+      [
+        90,
+        60
+      ],
+      [
+        90,
+        30
+      ]
+    ],
+    "area_sqkm": 6800000,
+    "elev_range_m": [
+      -5500,
+      -3500
+    ],
+    "color": "#42a5f5",
+    "description": "Massive circular northern basin holding an estimated volume of water ice equivalent to Lake Superior. Landing site of Viking 2 and Zhurong.",
+    "geology": "Sedimentary infill over buried impact basin with scallops and polygon ice wedges.",
+    "key_features": [
+      "Zhurong Landing Site",
+      "Viking 2 Site",
+      "Utopia Ice Deposit"
+    ]
+  },
+  {
+    "id": "reg-isidis-planitia",
+    "name": "Isidis Planitia",
+    "type": "Impact Basin",
+    "center": [
+      88.0,
+      13.0
+    ],
+    "bounds": [
+      [
+        75,
+        0
+      ],
+      [
+        100,
+        0
+      ],
+      [
+        100,
+        25
+      ],
+      [
+        75,
+        25
+      ],
+      [
+        75,
+        0
+      ]
+    ],
+    "area_sqkm": 1900000,
+    "elev_range_m": [
+      -4000,
+      -2500
+    ],
+    "color": "#29b6f6",
+    "description": "Ancient Noachian impact basin at the transition between southern highlands and northern lowlands. Jezero Crater sits on its western rim.",
+    "geology": "Modified impact basin filled with Hesperian sedimentary and volcanic material.",
+    "key_features": [
+      "Jezero Crater (western rim)",
+      "Beagle 2 Landing Site",
+      "Isidis Basin Ring"
+    ]
+  },
+  {
+    "id": "reg-hellas-planitia",
+    "name": "Hellas Planitia",
+    "type": "Deep Impact Basin",
+    "center": [
+      70.0,
+      -42.0
+    ],
+    "bounds": [
+      [
+        50,
+        -60
+      ],
+      [
+        95,
+        -60
+      ],
+      [
+        95,
+        -25
+      ],
+      [
+        50,
+        -25
+      ],
+      [
+        50,
+        -60
+      ]
+    ],
+    "area_sqkm": 5100000,
+    "elev_range_m": [
+      -7152,
+      -2000
+    ],
+    "color": "#7e57c2",
+    "description": "The deepest planetary impact basin on Mars and in the solar system, plunging to -7,152 meters. Surface pressure is ~1,155 Pa, permitting pure water to theoretically exist as liquid briefly.",
+    "geology": "Noachian basin floor modified by glaciers, fluvial inflows (Dao, Harmakhis, Niger), and eolian dunes.",
+    "key_features": [
+      "Dao Vallis",
+      "Harmakhis Vallis",
+      "Hellas Floor Dunes",
+      "Alpheus Colles"
+    ]
+  },
+  {
+    "id": "reg-chryse-planitia",
+    "name": "Chryse Planitia",
+    "type": "Outflow Basin Lowland",
+    "center": [
+      -40.0,
+      27.0
+    ],
+    "bounds": [
+      [
+        -55,
+        15
+      ],
+      [
+        -25,
+        15
+      ],
+      [
+        -25,
+        40
+      ],
+      [
+        -55,
+        40
+      ],
+      [
+        -55,
+        15
+      ]
+    ],
+    "area_sqkm": 2800000,
+    "elev_range_m": [
+      -4200,
+      -2500
+    ],
+    "color": "#ab47bc",
+    "description": "The 'Plain of Gold' — circular lowland plain where multiple colossal flood channels (Ares, Tiu, Simud, Kasei) discharged catastrophic floodwaters.",
+    "geology": "Fluvial flood sedimentary deposits and volcanic wrinkle ridges. Viking 1 and Pathfinder landed here.",
+    "key_features": [
+      "Viking 1 Lander",
+      "Pathfinder / Sojourner (Ares Vallis mouth)",
+      "Teardrop Islands"
+    ]
+  },
+  {
+    "id": "reg-margaritifer-terra",
+    "name": "Margaritifer Terra",
+    "type": "Highland Terra & Chaotic Terrain",
+    "center": [
+      -25.0,
+      -10.0
+    ],
+    "bounds": [
+      [
+        -40,
+        -25
+      ],
+      [
+        -10,
+        -25
+      ],
+      [
+        -10,
+        5
+      ],
+      [
+        -40,
+        5
+      ],
+      [
+        -40,
+        -25
+      ]
+    ],
+    "area_sqkm": 3400000,
+    "elev_range_m": [
+      -2000,
+      1500
+    ],
+    "color": "#8c9eff",
+    "description": "Heavily fractured region displaying the greatest concentration of chaotic terrain (Aram Chaos, Hydraotes Chaos) and channel origins.",
+    "geology": "Catastrophic collapse of groundwater aquifers generating regional chaos blocks.",
+    "key_features": [
+      "Aram Chaos",
+      "Hydraotes Chaos",
+      "Uzboi Vallis"
+    ]
+  },
+  {
+    "id": "reg-meridiani-planum",
+    "name": "Meridiani Planum",
+    "type": "Equatorial Sedimentary Plain",
+    "center": [
+      0.0,
+      -2.0
+    ],
+    "bounds": [
+      [
+        -10,
+        -8
+      ],
+      [
+        10,
+        -8
+      ],
+      [
+        10,
+        5
+      ],
+      [
+        -10,
+        5
+      ],
+      [
+        -10,
+        -8
+      ]
+    ],
+    "area_sqkm": 1200000,
+    "elev_range_m": [
+      -1800,
+      -500
+    ],
+    "color": "#26c6da",
+    "description": "The Martian prime meridian datum plain, famous for grey crystalline hematite spherules ('blueberries') explored by NASA's Opportunity rover.",
+    "geology": "Layered sulfate-rich sandstones formed in ancient acidic, shallow groundwater lake environments.",
+    "key_features": [
+      "Opportunity Rover Traverse",
+      "Eagle Crater",
+      "Endeavour Crater",
+      "Victoria Crater"
+    ]
+  },
+  {
+    "id": "reg-vastitas-borealis",
+    "name": "Vastitas Borealis",
+    "type": "Circumpolar Lowland Basin",
+    "center": [
+      0.0,
+      75.0
+    ],
+    "bounds": [
+      [
+        -180,
+        65
+      ],
+      [
+        180,
+        65
+      ],
+      [
+        180,
+        85
+      ],
+      [
+        -180,
+        85
+      ],
+      [
+        -180,
+        65
+      ]
+    ],
+    "area_sqkm": 18500000,
+    "elev_range_m": [
+      -5000,
+      -3500
+    ],
+    "color": "#3f51b5",
+    "description": "The vast northern circumpolar waste surrounding Planum Boreum. NASA Phoenix lander touched down here in 2008 and scraped subsurface water ice.",
+    "geology": "Periglacial terrain, polygon grounds, pattern soils, and buried pure water ice slabs.",
+    "key_features": [
+      "Phoenix Lander Site",
+      "Scandia Colles",
+      "Lomonosov Crater"
+    ]
+  },
+  {
+    "id": "reg-terra-sabaea",
+    "name": "Terra Sabaea",
+    "type": "Ancient Highland Terra",
+    "center": [
+      42.0,
+      -10.0
+    ],
+    "bounds": [
+      [
+        25,
+        -25
+      ],
+      [
+        60,
+        -25
+      ],
+      [
+        60,
+        5
+      ],
+      [
+        25,
+        5
+      ],
+      [
+        25,
+        -25
+      ]
+    ],
+    "area_sqkm": 3900000,
+    "elev_range_m": [
+      0,
+      3000
+    ],
+    "color": "#ff7043",
+    "description": "Highland plateau exhibiting lobate debris aprons (glacier-like viscous ice-rock flows) and pristine layered craters.",
+    "geology": "Noachian crust with debris-covered glaciers and clay mineral deposits.",
+    "key_features": [
+      "Schiaparelli Crater",
+      "Huygens Crater",
+      "Sinus Sabaeus"
+    ]
+  },
+  {
+    "id": "reg-tempe-terra",
+    "name": "Tempe Terra",
+    "type": "Tectonic Highland Plateau",
+    "center": [
+      -70.0,
+      38.0
+    ],
+    "bounds": [
+      [
+        -85,
+        25
+      ],
+      [
+        -55,
+        25
+      ],
+      [
+        -55,
+        50
+      ],
+      [
+        -85,
+        50
+      ],
+      [
+        -85,
+        25
+      ]
+    ],
+    "area_sqkm": 2600000,
+    "elev_range_m": [
+      -1500,
+      2500
+    ],
+    "color": "#81c784",
+    "description": "Extensively faulted highland plateau situated northeast of Tharsis Montes, dissected by complex graben systems.",
+    "geology": "Tectonic extension grabens, volcanic fissure vents, and ancient cratered terrain.",
+    "key_features": [
+      "Tempe Fossae",
+      "Mareotis Fossae",
+      "Tempe Terra Caldera"
+    ]
+  }
+]

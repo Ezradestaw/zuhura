@@ -1,0 +1,408 @@
+openapi: 3.1.0
+info:
+  title: Zuhura Mars Digital Twin & Scientific Intelligence API
+  version: 1.0.0
+  description: |
+    Comprehensive planetary GIS, STAC scientific catalog, spatial analysis, 
+    and grounded AI research services for Mars exploration.
+servers:
+  - url: http://localhost:8000
+    description: Local development backend
+  - url: https://api.zuhura.space
+    description: Production gateway
+
+paths:
+  /api/v1/health:
+    get:
+      summary: System Health & Service Connectivity
+      operationId: getHealth
+      tags: [System]
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, timestamp, services]
+                properties:
+                  status: { type: string, example: "ok" }
+                  timestamp: { type: string, format: date-time }
+                  services:
+                    type: object
+                    properties:
+                      database: { type: string, example: "connected" }
+                      redis: { type: string, example: "connected" }
+                      storage: { type: string, example: "connected" }
+
+  /api/v1/catalog/datasets:
+    get:
+      summary: Search and Discover Scientific Datasets
+      operationId: listDatasets
+      tags: [Catalog]
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+            enum: [imagery, topography, geology, mineralogy, atmosphere, geophysics, mission_in_situ]
+        - name: mission
+          in: query
+          schema: { type: string }
+        - name: instrument
+          in: query
+          schema: { type: string }
+        - name: min_resolution_m
+          in: query
+          schema: { type: number }
+        - name: bbox
+          in: query
+          description: "min_lon,min_lat,max_lon,max_lat (Planetocentric East-positive)"
+          schema: { type: string }
+      responses:
+        '200':
+          description: List of matching datasets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total: { type: integer }
+                  datasets:
+                    type: array
+                    items:
+                      $ref: '../schemas/dataset.json'
+
+  /api/v1/catalog/datasets/{dataset_id}:
+    get:
+      summary: Retrieve Dataset by Unique ID
+      operationId: getDatasetById
+      tags: [Catalog]
+      parameters:
+        - name: dataset_id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Complete dataset record with STAC assets
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/dataset.json'
+        '404':
+          description: Dataset not found
+
+  /api/v1/spatial/elevation:
+    get:
+      summary: Query Mars Surface Elevation at Coordinate
+      operationId: getElevationAtPoint
+      tags: [Spatial]
+      parameters:
+        - name: lat
+          in: query
+          required: true
+          schema: { type: number, minimum: -90.0, maximum: 90.0 }
+        - name: lon
+          in: query
+          required: true
+          schema: { type: number, minimum: -180.0, maximum: 360.0 }
+      responses:
+        '200':
+          description: Elevation relative to Mars Areoid
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [latitude, longitude, elevation_m, datum, source_dataset]
+                properties:
+                  latitude: { type: number }
+                  longitude: { type: number }
+                  elevation_m: { type: number, example: -2512.4 }
+                  datum: { type: string, example: "Mars Areoid (MOLA GMM-2B)" }
+                  source_dataset: { type: string, example: "zuhura-mola-megdr-128" }
+
+  /api/v1/spatial/elevation-profile:
+    post:
+      summary: Generate Elevation Cross-Section Profile
+      operationId: getElevationProfile
+      tags: [Spatial]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/spatial_query.json#/definitions/ElevationProfileRequest'
+      responses:
+        '200':
+          description: Sampled points along transect with elevations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_distance_km: { type: number }
+                  samples:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        distance_km: { type: number }
+                        lat: { type: number }
+                        lon: { type: number }
+                        elevation_m: { type: number }
+
+  /api/v1/spatial/features:
+    post:
+      summary: Search Authoritative Craters and Surface Formations
+      operationId: searchFeatures
+      tags: [Spatial]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/spatial_query.json#/definitions/FeatureSearchRequest'
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection of planetary features
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type: { type: string, example: "FeatureCollection" }
+                  features: { type: array, items: { type: object } }
+
+  /api/v1/ai/query:
+    post:
+      summary: Map-Contextualized Grounded AI Scientific Assistant
+      operationId: askZuhura
+      tags: [AI]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/ai_query.json#/definitions/ChatRequest'
+      responses:
+        '200':
+          description: Grounded scientific answer with citations
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [answer, citations, executed_tools]
+                properties:
+                  answer: { type: string }
+                  citations:
+                    type: array
+                    items:
+                      $ref: '../schemas/ai_query.json#/definitions/CitationRecord'
+                  executed_tools:
+                    type: array
+                    items:
+                      $ref: '../schemas/ai_query.json#/definitions/ToolCallNotification'
+
+  /api/v1/missions:
+    get:
+      summary: List Mars Missions, Landing Sites, and Traverses
+      operationId: listMissions
+      tags: [Missions]
+      responses:
+        '200':
+          description: List of planetary missions with landing coordinates and statuses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id: { type: string }
+                    name: { type: string }
+                    agency: { type: string }
+                    type: { type: string, enum: [orbiter, lander, rover] }
+                    landing_site:
+                      type: object
+                      properties:
+                        name: { type: string }
+                        lat: { type: number }
+                        lon: { type: number }
+                        elevation_m: { type: number }
+                    launch_year: { type: integer }
+                    status: { type: string }
+
+  /api/v1/spatial/interior/layers:
+    get:
+      summary: List Planetary Interior Layers & Physical Properties (X-Ray Mars)
+      operationId: listInteriorLayers
+      tags: [Interior]
+      responses:
+        '200':
+          description: Scientific cross-section structural layers from InSight SEIS data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id: { type: string }
+                    name: { type: string }
+                    classification: { type: string }
+                    depth_top_km: { type: number }
+                    depth_bottom_km: { type: number }
+                    thickness_km: { type: number }
+                    density_kg_m3: { type: number }
+                    temperature_k: { type: number }
+                    evidence_type: { type: string }
+
+  /api/v1/spatial/interior/compare:
+    get:
+      summary: Compare InSight Planetary Interior Publications (2021 vs 2023)
+      operationId: compareInteriorPublications
+      tags: [Interior]
+      responses:
+        '200':
+          description: Structured comparison between Stähler 2021 large-core and Samuel/Khan 2023 basal molten layer models
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string }
+                  key_discrepancy: { type: string }
+                  resolution_year: { type: integer }
+                  models: { type: object }
+                  scientific_takeaway: { type: string }
+
+  /metrics:
+    get:
+      summary: Prometheus Application Metrics Endpoint
+      operationId: getPrometheusMetrics
+      tags: [System]
+      responses:
+        '200':
+          description: Standard Prometheus exposition format telemetry
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /api/v1/spatial/navigation/optimize-route:
+    post:
+      summary: Optimize Terrain-Aware Traverse Route on Mars
+      operationId: optimizeRoute
+      tags: [Navigation]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [start, destination]
+              properties:
+                start:
+                  type: object
+                  properties: { latitude: { type: number }, longitude: { type: number } }
+                destination:
+                  type: object
+                  properties: { latitude: { type: number }, longitude: { type: number } }
+                mobility_profile: { type: string, default: "rover_perseverance" }
+                preference: { type: string, default: "minimum_slope" }
+      responses:
+        '200':
+          description: A* optimal traverse with elevation profile and GeoJSON line
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string }
+                  recommended_route: { type: object }
+                  alternative_routes: { type: array }
+
+  /api/v1/spatial/hover/inspect:
+    get:
+      summary: Contextual Mars Geographic Information on Hover
+      operationId: hoverInspect
+      tags: [Spatial]
+      parameters:
+        - name: lat
+          in: query
+          required: true
+          schema: { type: number }
+        - name: lon
+          in: query
+          required: true
+          schema: { type: number }
+      responses:
+        '200':
+          description: High-speed cached IAU feature, elevation, and geological era
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  latitude: { type: number }
+                  longitude: { type: number }
+                  elevation_m: { type: number }
+                  geological_era: { type: string }
+                  nearest_feature: { type: object }
+
+  /api/v1/spatial/pinpoint/analyze-image:
+    post:
+      summary: Estimate Martian Location from Landscape Image
+      operationId: pinpointImage
+      tags: [Vision]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file: { type: string, format: binary }
+                mission_hint: { type: string }
+      responses:
+        '200':
+          description: Ranked candidate locations with similarity scores and uncertainty
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  candidates_found: { type: integer }
+                  top_candidate: { type: object }
+                  candidates: { type: array }
+
+  /api/v1/spatial/regions/discover:
+    post:
+      summary: Discover Candidate Geological Regions from Terrain Clustering
+      operationId: discoverRegions
+      tags: [Segmentation]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [center_latitude, center_longitude]
+              properties:
+                center_latitude: { type: number }
+                center_longitude: { type: number }
+                search_radius_km: { type: number, default: 60.0 }
+      responses:
+        '200':
+          description: Segmented candidate geological units with closed polygon boundaries and GeoJSON
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string }
+                  total_regions_discovered: { type: integer }
+                  regions: { type: array }
+                  geojson: { type: object }

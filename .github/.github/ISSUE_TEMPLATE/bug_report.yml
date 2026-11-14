@@ -1,0 +1,54 @@
+name: Bug Report
+description: Create a report to help us fix a software bug or visual rendering issue
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue with the Zuhura Mars Digital Twin platform!
+  - type: dropdown
+    id: repository
+    attributes:
+      label: Affected Component / Repository
+      description: Which part of the platform is experiencing the issue?
+      options:
+        - zuhura (Platform integration & orchestration)
+        - zuhura-frontend (CesiumJS 3D globe & UI)
+        - zuhura-backend (FastAPI services, spatial analysis, AI)
+        - zuhura-api (OpenAPI specs & schemas)
+        - zuhura-data (PDS ingestion, STAC, raster/vector processing)
+        - zuhura-docs (Technical & scientific documentation)
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear description of the bug.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Detailed steps to reproduce the behavior (e.g. coordinates, camera angle, zoom level).
+      placeholder: |
+        1. Open Zuhura Mars globe
+        2. Navigate to coordinates 18.4°N, 77.4°E (Jezero Crater)
+        3. Activate MOLA Shaded Relief layer
+        4. See visual glitch / error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen according to scientific or visual specifications.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, OS, GPU (e.g. Chrome 128, Ubuntu 24.04, NVIDIA RTX 4070)

@@ -1,0 +1,29 @@
+site_name: Zuhura Mars Documentation
+site_description: Documentation for Zuhura Mars, a web application for exploring Mars with published planetary data.
+theme:
+  name: material
+  palette:
+    scheme: default
+    primary: custom
+    accent: custom
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - content.code.copy
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Overview: index.md
+  - Getting started: developer/quickstart.md
+  - Architecture:
+      - System overview: architecture/system-overview.md
+      - Terrain analysis: terrain-intelligence/architecture.md
+  - Reference:
+      - Mars coordinate systems: geodesy/mars-coordinate-systems.md
+      - Terrain analysis API: terrain-intelligence/api.md
+      - Data catalogue: data/data-catalog-guide.md
+      - Data sources: data/data-sources.md
+  - Features:
+      - Feature guide: features/advanced-features.md
+      - Assistant methodology: ai/ai-methodology.md

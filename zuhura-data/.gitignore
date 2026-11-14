@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.venv/
+.pytest_cache/
+
+# Raw and interim planetary data (large rasters/tiling cache)
+data/raw/
+data/interim/
+data/processed/
+data/tiles/
+*.tif
+*.tiff
+*.img
+*.IMG
+*.jp2
+*.lbl
+*.LBL
+*.terrain
+
+# Generated validation and processing reports (recreated by scripts/)
+reports/

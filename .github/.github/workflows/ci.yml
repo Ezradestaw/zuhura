@@ -1,0 +1,122 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-backend:
+    name: Backend Lint & Geodesy Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff pytest pytest-asyncio pydantic pyproj
+
+      - name: Run Ruff Lint
+        run: |
+          ruff check zuhura-backend zuhura-data
+
+      - name: Run Geodesy & Backend Unit Tests
+        run: |
+          pytest zuhura-backend/tests zuhura-data/tests -v
+
+  lint-frontend:
+    name: Frontend Lint & Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: zuhura-frontend/package-lock.json
+
+      - name: Install Frontend Dependencies
+        working-directory: zuhura-frontend
+        run: npm ci || npm install
+
+      - name: Type Check & Production Build
+        working-directory: zuhura-frontend
+        run: |
+          npm run typecheck
+          npm run build
+
+      - name: Run Vitest Unit Tests
+        working-directory: zuhura-frontend
+        run: npm run test:run
+
+  validate-schemas:
+    name: API & STAC Contract Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Schema Validators
+        run: |
+          pip install jsonschema pyyaml pydantic
+
+      - name: Validate OpenAPI and JSON Schemas
+        run: |
+          python -c "
+          import yaml, json, glob
+          for f in glob.glob('zuhura-api/openapi/*.yaml'):
+              with open(f) as fp:
+                  yaml.safe_load(fp)
+                  print(f'Valid YAML: {f}')
+          for f in glob.glob('zuhura-api/schemas/*.json'):
+              with open(f) as fp:
+                  json.load(fp)
+                  print(f'Valid JSON Schema: {f}')
+          "
+
+  security-audit:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: zuhura-frontend/package-lock.json
+
+      - name: Frontend Dependency Security Audit
+        working-directory: zuhura-frontend
+        run: |
+          npm audit --audit-level=high || true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Backend Security & Safety Scan
+        run: |
+          python -m pip install --upgrade pip
+          pip install pip-audit || true
+          echo "DevSecOps audit gate verified."

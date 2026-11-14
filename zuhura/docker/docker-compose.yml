@@ -1,0 +1,100 @@
+# Development defaults below are intentional and unsafe for production.
+# Copy .env.example to .env and replace POSTGRES_PASSWORD, REDIS_PASSWORD,
+# DATABASE_URL, and CORS_ORIGINS before setting ENVIRONMENT=production.
+# Host paths are relative to this compose file (zuhura/docker).
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: zuhura-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-zuhura}
+      POSTGRES_USER: ${POSTGRES_USER:-zuhura_user}
+      # Development-only default. Override POSTGRES_PASSWORD outside this file.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-zuhura_secure_password}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-zuhura_user} -d ${POSTGRES_DB:-zuhura}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: zuhura-redis
+    restart: unless-stopped
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+    command:
+      - sh
+      - -c
+      - |
+        if [ -n "$$REDIS_PASSWORD" ]; then
+          echo "Redis authentication enabled."
+          exec redis-server --requirepass "$$REDIS_PASSWORD"
+        fi
+        echo "WARNING: REDIS_PASSWORD is unset. Set it before any production deployment." >&2
+        exec redis-server
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "if [ -n \"$$REDIS_PASSWORD\" ]; then redis-cli -a \"$$REDIS_PASSWORD\" --no-auth-warning ping; else redis-cli ping; fi"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ../../zuhura-backend
+      dockerfile: Dockerfile
+    container_name: zuhura-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - ../../zuhura-backend/.env
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-zuhura_user}:${POSTGRES_PASSWORD:-zuhura_secure_password}@postgres:5432/${POSTGRES_DB:-zuhura}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      CORS_ORIGINS: ${CORS_ORIGINS:-["http://localhost:3000","http://localhost:5173","http://127.0.0.1:3000","http://127.0.0.1:5173"]}
+      TRUSTED_PROXY_CIDRS: ${TRUSTED_PROXY_CIDRS:-[]}
+      DATA_REPO_ROOT: ${DATA_REPO_ROOT:-/data/zuhura}
+      TILES_CACHE_DIR: ${TILES_CACHE_DIR:-/data/zuhura/data/tiles}
+      MARS_DATA_ROOT: ${MARS_DATA_ROOT:-/data/mars}
+      REPO_ROOT: ${REPO_ROOT:-/data/repo}
+      PORT: ${BACKEND_PORT:-8000}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - ../../zuhura-backend:/app
+      - ${ZUHURA_DATA_HOST_PATH:-../../zuhura-data}:/data/zuhura:ro
+      - ${MARS_DATA_HOST_PATH:-../../data/mars}:/data/mars:ro
+
+  frontend:
+    build:
+      context: ../../zuhura-frontend
+      dockerfile: Dockerfile
+    container_name: zuhura-frontend
+    restart: unless-stopped
+    environment:
+      VITE_BACKEND_URL: ${VITE_BACKEND_URL:-http://backend:8000}
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    volumes:
+      - ../../zuhura-frontend:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:
+  redis_data:

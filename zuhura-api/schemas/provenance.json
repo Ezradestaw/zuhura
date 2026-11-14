@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zuhura.org/schemas/provenance.json",
+  "title": "ScientificProvenanceRecord",
+  "description": "Standardized epistemic classification and dataset provenance tracking for Mars Digital Twin.",
+  "type": "object",
+  "required": [
+    "classification",
+    "original_dataset_id",
+    "data_source",
+    "processing_algorithm",
+    "processing_version",
+    "spatial_resolution",
+    "coordinate_reference_system",
+    "vertical_datum",
+    "measurement_units",
+    "validation_status"
+  ],
+  "properties": {
+    "classification": {
+      "type": "string",
+      "enum": [
+        "OBSERVED",
+        "MEASURED",
+        "DERIVED",
+        "MODEL_ESTIMATED",
+        "SIMULATED",
+        "PROVISIONAL",
+        "UNVERIFIED"
+      ]
+    },
+    "original_dataset_id": { "type": "string" },
+    "data_source": { "type": "string" },
+    "processing_algorithm": { "type": "string" },
+    "processing_version": { "type": "string" },
+    "spatial_resolution": { "type": "string" },
+    "coordinate_reference_system": { "type": "string", "default": "IAU_2015:MARS_WGCCRE" },
+    "vertical_datum": { "type": "string", "default": "MARS_AREOID_MOLA_MEG128" },
+    "measurement_units": { "type": "string" },
+    "uncertainty": {
+      "type": "object",
+      "properties": {
+        "nominal_value": { "type": "number" },
+        "uncertainty_absolute": { "type": "number" },
+        "uncertainty_percentage": { "type": "number" },
+        "bounds_min": { "type": "number" },
+        "bounds_max": { "type": "number" },
+        "confidence_interval": { "type": "number" },
+        "unit": { "type": "string" },
+        "methodology": { "type": "string" }
+      }
+    },
+    "scientific_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["citation"],
+        "properties": {
+          "citation": { "type": "string" },
+          "doi": { "type": "string" },
+          "journal": { "type": "string" },
+          "year": { "type": "integer" }
+        }
+      }
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": ["VALIDATED", "PROVISIONAL", "RECONCILED", "UNCALIBRATED", "SUPERSEDED_BY_2023_DISCOVERY"]
+    },
+    "disclaimer": { "type": "string" }
+  }
+}

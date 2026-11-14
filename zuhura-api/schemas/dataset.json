@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.zuhura.space/v1/dataset.json",
+  "title": "ScientificDatasetRecord",
+  "description": "Canonical metadata representation for Mars scientific observations, mosaics, and derived products in Zuhura",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "description",
+    "category",
+    "processing_level",
+    "provider",
+    "original_url",
+    "citation",
+    "license",
+    "crs_wkt",
+    "spatial_extent",
+    "spatial_resolution_m",
+    "scientific_limitations",
+    "last_verified_at"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-_]+$",
+      "description": "Unique immutable identifier, e.g. zuhura-mola-megdr-128"
+    },
+    "title": {
+      "type": "string",
+      "description": "Official scientific product name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Summary of observations and scientific methodology"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "imagery",
+        "topography",
+        "geology",
+        "mineralogy",
+        "atmosphere",
+        "geophysics",
+        "mission_in_situ"
+      ]
+    },
+    "processing_level": {
+      "type": "string",
+      "enum": [
+        "raw_observation",
+        "calibrated",
+        "derived_product",
+        "interpretation",
+        "simulation"
+      ],
+      "description": "Data derivation tier according to planetary archiving standards"
+    },
+    "mission": {
+      "type": "string",
+      "description": "Spacecraft or ground mission name, e.g. Mars Global Surveyor, MRO"
+    },
+    "instrument": {
+      "type": "string",
+      "description": "Instrument acronym, e.g. MOLA, HiRISE, CRISM, THEMIS"
+    },
+    "provider": {
+      "type": "string",
+      "description": "Primary archive, e.g. NASA Planetary Data System, USGS Astrogeology"
+    },
+    "original_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "citation": {
+      "type": "string",
+      "description": "Formal academic citation including DOI where available"
+    },
+    "license": {
+      "type": "string",
+      "description": "Open science license statement or attribution requirement"
+    },
+    "crs_wkt": {
+      "type": "string",
+      "description": "WKT2 representation of Mars coordinate reference system"
+    },
+    "spatial_extent": {
+      "type": "object",
+      "required": ["min_lon", "max_lon", "min_lat", "max_lat", "longitude_convention", "latitude_convention"],
+      "properties": {
+        "min_lon": { "type": "number", "minimum": -180.0, "maximum": 360.0 },
+        "max_lon": { "type": "number", "minimum": -180.0, "maximum": 360.0 },
+        "min_lat": { "type": "number", "minimum": -90.0, "maximum": 90.0 },
+        "max_lat": { "type": "number", "minimum": -90.0, "maximum": 90.0 },
+        "longitude_convention": {
+          "type": "string",
+          "enum": ["east_positive", "west_positive"],
+          "default": "east_positive"
+        },
+        "latitude_convention": {
+          "type": "string",
+          "enum": ["planetocentric", "planetographic"],
+          "default": "planetocentric"
+        }
+      }
+    },
+    "spatial_resolution_m": {
+      "type": "number",
+      "exclusiveMinimum": 0.0,
+      "description": "Ground sampling distance in meters per pixel at equator"
+    },
+    "elevation_datum": {
+      "type": "string",
+      "default": "Mars Areoid (MOLA GMM-2B)"
+    },
+    "horizontal_accuracy_m": {
+      "type": ["number", "null"]
+    },
+    "vertical_accuracy_m": {
+      "type": ["number", "null"]
+    },
+    "scientific_limitations": {
+      "type": "string",
+      "description": "Documented caveats, resolution limits, shadows, or sensor artifacts"
+    },
+    "assets": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["href", "type"],
+        "properties": {
+          "href": { "type": "string" },
+          "type": { "type": "string" },
+          "title": { "type": "string" },
+          "roles": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "last_verified_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

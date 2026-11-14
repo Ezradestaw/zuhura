@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zuhura.org/schemas/mobility_simulation.json",
+  "title": "RoverMobilitySimulation",
+  "description": "Terramechanics, soil slip estimation, and multi-tier route feasibility metrics for Mars rovers.",
+  "type": "object",
+  "required": [
+    "vehicle_profile",
+    "terramechanics",
+    "energy",
+    "feasibility",
+    "hazard_score",
+    "confidence_level_pct",
+    "estimated_duration_sols"
+  ],
+  "properties": {
+    "vehicle_profile": {
+      "type": "object",
+      "required": ["profile_id", "name", "mass_kg", "power_source"],
+      "properties": {
+        "profile_id": { "type": "string" },
+        "name": { "type": "string" },
+        "mass_kg": { "type": "number" },
+        "power_source": { "type": "string" },
+        "nominal_power_w": { "type": "number" },
+        "max_safe_slope_deg": { "type": "number" },
+        "critical_rollover_slope_deg": { "type": "number" }
+      }
+    },
+    "terramechanics": {
+      "type": "object",
+      "required": ["estimated_wheel_slip_pct", "traction_ratio", "soil_shear_risk"],
+      "properties": {
+        "estimated_wheel_slip_pct": { "type": "number" },
+        "traction_ratio": { "type": "number" },
+        "sinkage_depth_cm": { "type": "number" },
+        "soil_shear_risk": { "type": "string", "enum": ["LOW", "MODERATE", "CRITICAL"] }
+      }
+    },
+    "energy": {
+      "type": "object",
+      "required": ["mechanical_drive_energy_wh", "total_energy_wh", "energy_rate_wh_per_km"],
+      "properties": {
+        "mechanical_drive_energy_wh": { "type": "number" },
+        "avionics_energy_wh": { "type": "number" },
+        "total_energy_wh": { "type": "number" },
+        "energy_rate_wh_per_km": { "type": "number" }
+      }
+    },
+    "feasibility": {
+      "type": "object",
+      "required": [
+        "geometric_feasible",
+        "engineering_feasible",
+        "energy_feasible",
+        "mission_feasible"
+      ],
+      "properties": {
+        "geometric_feasible": { "type": "boolean" },
+        "engineering_feasible": { "type": "boolean" },
+        "energy_feasible": { "type": "boolean" },
+        "mission_feasible": { "type": "boolean" },
+        "limiting_factor": { "type": ["string", "null"] }
+      }
+    },
+    "hazard_score": { "type": "number", "minimum": 0.0, "maximum": 100.0 },
+    "confidence_level_pct": { "type": "number", "minimum": 0.0, "maximum": 100.0 },
+    "estimated_duration_sols": { "type": "number" }
+  }
+}

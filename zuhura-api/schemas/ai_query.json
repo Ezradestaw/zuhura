@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.zuhura.space/v1/ai_query.json",
+  "title": "AIAssistantQuery",
+  "description": "Schemas for map-contextualized queries, tool calls, and streaming responses",
+  "definitions": {
+    "MapContext": {
+      "type": "object",
+      "required": ["camera_lat", "camera_lon", "camera_altitude_m", "viewport_bbox"],
+      "properties": {
+        "camera_lat": { "type": "number", "minimum": -90.0, "maximum": 90.0 },
+        "camera_lon": { "type": "number", "minimum": -180.0, "maximum": 360.0 },
+        "camera_altitude_m": { "type": "number", "minimum": 10.0 },
+        "viewport_bbox": {
+          "type": "object",
+          "required": ["min_lat", "max_lat", "min_lon", "max_lon"],
+          "properties": {
+            "min_lat": { "type": "number" },
+            "max_lat": { "type": "number" },
+            "min_lon": { "type": "number" },
+            "max_lon": { "type": "number" }
+          }
+        },
+        "active_layers": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "selected_feature_id": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "ChatRequest": {
+      "type": "object",
+      "required": ["prompt"],
+      "properties": {
+        "prompt": { "type": "string", "minLength": 1, "maxLength": 2000 },
+        "session_id": { "type": "string" },
+        "map_context": { "$ref": "#/definitions/MapContext" }
+      }
+    },
+    "ToolCallNotification": {
+      "type": "object",
+      "required": ["tool_name", "parameters"],
+      "properties": {
+        "tool_name": { "type": "string" },
+        "parameters": { "type": "object" },
+        "status": { "type": "string", "enum": ["executing", "completed", "failed"] }
+      }
+    },
+    "CitationRecord": {
+      "type": "object",
+      "required": ["dataset_id", "title", "provider", "url"],
+      "properties": {
+        "dataset_id": { "type": "string" },
+        "title": { "type": "string" },
+        "provider": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "doi": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

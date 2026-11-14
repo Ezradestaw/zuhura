@@ -1,0 +1,129 @@
+{
+  "subsurface_ice_reserves": [
+    {
+      "id": "ice-arcadia",
+      "name": "Arcadia Planitia Buried Sheet Ice",
+      "lat": 44.0,
+      "lon": -105.0,
+      "depth_m": 1.5,
+      "thickness_m": 80,
+      "confidence": "MEASURED (SHARAD)",
+      "est_volume_km3": 125000
+    },
+    {
+      "id": "ice-utopia",
+      "name": "Utopia Planitia Subsurface Glaciers",
+      "lat": 46.5,
+      "lon": 118.0,
+      "depth_m": 3.0,
+      "thickness_m": 150,
+      "confidence": "MEASURED (SHARAD)",
+      "est_volume_km3": 140000
+    },
+    {
+      "id": "ice-deuteronilus",
+      "name": "Deuteronilus Mensae Debris-Covered Glaciers",
+      "lat": 43.5,
+      "lon": 23.0,
+      "depth_m": 5.0,
+      "thickness_m": 300,
+      "confidence": "OBSERVED (HiRISE/SHARAD)",
+      "est_volume_km3": 45000
+    },
+    {
+      "id": "ice-protonilus",
+      "name": "Protonilus Mensae Lobate Aprons",
+      "lat": 42.0,
+      "lon": 48.0,
+      "depth_m": 8.0,
+      "thickness_m": 250,
+      "confidence": "OBSERVED (SHARAD)",
+      "est_volume_km3": 38000
+    },
+    {
+      "id": "ice-korolev",
+      "name": "Korolev Crater Permanent Water Ice Dome",
+      "lat": 72.77,
+      "lon": 164.58,
+      "depth_m": 0.0,
+      "thickness_m": 1800,
+      "confidence": "OBSERVED (MEX HRSC)",
+      "est_volume_km3": 2200
+    }
+  ],
+  "paleolakes_and_deltas": [
+    {
+      "id": "lake-jezero",
+      "name": "Jezero Crater Paleolake & Delta",
+      "lat": 18.38,
+      "lon": 77.58,
+      "type": "Open-basin lake with inlet & outlet",
+      "age_gyr": 3.7,
+      "depth_m": 250,
+      "sediment": "Smectite clays, Fe/Mg carbonates"
+    },
+    {
+      "id": "lake-eberswalde",
+      "name": "Eberswalde Inverted River Delta",
+      "lat": -23.86,
+      "lon": -33.25,
+      "type": "Meandering delta distributary",
+      "age_gyr": 3.6,
+      "depth_m": 150,
+      "sediment": "Phyllosilicate mudstones"
+    },
+    {
+      "id": "lake-gale",
+      "name": "Gale Crater Habitable Paleolake",
+      "lat": -5.37,
+      "lon": 137.44,
+      "type": "Long-lived lacustrine basin",
+      "age_gyr": 3.5,
+      "depth_m": 300,
+      "sediment": "Smectites, hematite, calcium sulfates"
+    },
+    {
+      "id": "lake-holden",
+      "name": "Holden Crater Megalake",
+      "lat": -26.0,
+      "lon": -34.0,
+      "type": "Infilled lakebed with megabreccia",
+      "age_gyr": 3.7,
+      "depth_m": 400,
+      "sediment": "Stratified lacustrine clays"
+    },
+    {
+      "id": "lake-eridania",
+      "name": "Eridania Ancient Deep Sea",
+      "lat": -35.0,
+      "lon": 140.0,
+      "type": "Sea with hydrothermal vents",
+      "age_gyr": 3.8,
+      "depth_m": 1100,
+      "sediment": "Hydrothermal talc-carbonate deposits"
+    }
+  ],
+  "hydrated_minerals": [
+    {
+      "name": "Nili Fossae Phyllosilicates",
+      "lat": 22.0,
+      "lon": 76.8,
+      "mineral": "Fe/Mg Smectites & Kaolinite",
+      "instrument": "CRISM"
+    },
+    {
+      "name": "Mawrth Vallis Clays",
+      "lat": 23.99,
+      "lon": -18.96,
+      "mineral": "Al-rich and Fe-rich montmorillonite",
+      "instrument": "CRISM / OMEGA"
+    },
+    {
+      "name": "Valles Marineris Sulfates",
+      "lat": -9.8,
+      "lon": -76.46,
+      "mineral": "Kieserite and Polyhydrated Sulfates",
+      "instrument": "OMEGA / CRISM"
+    }
+  ]
+}

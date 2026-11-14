@@ -1,0 +1,7 @@
+/* Match the application palette (navy derived from the Addis Ababa University website). */
+:root {
+  --md-primary-fg-color: #014166;
+  --md-primary-fg-color--light: #025a8c;
+  --md-primary-fg-color--dark: #011c2b;
+  --md-accent-fg-color: #0277ba;
+}

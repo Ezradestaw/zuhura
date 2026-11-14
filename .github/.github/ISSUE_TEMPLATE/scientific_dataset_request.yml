@@ -1,0 +1,65 @@
+name: Scientific Dataset Ingestion Request
+description: Propose a new Mars scientific dataset or mission observation archive for inclusion
+title: "[DATASET]: "
+labels: ["dataset", "scientific-data", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Zuhura prioritizes authoritative planetary scientific archives (NASA PDS, USGS, ESA PSA).
+  - type: input
+    id: dataset_name
+    attributes:
+      label: Dataset Name
+      description: Official scientific product name (e.g., MRO CRISM Targeted Empirical Products).
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Scientific Category
+      options:
+        - Topography & Elevation
+        - Orbital Imagery
+        - Mineralogy & Spectroscopy
+        - Geology & Stratigraphy
+        - Atmosphere & Weather
+        - In-situ Rover / Lander Data
+        - Geophysics & Gravity
+    validations:
+      required: true
+  - type: input
+    id: mission_instrument
+    attributes:
+      label: Mission & Instrument
+      description: Spacecraft mission and instrument acronym (e.g. MRO / HiRISE, Mars Odyssey / THEMIS).
+    validations:
+      required: true
+  - type: input
+    id: archive_url
+    attributes:
+      label: Source Archive URL
+      description: Link to NASA PDS, ODE, ESA PSA, or USGS Astrogeology repository.
+    validations:
+      required: true
+  - type: input
+    id: spatial_resolution
+    attributes:
+      label: Spatial Resolution & Coverage
+      description: E.g., 25 cm/pixel targeted footprints, or global 463 m/pixel DEM.
+    validations:
+      required: true
+  - type: textarea
+    id: coordinate_system
+    attributes:
+      label: Coordinate Reference System & Datum
+      description: E.g., Planetocentric East-positive, Mars 2015 Sphere IAU:49900, Areoid elevation datum.
+    validations:
+      required: true
+  - type: textarea
+    id: scientific_justification
+    attributes:
+      label: Scientific Justification
+      description: How does this dataset enhance the digital twin and research workflows?
+    validations:
+      required: true

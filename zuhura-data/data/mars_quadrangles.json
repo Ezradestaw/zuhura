@@ -1,0 +1,1082 @@
+[
+  {
+    "code": "MC-01",
+    "name": "Mare Boreum",
+    "lat_min": 65,
+    "lat_max": 90,
+    "lon_min": -180,
+    "lon_max": 180,
+    "features": "Planum Boreum, North Polar Cap, Chasma Boreale",
+    "geology": "Layered polar water ice and dry ice deposits, vast eolian dune ergs",
+    "center": [
+      0.0,
+      77.5
+    ],
+    "bounds": [
+      [
+        -180,
+        65
+      ],
+      [
+        180,
+        65
+      ],
+      [
+        180,
+        90
+      ],
+      [
+        -180,
+        90
+      ],
+      [
+        -180,
+        65
+      ]
+    ]
+  },
+  {
+    "code": "MC-02",
+    "name": "Diacria",
+    "lat_min": 30,
+    "lat_max": 65,
+    "lon_min": -180,
+    "lon_max": -120,
+    "features": "Alba Mons northern flank, Scandia Cavi",
+    "geology": "Amazonian volcanic plains and eolian mantles",
+    "center": [
+      -150.0,
+      47.5
+    ],
+    "bounds": [
+      [
+        -180,
+        30
+      ],
+      [
+        -120,
+        30
+      ],
+      [
+        -120,
+        65
+      ],
+      [
+        -180,
+        65
+      ],
+      [
+        -180,
+        30
+      ]
+    ]
+  },
+  {
+    "code": "MC-03",
+    "name": "Arcadia",
+    "lat_min": 30,
+    "lat_max": 65,
+    "lon_min": -120,
+    "lon_max": -60,
+    "features": "Arcadia Planitia, Lycus Sulci, Castorio Crater",
+    "geology": "Glacio-lacustrine sedimentary plains with permafrost ground ice",
+    "center": [
+      -90.0,
+      47.5
+    ],
+    "bounds": [
+      [
+        -120,
+        30
+      ],
+      [
+        -60,
+        30
+      ],
+      [
+        -60,
+        65
+      ],
+      [
+        -120,
+        65
+      ],
+      [
+        -120,
+        30
+      ]
+    ]
+  },
+  {
+    "code": "MC-04",
+    "name": "Mare Acidalium",
+    "lat_min": 30,
+    "lat_max": 65,
+    "lon_min": -60,
+    "lon_max": 0,
+    "features": "Acidalia Planitia, Cydonia Mensae, Kunowsky Crater",
+    "geology": "Dense dark basaltic flood plains and knobby eroded terrain",
+    "center": [
+      -30.0,
+      47.5
+    ],
+    "bounds": [
+      [
+        -60,
+        30
+      ],
+      [
+        0,
+        30
+      ],
+      [
+        0,
+        65
+      ],
+      [
+        -60,
+        65
+      ],
+      [
+        -60,
+        30
+      ]
+    ]
+  },
+  {
+    "code": "MC-05",
+    "name": "Ismenius Lacus",
+    "lat_min": 30,
+    "lat_max": 65,
+    "lon_min": 0,
+    "lon_max": 60,
+    "features": "Deuteronilus Mensae, Protonilus Mensae, Mamers Valles",
+    "geology": "Fretted terrain with debris-covered glaciers and valleys",
+    "center": [
+      30.0,
+      47.5
+    ],
+    "bounds": [
+      [
+        0,
+        30
+      ],
+      [
+        60,
+        30
+      ],
+      [
+        60,
+        65
+      ],
+      [
+        0,
+        65
+      ],
+      [
+        0,
+        30
+      ]
+    ]
+  },
+  {
+    "code": "MC-06",
+    "name": "Casius",
+    "lat_min": 30,
+    "lat_max": 65,
+    "lon_min": 60,
+    "lon_max": 120,
+    "features": "Utopia Planitia southern rim, Nilosyrtis Mensae",
+    "geology": "Scalloped depressions indicating permafrost sublimation",
+    "center": [
+      90.0,
+      47.5
+    ],
+    "bounds": [
+      [
+        60,
+        30
+      ],
+      [
+        120,
+        30
+      ],
+      [
+        120,
+        65
+      ],
+      [
+        60,
+        65
+      ],
+      [
+        60,
+        30
+      ]
+    ]
+  },
+  {
+    "code": "MC-07",
+    "name": "Cebrenia",
+    "lat_min": 30,
+    "lat_max": 65,
+    "lon_min": 120,
+    "lon_max": 180,
+    "features": "Mifune Crater, Galaxias Fossae, Viking 2 Site",
+    "geology": "Smooth Hesperian lowland plains with buried sheet ice",
+    "center": [
+      150.0,
+      47.5
+    ],
+    "bounds": [
+      [
+        120,
+        30
+      ],
+      [
+        180,
+        30
+      ],
+      [
+        180,
+        65
+      ],
+      [
+        120,
+        65
+      ],
+      [
+        120,
+        30
+      ]
+    ]
+  },
+  {
+    "code": "MC-08",
+    "name": "Amazonis",
+    "lat_min": 0,
+    "lat_max": 30,
+    "lon_min": -180,
+    "lon_max": -135,
+    "features": "Olympus Mons aureole, Medusae Fossae, Lycus Sulci",
+    "geology": "Porous volcanic yardang deposits and young lava fields",
+    "center": [
+      -157.5,
+      15.0
+    ],
+    "bounds": [
+      [
+        -180,
+        0
+      ],
+      [
+        -135,
+        0
+      ],
+      [
+        -135,
+        30
+      ],
+      [
+        -180,
+        30
+      ],
+      [
+        -180,
+        0
+      ]
+    ]
+  },
+  {
+    "code": "MC-09",
+    "name": "Tharsis",
+    "lat_min": 0,
+    "lat_max": 30,
+    "lon_min": -135,
+    "lon_max": -90,
+    "features": "Olympus Mons, Ascraeus Mons, Pavonis Mons, Biblis Tholus",
+    "geology": "Giant shield volcanoes and extensive flood basalts",
+    "center": [
+      -112.5,
+      15.0
+    ],
+    "bounds": [
+      [
+        -135,
+        0
+      ],
+      [
+        -90,
+        0
+      ],
+      [
+        -90,
+        30
+      ],
+      [
+        -135,
+        30
+      ],
+      [
+        -135,
+        0
+      ]
+    ]
+  },
+  {
+    "code": "MC-10",
+    "name": "Lunae Palus",
+    "lat_min": 0,
+    "lat_max": 30,
+    "lon_min": -90,
+    "lon_max": -45,
+    "features": "Kasei Valles, Echus Chasma, Lunae Planum",
+    "geology": "Catastrophic outflow channels and wrinkled basalt plateau",
+    "center": [
+      -67.5,
+      15.0
+    ],
+    "bounds": [
+      [
+        -90,
+        0
+      ],
+      [
+        -45,
+        0
+      ],
+      [
+        -45,
+        30
+      ],
+      [
+        -90,
+        30
+      ],
+      [
+        -90,
+        0
+      ]
+    ]
+  },
+  {
+    "code": "MC-11",
+    "name": "Oxia Palus",
+    "lat_min": 0,
+    "lat_max": 30,
+    "lon_min": -45,
+    "lon_max": 0,
+    "features": "Ares Vallis, Tiu Vallis, Mars Pathfinder Site, Oxia Planum",
+    "geology": "Mega-flood sedimentary deposits and ancient clay bedrock",
+    "center": [
+      -22.5,
+      15.0
+    ],
+    "bounds": [
+      [
+        -45,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        30
+      ],
+      [
+        -45,
+        30
+      ],
+      [
+        -45,
+        0
+      ]
+    ]
+  },
+  {
+    "code": "MC-12",
+    "name": "Arabia",
+    "lat_min": 0,
+    "lat_max": 30,
+    "lon_min": 0,
+    "lon_max": 45,
+    "features": "Arabia Terra, Cassini Crater, Pasteur Crater",
+    "geology": "Highland cratered crust and rhythmic layered sulfates",
+    "center": [
+      22.5,
+      15.0
+    ],
+    "bounds": [
+      [
+        0,
+        0
+      ],
+      [
+        45,
+        0
+      ],
+      [
+        45,
+        30
+      ],
+      [
+        0,
+        30
+      ],
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "code": "MC-13",
+    "name": "Syrtis Major",
+    "lat_min": 0,
+    "lat_max": 30,
+    "lon_min": 45,
+    "lon_max": 90,
+    "features": "Syrtis Major volcanic shield, Nili Fossae, Jezero Crater",
+    "geology": "Low-relief basalt shield volcano and deltaic clay beds",
+    "center": [
+      67.5,
+      15.0
+    ],
+    "bounds": [
+      [
+        45,
+        0
+      ],
+      [
+        90,
+        0
+      ],
+      [
+        90,
+        30
+      ],
+      [
+        45,
+        30
+      ],
+      [
+        45,
+        0
+      ]
+    ]
+  },
+  {
+    "code": "MC-14",
+    "name": "Amenthes",
+    "lat_min": 0,
+    "lat_max": 30,
+    "lon_min": 90,
+    "lon_max": 135,
+    "features": "Isidis Planitia, Amenthes Fossae, Du Martheray Crater",
+    "geology": "Impact basin rim and concentric tectonic grabens",
+    "center": [
+      112.5,
+      15.0
+    ],
+    "bounds": [
+      [
+        90,
+        0
+      ],
+      [
+        135,
+        0
+      ],
+      [
+        135,
+        30
+      ],
+      [
+        90,
+        30
+      ],
+      [
+        90,
+        0
+      ]
+    ]
+  },
+  {
+    "code": "MC-15",
+    "name": "Elysium",
+    "lat_min": 0,
+    "lat_max": 30,
+    "lon_min": 135,
+    "lon_max": 180,
+    "features": "Elysium Mons, Hecates Tholus, Albor Tholus, InSight Site",
+    "geology": "Volcanic constructs and Cerberus Fossae flood lavas",
+    "center": [
+      157.5,
+      15.0
+    ],
+    "bounds": [
+      [
+        135,
+        0
+      ],
+      [
+        180,
+        0
+      ],
+      [
+        180,
+        30
+      ],
+      [
+        135,
+        30
+      ],
+      [
+        135,
+        0
+      ]
+    ]
+  },
+  {
+    "code": "MC-16",
+    "name": "Memnonia",
+    "lat_min": -30,
+    "lat_max": 0,
+    "lon_min": -180,
+    "lon_max": -135,
+    "features": "Mangala Valles, Burton Crater, Memnonia Fossae",
+    "geology": "Densely cratered highland terrain and tectonic fault zones",
+    "center": [
+      -157.5,
+      -15.0
+    ],
+    "bounds": [
+      [
+        -180,
+        -30
+      ],
+      [
+        -135,
+        -30
+      ],
+      [
+        -135,
+        0
+      ],
+      [
+        -180,
+        0
+      ],
+      [
+        -180,
+        -30
+      ]
+    ]
+  },
+  {
+    "code": "MC-17",
+    "name": "Phoenicis Lacus",
+    "lat_min": -30,
+    "lat_max": 0,
+    "lon_min": -135,
+    "lon_max": -90,
+    "features": "Arsia Mons, Oudemans Crater, Claritas Fossae",
+    "geology": "Volcanic flank lavas and radial extensional faults",
+    "center": [
+      -112.5,
+      -15.0
+    ],
+    "bounds": [
+      [
+        -135,
+        -30
+      ],
+      [
+        -90,
+        -30
+      ],
+      [
+        -90,
+        0
+      ],
+      [
+        -135,
+        0
+      ],
+      [
+        -135,
+        -30
+      ]
+    ]
+  },
+  {
+    "code": "MC-18",
+    "name": "Coprates",
+    "lat_min": -30,
+    "lat_max": 0,
+    "lon_min": -90,
+    "lon_max": -45,
+    "features": "Valles Marineris, Melas Chasma, Candor Chasma, Ius Chasma",
+    "geology": "Deep tectonic rift canyons and layered lacustrine deposits",
+    "center": [
+      -67.5,
+      -15.0
+    ],
+    "bounds": [
+      [
+        -90,
+        -30
+      ],
+      [
+        -45,
+        -30
+      ],
+      [
+        -45,
+        0
+      ],
+      [
+        -90,
+        0
+      ],
+      [
+        -90,
+        -30
+      ]
+    ]
+  },
+  {
+    "code": "MC-19",
+    "name": "Margaritifer Sinus",
+    "lat_min": -30,
+    "lat_max": 0,
+    "lon_min": -45,
+    "lon_max": 0,
+    "features": "Holden Crater, Eberswalde delta, Uzboi Vallis",
+    "geology": "Fluvial drainage basin with well-preserved river deltas",
+    "center": [
+      -22.5,
+      -15.0
+    ],
+    "bounds": [
+      [
+        -45,
+        -30
+      ],
+      [
+        0,
+        -30
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -45,
+        0
+      ],
+      [
+        -45,
+        -30
+      ]
+    ]
+  },
+  {
+    "code": "MC-20",
+    "name": "Sinus Sabaeus",
+    "lat_min": -30,
+    "lat_max": 0,
+    "lon_min": 0,
+    "lon_max": 45,
+    "features": "Schiaparelli Crater, Terra Meridiani, Opportunity Site",
+    "geology": "Noachian cratered terrain and hematite-bearing sandstones",
+    "center": [
+      22.5,
+      -15.0
+    ],
+    "bounds": [
+      [
+        0,
+        -30
+      ],
+      [
+        45,
+        -30
+      ],
+      [
+        45,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        -30
+      ]
+    ]
+  },
+  {
+    "code": "MC-21",
+    "name": "Iapygia",
+    "lat_min": -30,
+    "lat_max": 0,
+    "lon_min": 45,
+    "lon_max": 90,
+    "features": "Huygens Crater, Tyrrhena Terra, Terby Crater",
+    "geology": "Ancient highland massifs and crater interior layered beds",
+    "center": [
+      67.5,
+      -15.0
+    ],
+    "bounds": [
+      [
+        45,
+        -30
+      ],
+      [
+        90,
+        -30
+      ],
+      [
+        90,
+        0
+      ],
+      [
+        45,
+        0
+      ],
+      [
+        45,
+        -30
+      ]
+    ]
+  },
+  {
+    "code": "MC-22",
+    "name": "Mare Tyrrhenum",
+    "lat_min": -30,
+    "lat_max": 0,
+    "lon_min": 90,
+    "lon_max": 135,
+    "features": "Tyrrhenus Mons (Tyrrhena Patera), Herschel Crater",
+    "geology": "Ancient eroded pyroclastic volcano and gullied terrains",
+    "center": [
+      112.5,
+      -15.0
+    ],
+    "bounds": [
+      [
+        90,
+        -30
+      ],
+      [
+        135,
+        -30
+      ],
+      [
+        135,
+        0
+      ],
+      [
+        90,
+        0
+      ],
+      [
+        90,
+        -30
+      ]
+    ]
+  },
+  {
+    "code": "MC-23",
+    "name": "Aeolis",
+    "lat_min": -30,
+    "lat_max": 0,
+    "lon_min": 135,
+    "lon_max": 180,
+    "features": "Gale Crater (Mount Sharp), Curiosity Site, Apollinaris Mons",
+    "geology": "Dichotomy boundary zone with thick sedimentary mound",
+    "center": [
+      157.5,
+      -15.0
+    ],
+    "bounds": [
+      [
+        135,
+        -30
+      ],
+      [
+        180,
+        -30
+      ],
+      [
+        180,
+        0
+      ],
+      [
+        135,
+        0
+      ],
+      [
+        135,
+        -30
+      ]
+    ]
+  },
+  {
+    "code": "MC-24",
+    "name": "Phaethontis",
+    "lat_min": -65,
+    "lat_max": -30,
+    "lon_min": -180,
+    "lon_max": -120,
+    "features": "Sirenum Fossae, Mariner Crater, Gorgonum Chaos",
+    "geology": "Highland gullies with active recurring slope lineae",
+    "center": [
+      -150.0,
+      -47.5
+    ],
+    "bounds": [
+      [
+        -180,
+        -65
+      ],
+      [
+        -120,
+        -65
+      ],
+      [
+        -120,
+        -30
+      ],
+      [
+        -180,
+        -30
+      ],
+      [
+        -180,
+        -65
+      ]
+    ]
+  },
+  {
+    "code": "MC-25",
+    "name": "Thaumasia",
+    "lat_min": -65,
+    "lat_max": -30,
+    "lon_min": -120,
+    "lon_max": -60,
+    "features": "Thaumasia Highlands, Nectaris Fossae, Solis Planum",
+    "geology": "High-altitude fractured basaltic volcanic plateau",
+    "center": [
+      -90.0,
+      -47.5
+    ],
+    "bounds": [
+      [
+        -120,
+        -65
+      ],
+      [
+        -60,
+        -65
+      ],
+      [
+        -60,
+        -30
+      ],
+      [
+        -120,
+        -30
+      ],
+      [
+        -120,
+        -65
+      ]
+    ]
+  },
+  {
+    "code": "MC-26",
+    "name": "Argyre",
+    "lat_min": -65,
+    "lat_max": -30,
+    "lon_min": -60,
+    "lon_max": 0,
+    "features": "Argyre Planitia, Galle Crater (Happy Face), Hooke Crater",
+    "geology": "Multi-ring impact basin surrounded by mountain massifs",
+    "center": [
+      -30.0,
+      -47.5
+    ],
+    "bounds": [
+      [
+        -60,
+        -65
+      ],
+      [
+        0,
+        -65
+      ],
+      [
+        0,
+        -30
+      ],
+      [
+        -60,
+        -30
+      ],
+      [
+        -60,
+        -65
+      ]
+    ]
+  },
+  {
+    "code": "MC-27",
+    "name": "Noachis",
+    "lat_min": -65,
+    "lat_max": -30,
+    "lon_min": 0,
+    "lon_max": 60,
+    "features": "Noachis Terra, Asimov Crater, Maunder Crater",
+    "geology": "Classic ancient Noachian crust and barchan dune fields",
+    "center": [
+      30.0,
+      -47.5
+    ],
+    "bounds": [
+      [
+        0,
+        -65
+      ],
+      [
+        60,
+        -65
+      ],
+      [
+        60,
+        -30
+      ],
+      [
+        0,
+        -30
+      ],
+      [
+        0,
+        -65
+      ]
+    ]
+  },
+  {
+    "code": "MC-28",
+    "name": "Hellas",
+    "lat_min": -65,
+    "lat_max": -30,
+    "lon_min": 60,
+    "lon_max": 120,
+    "features": "Hellas Planitia floor, Dao Vallis, Harmakhis Vallis",
+    "geology": "Deepest sub-aerial basin in the solar system, glacial flows",
+    "center": [
+      90.0,
+      -47.5
+    ],
+    "bounds": [
+      [
+        60,
+        -65
+      ],
+      [
+        120,
+        -65
+      ],
+      [
+        120,
+        -30
+      ],
+      [
+        60,
+        -30
+      ],
+      [
+        60,
+        -65
+      ]
+    ]
+  },
+  {
+    "code": "MC-29",
+    "name": "Eridania",
+    "lat_min": -65,
+    "lat_max": -30,
+    "lon_min": 120,
+    "lon_max": 180,
+    "features": "Eridania Paleolake basin, Kepler Crater",
+    "geology": "Ancient mega-lake system holding ~500,000 km3 of water",
+    "center": [
+      150.0,
+      -47.5
+    ],
+    "bounds": [
+      [
+        120,
+        -65
+      ],
+      [
+        180,
+        -65
+      ],
+      [
+        180,
+        -30
+      ],
+      [
+        120,
+        -30
+      ],
+      [
+        120,
+        -65
+      ]
+    ]
+  },
+  {
+    "code": "MC-30",
+    "name": "Mare Australe",
+    "lat_min": -90,
+    "lat_max": -65,
+    "lon_min": -180,
+    "lon_max": 180,
+    "features": "Planum Australe, South Polar Ice Cap, Promethei Terra",
+    "geology": "Permanent carbon dioxide dry ice cap over massive water ice",
+    "center": [
+      0.0,
+      -77.5
+    ],
+    "bounds": [
+      [
+        -180,
+        -90
+      ],
+      [
+        180,
+        -90
+      ],
+      [
+        180,
+        -65
+      ],
+      [
+        -180,
+        -65
+      ],
+      [
+        -180,
+        -90
+      ]
+    ]
+  }
+]

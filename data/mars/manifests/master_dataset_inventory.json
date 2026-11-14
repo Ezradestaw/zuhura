@@ -1,0 +1,86 @@
+{
+  "platform": "Zuhura Mars Scientific Intelligence Platform",
+  "generated_at": "2026-11-14T08:54:38Z",
+  "summary": {
+    "sources_investigated": 5,
+    "additional_archives": 3,
+    "total_datasets_cataloged": 165,
+    "direct_downloadable_products": 38,
+    "streaming_wmts_services": 125,
+    "live_telemetry_feeds": 2
+  },
+  "sources": {
+    "source_1_nasa_mars_trek": {
+      "name": "NASA Solar System Treks - Mars Trek",
+      "portal_url": "https://trek.nasa.gov/mars/",
+      "api_endpoint": "https://trek.nasa.gov/tiles/apidoc/trekAPI.html?body=mars",
+      "service_protocol": "OGC RESTful WMTS (Equirectangular & Polar Stereographic)",
+      "layers_cataloged": 146,
+      "coverage": "Global and targeted Mars exploration sites",
+      "access": "Free / Public / Unauthenticated"
+    },
+    "source_2_usgs_astrogeology": {
+      "name": "USGS Astrogeology Science Center Interactive Maps",
+      "portal_url": "https://astrogeology-usgs.hub.arcgis.com/pages/interactive-maps-mars",
+      "publication_url": "https://pubs.usgs.gov/sim/3292/",
+      "featured_product": "USGS SIM 3292 Global Geologic Map of Mars (1:20M)",
+      "gis_database_available": true,
+      "pamphlets_downloaded": true,
+      "access": "Free / Public / Unauthenticated"
+    },
+    "source_3_curiosity_mount_sharp": {
+      "name": "NASA Curiosity Proposed Path up Mount Sharp",
+      "resource_url": "https://science.nasa.gov/resource/curiositys-proposed-path-up-mount-sharp/",
+      "photojournal_id": "PIA23179",
+      "downloaded_files": [
+        "PIA23179.tif",
+        "PIA23179.gif",
+        "PIA23179.jpg",
+        "PIA23179_fig1.jpg"
+      ],
+      "instruments_referenced": [
+        "HiRISE",
+        "CRISM",
+        "CTX",
+        "HRSC"
+      ],
+      "route_geology": [
+        "Bradbury Landing",
+        "Yellowknife Bay",
+        "Vera Rubin Ridge",
+        "Glen Torridon",
+        "Greenheugh Pediment",
+        "Sulfate-Bearing Unit",
+        "Gediz Vallis Ridge"
+      ]
+    },
+    "source_4_perseverance_raw_images": {
+      "name": "NASA Mars 2020 Perseverance Raw Images",
+      "portal_url": "https://mars.nasa.gov/mars2020/multimedia/raw-images/",
+      "api_feed": "https://mars.nasa.gov/rss/api/?feed=raw_images&category=mars2020",
+      "total_catalog_size": 579518,
+      "instruments_integrated": [
+        "Mastcam-Z",
+        "Navcam",
+        "Hazcam",
+        "SuperCam RMI",
+        "SHERLOC WATSON",
+        "PIXL Micro"
+      ],
+      "pagination_supported": true,
+      "sol_filtering_supported": true,
+      "original_resolution": "Full uncompressed EDR/browse PNG/JPG"
+    },
+    "source_5_nasa_worldview": {
+      "name": "NASA Worldview / Earthdata",
+      "portal_url": "https://worldview.earthdata.nasa.gov/",
+      "scientific_finding": "NASA Worldview is EOSDIS Earth-observation specific. Searching CMR for Mars returns Earth analogue studies (Antarctic Dry Valleys, BOREAS). No native Mars orbital layers are hosted on Worldview. Mars planetary data is hosted by NASA PDS and Solar System Treks.",
+      "ux_patterns_adopted": [
+        "Time scrubber timeline",
+        "Multi-layer curtain swipe comparison",
+        "Opacity slider blending",
+        "Epistemic attribution badges"
+      ]
+    }
+  }
+}

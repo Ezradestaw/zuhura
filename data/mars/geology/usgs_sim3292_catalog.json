@@ -1,0 +1,124 @@
+{
+  "dataset_id": "USGS-SIM-3292-MARS-GEOLOGY",
+  "title": "Geologic Map of Mars (USGS Scientific Investigations Map 3292)",
+  "authors": "Tanaka, K. L., Skinner, J. A., Dohm, J. M., Irwin, R. P., Kolb, E. J., Fortezzo, C. M., Platz, T., Michael, G. G., & Hare, T. M.",
+  "year": 2014,
+  "scale": "1:20,000,000",
+  "publisher": "U.S. Geological Survey",
+  "doi": "https://doi.org/10.3133/sim3292",
+  "publication_url": "https://pubs.usgs.gov/sim/3292/",
+  "gis_database_url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_database.zip",
+  "gis_database_size_bytes": 808910442,
+  "crs": "IAU2000:Mars:Sphere (R=3396190m)",
+  "chronostratigraphic_units": [
+    {
+      "unit_symbol": "lAh",
+      "name": "Late Amazonian Highland Unit",
+      "era": "Late Amazonian",
+      "age_gya": [
+        0.0,
+        0.6
+      ],
+      "description": "Smooth to etched deposits, young volcanic and aeolian mantles in Tharsis and Elysium.",
+      "color": "#ffb3ba"
+    },
+    {
+      "unit_symbol": "mAl",
+      "name": "Middle Amazonian Lowland Unit",
+      "era": "Middle Amazonian",
+      "age_gya": [
+        0.6,
+        1.4
+      ],
+      "description": "Vast northern plains resurfacing deposits, periglacial patterned ground in Utopia and Arcadia.",
+      "color": "#baffc9"
+    },
+    {
+      "unit_symbol": "eAv",
+      "name": "Early Amazonian Volcanic Unit",
+      "era": "Early Amazonian",
+      "age_gya": [
+        1.4,
+        3.1
+      ],
+      "description": "Lava flows forming the shields and plains of Olympus Mons, Ascraeus, Pavonis, and Arsia Mons.",
+      "color": "#ffdfba"
+    },
+    {
+      "unit_symbol": "lHl",
+      "name": "Late Hesperian Lowland Unit",
+      "era": "Late Hesperian",
+      "age_gya": [
+        3.1,
+        3.4
+      ],
+      "description": "Vastitas Borealis Formation, catastrophic outflow flood sediment sheets.",
+      "color": "#ffffba"
+    },
+    {
+      "unit_symbol": "eHv",
+      "name": "Early Hesperian Volcanic Unit",
+      "era": "Early Hesperian",
+      "age_gya": [
+        3.4,
+        3.7
+      ],
+      "description": "Wrinkle-ridged basaltic plateau plains in Hesperia Planum and Syrtis Major.",
+      "color": "#bae1ff"
+    },
+    {
+      "unit_symbol": "lNh",
+      "name": "Late Noachian Highland Unit",
+      "era": "Late Noachian",
+      "age_gya": [
+        3.7,
+        3.85
+      ],
+      "description": "Intercrater plains dissected by dense valley networks, extensive phyllosilicate clays.",
+      "color": "#d7bde2"
+    },
+    {
+      "unit_symbol": "mNh",
+      "name": "Middle Noachian Highland Unit",
+      "era": "Middle Noachian",
+      "age_gya": [
+        3.85,
+        3.95
+      ],
+      "description": "Heavily cratered ancient crust, complex impact structures, Noachis Terra.",
+      "color": "#aed6f1"
+    },
+    {
+      "unit_symbol": "eNh",
+      "name": "Early Noachian Highland Unit",
+      "era": "Early Noachian",
+      "age_gya": [
+        3.95,
+        4.1
+      ],
+      "description": "Most ancient surviving Martian crust, Hellas and Argyre impact basin rims.",
+      "color": "#edbb99"
+    }
+  ],
+  "downloaded_assets": {
+    "sim3292_pamphlet.pdf": {
+      "url": "https://pubs.usgs.gov/sim/3292/pdf/sim3292_pamphlet.pdf",
+      "path": "data/mars/geology/sim3292_pamphlet.pdf",
+      "status": "DOWNLOADED",
+      "size_bytes": 3415492
+    },
+    "sim3292_dmu_with_locality_images.pdf": {
+      "url": "https://pubs.usgs.gov/sim/3292/pdf/sim3292_dmu_with_locality_images.pdf",
+      "path": "data/mars/geology/sim3292_dmu_with_locality_images.pdf",
+      "status": "DOWNLOADED",
+      "size_bytes": 809770
+    },
+    "sim3292_tabled1.pdf": {
+      "url": "https://pubs.usgs.gov/sim/3292/pdf/sim3292_tabled1.pdf",
+      "path": "data/mars/geology/sim3292_tabled1.pdf",
+      "status": "DOWNLOADED",
+      "size_bytes": 135538
+    }
+  },
+  "license": "USGS Open Data / Public Domain"
+}

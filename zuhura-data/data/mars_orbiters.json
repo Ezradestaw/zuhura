@@ -1,0 +1,74 @@
+[
+  {
+    "id": "orb-mro",
+    "name": "Mars Reconnaissance Orbiter (MRO)",
+    "agency": "NASA / JPL",
+    "launch_year": 2005,
+    "status": "Active (High Resolution Imaging)",
+    "altitude_km": 280,
+    "inclination_deg": 93.0,
+    "period_min": 112,
+    "primary_instrument": "HiRISE (0.3 m/px) & CRISM",
+    "color": "#00e5ff"
+  },
+  {
+    "id": "orb-odyssey",
+    "name": "2001 Mars Odyssey",
+    "agency": "NASA / JPL",
+    "launch_year": 2001,
+    "status": "Active (Longest Operating Mars Spacecraft)",
+    "altitude_km": 400,
+    "inclination_deg": 93.1,
+    "period_min": 118,
+    "primary_instrument": "THEMIS (Thermal Emission)",
+    "color": "#ff9100"
+  },
+  {
+    "id": "orb-mex",
+    "name": "Mars Express (MEX)",
+    "agency": "ESA (Europe)",
+    "launch_year": 2003,
+    "status": "Active (Subsurface Radar & 3D Imaging)",
+    "altitude_km": 330,
+    "inclination_deg": 86.3,
+    "period_min": 405,
+    "primary_instrument": "HRSC & MARSIS Sounding Radar",
+    "color": "#e040fb"
+  },
+  {
+    "id": "orb-tgo",
+    "name": "ExoMars Trace Gas Orbiter (TGO)",
+    "agency": "ESA / Roscosmos",
+    "launch_year": 2016,
+    "status": "Active (Methane & Trace Gas Atmosphere)",
+    "altitude_km": 400,
+    "inclination_deg": 74.0,
+    "period_min": 120,
+    "primary_instrument": "CaSSIS & NOMAD Spectrometers",
+    "color": "#00e676"
+  },
+  {
+    "id": "orb-hope",
+    "name": "Emirates Mars Mission (Hope)",
+    "agency": "UAESA (UAE)",
+    "launch_year": 2020,
+    "status": "Active (Global Atmospheric Dynamics)",
+    "altitude_km": 20000,
+    "inclination_deg": 25.0,
+    "period_min": 3300,
+    "primary_instrument": "EXI & EMUS Ultraviolet",
+    "color": "#ffd600"
+  },
+  {
+    "id": "orb-tianwen1",
+    "name": "Tianwen-1 Orbiter",
+    "agency": "CNSA (China)",
+    "launch_year": 2020,
+    "status": "Active (Global High-Res Mapping)",
+    "altitude_km": 265,
+    "inclination_deg": 86.9,
+    "period_min": 468,
+    "primary_instrument": "HiRIC & Subsurface Radar (MOSIR)",
+    "color": "#ff1744"
+  }
+]

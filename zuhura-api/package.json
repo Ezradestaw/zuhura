@@ -1,0 +1,12 @@
+{
+  "name": "@zuhura/api",
+  "version": "1.0.0",
+  "description": "API specifications, JSON Schemas, and STAC extensions for the Zuhura Mars platform",
+  "main": "index.js",
+  "scripts": {
+    "validate": "node scripts/validate-schemas.mjs"
+  },
+  "keywords": ["mars", "planetary-gis", "stac", "openapi"],
+  "author": "Zuhura Planetary Team",
+  "license": "Apache-2.0"
+}

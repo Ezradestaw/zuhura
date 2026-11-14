@@ -1,0 +1,108 @@
+{
+  "acquisition_timestamp": "2026-11-02T16:58:00.687162+00:00",
+  "target_region": {
+    "name": "Jezero Crater",
+    "minlat": 18.0,
+    "maxlat": 19.0,
+    "westlon": 76.5,
+    "eastlon": 78.5,
+    "description": "Perseverance rover landing site and ancient delta-lake system in Nili Fossae"
+  },
+  "pilot_products": {
+    "THEMIS": {
+      "observation_id": "I02413002",
+      "product_id": "I02413002RDR",
+      "instrument": "THEMIS Infrared",
+      "spacecraft": "2001 Mars Odyssey",
+      "center_coordinates": {
+        "lat": 18.477,
+        "lon": 77.384
+      },
+      "spatial_resolution_m": 100.0,
+      "files": [
+        {
+          "status": "already_downloaded",
+          "size_bytes": 13894300,
+          "sha256": "e4514d4a0ea5b12b7954bbf39fec56f22231a07f825512d1be31ccc533eddb94",
+          "path": "/home/anonymous/Zuhura/zuhura-data/data/raw/themis/I02413002RDR.QUB",
+          "type": "Data Cube (PDS3 / ISIS QUB, 10 spectral bands)"
+        },
+        {
+          "status": "downloaded",
+          "size_bytes": 2013043,
+          "sha256": "ee2055f383ec31f8650332484a63393e6cc13df5a69e5478042d4f1cebd11d63",
+          "path": "/home/anonymous/Zuhura/zuhura-data/data/raw/themis/I02413002.png",
+          "type": "Browse Image"
+        }
+      ]
+    },
+    "CTX": {
+      "observation_id": "P02_001820_1984",
+      "product_id": "P02_001820_1984_XI_18N282W",
+      "instrument": "Context Camera (CTX)",
+      "spacecraft": "Mars Reconnaissance Orbiter",
+      "center_coordinates": {
+        "lat": 18.268,
+        "lon": 77.33
+      },
+      "spatial_resolution_m": 5.55,
+      "files": [
+        {
+          "status": "downloaded",
+          "size_bytes": 36246464,
+          "sha256": "044ba99584d9cba66fdd0ebf42cee505a2bc0cdeb0a0f66a5d9ddc214bb14ce4",
+          "path": "/home/anonymous/Zuhura/zuhura-data/data/raw/ctx/P02_001820_1984_XI_18N282W.IMG",
+          "type": "PDS3 IMG (with embedded VICAR/PDS label header)"
+        },
+        {
+          "status": "downloaded",
+          "size_bytes": 16698,
+          "sha256": "2c7c169ae0c8693e2300f78f8d8e7b360394e09b5dac05dd80668e22e2b0ab98",
+          "path": "/home/anonymous/Zuhura/zuhura-data/data/raw/ctx/P02_001820_1984_XI_18N282W.IMG.jpeg",
+          "type": "Browse Image"
+        }
+      ]
+    },
+    "HiRISE": {
+      "observation_id": "PSP_004299_1985",
+      "product_id": "PSP_004299_1985_MRGB",
+      "instrument": "High Resolution Imaging Science Experiment (HiRISE)",
+      "spacecraft": "Mars Reconnaissance Orbiter",
+      "center_coordinates": {
+        "lat": 18.398,
+        "lon": 77.585
+      },
+      "spatial_resolution_m": 0.25,
+      "files": [
+        {
+          "status": "downloaded",
+          "size_bytes": 8284,
+          "sha256": "e88dbbcffff077700ee39777a1946dc1500fb6943e5ccab4e836d4f2dc89a97f",
+          "path": "/home/anonymous/Zuhura/zuhura-data/data/raw/hirise/PSP_004299_1985_MRGB.LBL",
+          "type": "PDS3 Map-Projected Label (Color MRGB Channel)"
+        },
+        {
+          "status": "downloaded",
+          "size_bytes": 8199,
+          "sha256": "db0e95d5eded0596e8b43cc01dcbe3876b3d2b300b31e426be2e78ee1a2cd7a9",
+          "path": "/home/anonymous/Zuhura/zuhura-data/data/raw/hirise/PSP_004299_1985_RED.LBL",
+          "type": "PDS3 Map-Projected Label (Full Band RED Channel)"
+        },
+        {
+          "status": "downloaded",
+          "size_bytes": 3249224,
+          "sha256": "d13db2f799abef4c3f2360a0a968175a93932f371930377c003c056e704a934c",
+          "path": "/home/anonymous/Zuhura/zuhura-data/data/raw/hirise/PSP_004299_1985_MRGB.abrowse.jpg",
+          "type": "Color Browse Product (Georeferenced Preview)"
+        },
+        {
+          "status": "downloaded",
+          "size_bytes": 3330,
+          "sha256": "397e3e4f0ffb0e5bb220e19c41e2f585e2de472c65318b0531fd8783aed60c15",
+          "path": "/home/anonymous/Zuhura/zuhura-data/data/raw/hirise/PSP_004299_1985_RED_LBL.kml",
+          "type": "Spatial Footprint Vector (KML)"
+        }
+      ]
+    }
+  }
+}

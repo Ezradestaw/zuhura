@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.zuhura.space/v1/spatial_query.json",
+  "title": "MarsSpatialQuery",
+  "description": "Validated parameters for Mars spatial queries and elevation sampling",
+  "definitions": {
+    "MarsPoint": {
+      "type": "object",
+      "required": ["latitude", "longitude"],
+      "properties": {
+        "latitude": { "type": "number", "minimum": -90.0, "maximum": 90.0 },
+        "longitude": { "type": "number", "minimum": -180.0, "maximum": 360.0 },
+        "convention": { "type": "string", "enum": ["planetocentric_east", "planetographic_west"], "default": "planetocentric_east" }
+      }
+    },
+    "MarsBoundingBox": {
+      "type": "object",
+      "required": ["min_lat", "max_lat", "min_lon", "max_lon"],
+      "properties": {
+        "min_lat": { "type": "number", "minimum": -90.0, "maximum": 90.0 },
+        "max_lat": { "type": "number", "minimum": -90.0, "maximum": 90.0 },
+        "min_lon": { "type": "number", "minimum": -180.0, "maximum": 360.0 },
+        "max_lon": { "type": "number", "minimum": -180.0, "maximum": 360.0 }
+      }
+    },
+    "ElevationProfileRequest": {
+      "type": "object",
+      "required": ["start_point", "end_point"],
+      "properties": {
+        "start_point": { "$ref": "#/definitions/MarsPoint" },
+        "end_point": { "$ref": "#/definitions/MarsPoint" },
+        "num_samples": { "type": "integer", "minimum": 10, "maximum": 1000, "default": 100 }
+      }
+    },
+    "FeatureSearchRequest": {
+      "type": "object",
+      "required": ["bbox"],
+      "properties": {
+        "bbox": { "$ref": "#/definitions/MarsBoundingBox" },
+        "feature_types": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["crater", "mons", "valles", "planitia", "landing_site", "chasma"] }
+        },
+        "min_diameter_km": { "type": "number", "minimum": 0.0, "default": 10.0 },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 500, "default": 50 }
+      }
+    }
+  }
+}

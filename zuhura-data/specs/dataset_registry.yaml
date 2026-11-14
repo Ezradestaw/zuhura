@@ -1,0 +1,253 @@
+version: "1.2"
+registry_name: "Zuhura Planetary Dataset Registry"
+
+datasets:
+  # ============================================================================
+  # Topography / DEM Datasets
+  # ============================================================================
+  - id: "zuhura-mola-megdr-128-raw"
+    title: "MGS MOLA MEGDR 128 px/deg Global DEM (Raw Source)"
+    category: "topography"
+    derivation_tier: "Level 3 (Derived Product)"
+    processing_level: "raw_archive"
+    source_archive: "NASA PDS Geosciences Node"
+    access_url: "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/"
+    native_format: "IMG (PDS3)"
+    storage_path: "data/raw/mola/meg128/"
+    tile_count: 16
+    native_crs: "Mars_simpCyl_c180 (IAU:49900 sphere R=3396km, center=180E)"
+    data_type: "Int16"
+    units: "meters"
+    scaling_factor: 1.0
+    offset: 0.0
+    nodata_convention: "None (interpolated gaps, 0m is valid GMM3 areoid datum)"
+    resolution_m: 463.0577
+    spatial_extent:
+      min_lat: -88.0
+      max_lat: 88.0
+      min_lon: 0.0
+      max_lon: 360.0
+      latitude_convention: "planetocentric"
+      longitude_convention: "east_positive"
+    status: "immutable_source"
+
+  - id: "zuhura-mola-megdr-128-corrected"
+    title: "MGS MOLA MEGDR 128 px/deg Corrected Global Tiles (v2)"
+    category: "topography"
+    derivation_tier: "Level 3 (Corrected Product)"
+    processing_level: "corrected_tiles"
+    provenance: "Generated from zuhura-mola-megdr-128-raw via scripts/process_stage2_mola.py"
+    native_format: "Tiled GeoTIFF (DEFLATE, Predictor 2)"
+    storage_path: "data/processed/mola/meg128_v2/"
+    tile_count: 16
+    native_crs: "Mars_simpCyl_c180 (IAU:49900 sphere R=3396km, center=180E)"
+    data_type: "Int16"
+    units: "meters"
+    scaling_factor: 1.0
+    offset: 0.0
+    nodata_convention: "None (all 136,772 zero-elevation datum pixels preserved)"
+    resolution_m: 463.0577
+    spatial_extent:
+      min_lat: -88.0
+      max_lat: 88.0
+      min_lon: 0.0
+      max_lon: 360.0
+      latitude_convention: "planetocentric"
+      longitude_convention: "east_positive"
+    validation_status: "verified_exact_pixel_match"
+    version: "2.0"
+
+  - id: "zuhura-mola-global-v3-cog"
+    title: "MGS MOLA MEGDR 128 px/deg Global Cloud-Optimized GeoTIFF (v3)"
+    category: "topography"
+    derivation_tier: "Level 3 (Analysis-Ready Mosaic)"
+    processing_level: "analysis_ready_cog"
+    provenance: "Generated from zuhura-mola-megdr-128-corrected via scripts/build_stage3_mosaic.py"
+    native_format: "Cloud-Optimized GeoTIFF (DEFLATE, Predictor 2, Internal Overviews levels 2,4,8,16,32,64,128)"
+    storage_path: "data/processed/mola/global_v3/mola_global_meg128_cog.tif"
+    vrt_path: "data/processed/mola/global_v3/mola_global_meg128.vrt"
+    tile_count: 1
+    dimensions:
+      width: 46080
+      height: 22528
+    native_crs: "Mars_simpCyl_c180 (IAU:49900 sphere R=3396km, center=180E)"
+    data_type: "Int16"
+    units: "meters"
+    scaling_factor: 1.0
+    offset: 0.0
+    nodata_convention: "None (zero-elevation datum pixels preserved)"
+    resolution_m: 463.0577
+    spatial_extent:
+      min_lat: -88.0
+      max_lat: 88.0
+      min_lon: 0.0
+      max_lon: 360.0
+      min_x: -10668848.65
+      max_x: 10668848.65
+      min_y: -5215881.56
+      max_y: 5215881.56
+      latitude_convention: "planetocentric"
+      longitude_convention: "east_positive"
+    validation_status: "verified_cog_valid"
+    version: "3.0"
+
+  - id: "zuhura-mola-polar-raw"
+    title: "MGS MOLA Polar Stereographic Topography (Raw Source)"
+    category: "topography"
+    derivation_tier: "Level 3 (Derived Product)"
+    processing_level: "raw_archive"
+    source_archive: "NASA PDS Geosciences Node"
+    access_url: "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/polar/"
+    native_format: "IMG (PDS3)"
+    storage_path: "data/raw/mola/polar/"
+    products:
+      - id: "megt_n_128_1"
+        pole: "North"
+        center_lat: 90.0
+      - id: "megt_s_128_1"
+        pole: "South"
+        center_lat: -90.0
+    native_crs: "Polar Stereographic (sphere R=3376.2km)"
+    data_type: "UInt16"
+    units: "stored_DN"
+    scaling_formula: "Elevation_m = (DN * 0.25) - 8000"
+    nodata_convention: "0 (circular mask outside observation disc)"
+    resolution_m: 460.3899
+    status: "immutable_source"
+
+  - id: "zuhura-mola-polar-analysis-ready"
+    title: "MGS MOLA Polar Physical Elevation Float32 (v2)"
+    category: "topography"
+    derivation_tier: "Level 3 (Analysis-Ready Product)"
+    processing_level: "analysis_ready"
+    provenance: "Generated from zuhura-mola-polar-raw via scripts/process_stage2_mola.py"
+    native_format: "Tiled GeoTIFF (DEFLATE, Predictor 3, Float32)"
+    storage_path: "data/processed/mola/polar_v2/"
+    products:
+      - id: "megt_n_128_1.tif"
+        pole: "North"
+        min_elevation_m: -7034.50
+        max_elevation_m: 980.00
+      - id: "megt_s_128_1.tif"
+        pole: "South"
+        min_elevation_m: -7946.00
+        max_elevation_m: 6126.00
+    native_crs: "Polar Stereographic (sphere R=3376.2km)"
+    data_type: "Float32"
+    units: "meters"
+    nodata_convention: "-99999.0"
+    resolution_m: 460.3899
+    validation_status: "verified_formula_accuracy"
+    version: "2.0"
+
+  # ============================================================================
+  # Surface Imagery Datasets
+  # ============================================================================
+  - id: "zuhura-viking-mdim21"
+    title: "Viking MDIM 2.1 Global Color Mosaic"
+    category: "imagery"
+    derivation_tier: "Level 3 (Derived Product)"
+    processing_level: "raw_archive"
+    source_archive: "USGS Astrogeology"
+    access_url: "https://astrogeology.usgs.gov/search/map/Mars/Viking/MDIM21"
+    native_format: "BigTIFF"
+    storage_path: "data/raw/viking/mdim21/Mars_Viking_MDIM21_ClrMosaic_global_232m.tiff"
+    file_size_bytes: 12742411029
+    sha256: "554f1170998b4cd00359defa48600307e52c49f921c282d842361ad45082aa31"
+    native_crs: "SimpleCylindrical Mars (R=3396190m, center=0)"
+    bands: 3
+    data_type: "Byte (RGB)"
+    resolution_m: 231.5418
+    status: "verified_intact"
+
+  - id: "zuhura-viking-quarantine"
+    title: "Viking MDIM 2.1 Quarantined Truncated Downloads"
+    category: "imagery"
+    processing_level: "quarantined"
+    storage_path: "data/raw/viking/quarantine/"
+    manifest_path: "data/raw/viking/quarantine/quarantine_manifest.json"
+    files_quarantined:
+      - "Mars_Viking_MDIM21_Mosaic_global_232m.tif (211MB, truncated at line ~2397)"
+      - "Mars_Viking_MDIM21_ClrMosaic_global_232m.tif (40MB, truncated at line ~150)"
+    status: "quarantined_non_destructive"
+
+  # ============================================================================
+  # Geology Datasets
+  # ============================================================================
+  - id: "zuhura-usgs-sim3292"
+    title: "Global Geologic Map of Mars (USGS SIM 3292)"
+    category: "geology"
+    derivation_tier: "Level 4 (Interpretation)"
+    processing_level: "raw_archive"
+    source_archive: "USGS Astrogeology"
+    access_url: "https://pubs.usgs.gov/sim/3292/"
+    native_format: "Shapefile / GeoPackage"
+    native_crs: "IAU:49900"
+    resolution_m: 1000.0
+    status: "planned_ingestion"
+
+  # ============================================================================
+  # Multispectral Infrared Datasets (THEMIS)
+  # ============================================================================
+  - id: "zuhura-themis-ir-jezero"
+    title: "2001 Mars Odyssey THEMIS Infrared RDR Spectral Radiance - Jezero Crater"
+    category: "multispectral_infrared"
+    derivation_tier: "Level 2 (Calibrated Radiance Cube)"
+    processing_level: "pilot_acquisition"
+    source_archive: "NASA PDS / ASU Mars Space Flight Facility"
+    product_id: "I02413002RDR"
+    observation_id: "I02413002"
+    storage_path: "data/raw/themis/I02413002RDR.QUB"
+    browse_path: "data/raw/themis/I02413002.png"
+    bands: 10
+    spectral_range_um: "6.78 - 14.88"
+    resolution_m: 100.0
+    spatial_extent:
+      center_lat: 18.477
+      center_lon: 77.384
+      target_feature: "Jezero Crater"
+    native_format: "ISIS QUB / PDS3"
+    status: "acquired_and_validated"
+
+  # ============================================================================
+  # Context Camera (CTX) Datasets
+  # ============================================================================
+  - id: "zuhura-ctx-jezero"
+    title: "MRO Context Camera (CTX) EDR Observation - Jezero Crater Western Delta"
+    category: "surface_imagery"
+    derivation_tier: "Level 1B (Calibrated Frame Record)"
+    processing_level: "pilot_acquisition"
+    source_archive: "NASA PDS Cartography and Imaging Sciences Node (JPL)"
+    product_id: "P02_001820_1984_XI_18N282W"
+    observation_id: "P02_001820_1984"
+    storage_path: "data/raw/ctx/P02_001820_1984_XI_18N282W.IMG"
+    browse_path: "data/raw/ctx/P02_001820_1984_XI_18N282W.IMG.jpeg"
+    resolution_m: 5.55
+    spatial_extent:
+      center_lat: 18.268
+      center_lon: 77.330
+      target_feature: "Jezero Crater Delta"
+    native_format: "PDS3 IMG"
+    status: "acquired_and_validated"
+
+  # ============================================================================
+  # High Resolution Imaging Science Experiment (HiRISE) Datasets
+  # ============================================================================
+  - id: "zuhura-hirise-jezero"
+    title: "MRO HiRISE High Resolution Imaging - Jezero Crater Delta Deposits"
+    category: "surface_imagery"
+    derivation_tier: "Level 3 (Map-Projected RDR Metadata & Browse)"
+    processing_level: "pilot_acquisition"
+    source_archive: "NASA PDS / University of Arizona Planetary Image Research Laboratory"
+    product_id: "PSP_004299_1985_MRGB"
+    observation_id: "PSP_004299_1985"
+    storage_path: "data/raw/hirise/PSP_004299_1985_MRGB.LBL"
+    browse_path: "data/raw/hirise/PSP_004299_1985_MRGB.abrowse.jpg"
+    footprint_path: "data/raw/hirise/PSP_004299_1985_RED_LBL.kml"
+    resolution_m: 0.25
+    spatial_extent:
+      center_lat: 18.398
+      center_lon: 77.585
+      target_feature: "Jezero Crater Delta Deposits"
+    native_format: "PDS3 Label / JPEG Browse / KML Footprint"
+    status: "acquired_and_validated"

@@ -1,0 +1,120 @@
+{
+  "dataset_id": "NASA-MSL-PIA23179-MOUNT-SHARP",
+  "title": "Curiosity's Proposed Path up Mount Sharp",
+  "target": "Mars / Gale Crater / Mount Sharp (Aeolis Mons)",
+  "mission": "Mars Science Laboratory (MSL) / Curiosity",
+  "coordinates": {
+    "latitude_deg": -4.589,
+    "longitude_deg": 137.441,
+    "crs": "IAU:49900 (Planetocentric Sphere R=3396190m)",
+    "elevation_range_m": [
+      -4500.0,
+      5500.0
+    ]
+  },
+  "geological_units": [
+    {
+      "name": "Bradbury Landing",
+      "type": "touchdown_site",
+      "sol": 0,
+      "elevation_m": -4501.0
+    },
+    {
+      "name": "Yellowknife Bay",
+      "type": "lacustrine_mudstone",
+      "sol": 125,
+      "elevation_m": -4520.0
+    },
+    {
+      "name": "Vera Rubin Ridge",
+      "type": "hematite_ridge",
+      "sol": 1800,
+      "elevation_m": -4200.0
+    },
+    {
+      "name": "Glen Torridon",
+      "type": "clay_bearing_trough",
+      "sol": 2300,
+      "elevation_m": -4150.0
+    },
+    {
+      "name": "Greenheugh Pediment",
+      "type": "capping_sandstone_unconformity",
+      "sol": 2700,
+      "elevation_m": -4000.0
+    },
+    {
+      "name": "Sulfate-Bearing Unit",
+      "type": "layered_sulfates",
+      "sol": 3200,
+      "elevation_m": -3850.0
+    },
+    {
+      "name": "Gediz Vallis Ridge",
+      "type": "debris_flow_channel",
+      "sol": 3800,
+      "elevation_m": -3700.0
+    }
+  ],
+  "contributing_instruments": [
+    {
+      "mission": "MRO",
+      "instrument": "HiRISE",
+      "institution": "University of Arizona",
+      "purpose": "Sub-meter orbital terrain mapping"
+    },
+    {
+      "mission": "MRO",
+      "instrument": "CRISM",
+      "institution": "JHU/APL",
+      "purpose": "Hyperspectral mineral mapping (clays, sulfates, hematite)"
+    },
+    {
+      "mission": "MRO",
+      "instrument": "CTX",
+      "institution": "Malin Space Science Systems",
+      "purpose": "Context imaging at 5-6 m/px"
+    },
+    {
+      "mission": "Mars Express",
+      "instrument": "HRSC",
+      "institution": "ESA / DLR",
+      "purpose": "Stereo digital terrain models"
+    }
+  ],
+  "credit": "NASA/JPL-Caltech/ESA/University of Arizona/JHUAPL/MSSS/USGS Astrogeology Science Center",
+  "license": "NASA Open Data / Public Domain",
+  "provenance": {
+    "source_url": "https://science.nasa.gov/resource/curiositys-proposed-path-up-mount-sharp/",
+    "photojournal_id": "PIA23179",
+    "epistemic_class": "DERIVED"
+  },
+  "assets": {
+    "PIA23179.tif": {
+      "url": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia23/pia23179/PIA23179.tif",
+      "path": "data/mars/mount_sharp/PIA23179.tif",
+      "size_bytes": 13701124,
+      "download_status": "COMPLETED"
+    },
+    "PIA23179.gif": {
+      "url": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia23/pia23179/PIA23179.gif",
+      "path": "data/mars/mount_sharp/PIA23179.gif",
+      "size_bytes": 3002192,
+      "download_status": "COMPLETED"
+    },
+    "PIA23179.jpg": {
+      "url": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia23/pia23179/PIA23179.jpg",
+      "path": "data/mars/mount_sharp/PIA23179.jpg",
+      "size_bytes": 743385,
+      "download_status": "COMPLETED",
+      "thumbnail": "data/mars/thumbnails/thumb_PIA23179.jpg"
+    },
+    "PIA23179_fig1.jpg": {
+      "url": "https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia23/pia23179/figures/PIA23179_fig1.jpg",
+      "path": "data/mars/mount_sharp/PIA23179_fig1.jpg",
+      "size_bytes": 186754,
+      "download_status": "COMPLETED",
+      "thumbnail": "data/mars/thumbnails/thumb_PIA23179_fig1.jpg"
+    }
+  }
+}
