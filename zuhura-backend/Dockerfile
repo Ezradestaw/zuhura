@@ -20,12 +20,10 @@ RUN useradd -m -u 1000 user && \
 
 WORKDIR /app
 
-COPY pyproject.toml .
+COPY pyproject.toml README.md ./
+COPY src/ /app/src/
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir .
-
-COPY src/ /app/src/
-COPY README.md /app/
 
 RUN chown -R 1000:1000 /app
 USER 1000

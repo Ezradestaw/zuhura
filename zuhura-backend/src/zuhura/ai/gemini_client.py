@@ -10,9 +10,16 @@ import time
 from typing import Dict, Any, List, Optional, AsyncGenerator
 from dataclasses import dataclass, field
 
-from google import genai
-from google.genai import types
-from google.genai.errors import APIError
+try:
+    from google import genai
+    from google.genai import types
+    from google.genai.errors import APIError
+    HAS_GENAI = True
+except ImportError:
+    genai = None
+    types = None
+    APIError = Exception
+    HAS_GENAI = False
 
 from zuhura.core.config import settings
 
@@ -77,7 +84,7 @@ class GeminiClient:
 
     def is_available(self) -> bool:
         """Returns True if a valid API key is present and Gemini is enabled in settings."""
-        return bool(settings.GEMINI_ENABLED and self.api_key and len(self.api_key.strip()) > 8)
+        return bool(HAS_GENAI and settings.GEMINI_ENABLED and self.api_key and len(self.api_key.strip()) > 8)
 
     async def generate(
         self,
