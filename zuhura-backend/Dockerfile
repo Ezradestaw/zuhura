@@ -32,7 +32,4 @@ ENV PYTHONPATH=/app/src:/usr/lib/python3/dist-packages
 ENV PORT=10000
 EXPOSE 10000 7860 8000
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD curl -f http://localhost:${PORT:-10000}/api/v1/health/liveness || exit 1
-
 CMD ["sh", "-c", "uvicorn zuhura.api.main:app --host 0.0.0.0 --port ${PORT:-10000}"]
