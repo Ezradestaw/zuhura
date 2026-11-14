@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     proj-bin \
     gdal-bin \
     libgdal-dev \
+    python3-gdal \
     && rm -rf /var/lib/apt/lists/*
 
 # Set up non-root user for Hugging Face Spaces / cloud environments (UID 1000)
@@ -29,7 +30,7 @@ COPY README.md /app/
 RUN chown -R 1000:1000 /app
 USER 1000
 
-ENV PYTHONPATH=/app/src
+ENV PYTHONPATH=/app/src:/usr/lib/python3/dist-packages
 ENV PORT=10000
 EXPOSE 10000 7860 8000
 
