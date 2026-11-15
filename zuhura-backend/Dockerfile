@@ -25,11 +25,9 @@ COPY src/ /app/src/
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir .
 
-RUN chown -R 1000:1000 /app
-USER 1000
-
 ENV PYTHONPATH=/app/src:/usr/lib/python3/dist-packages
 ENV PORT=10000
+ENV TILES_CACHE_DIR=/tmp/tiles
 EXPOSE 10000 7860 8000
 
-CMD ["sh", "-c", "uvicorn zuhura.api.main:app --host 0.0.0.0 --port ${PORT:-10000}"]
+CMD ["sh", "-c", "python -m uvicorn zuhura.api.main:app --host 0.0.0.0 --port ${PORT:-10000}"]
