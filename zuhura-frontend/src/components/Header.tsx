@@ -1,6 +1,6 @@
 import React from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { Activity, CircleHelp, Eye, EyeOff, Layers, MessageSquare, Navigation } from 'lucide-react';
+import { CircleHelp, Eye, EyeOff, MessageSquare, Navigation } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
 import { useAIStore } from '../store/aiStore';
 
@@ -57,15 +57,10 @@ export const Header: React.FC = () => {
     cursorLon,
     cursorElevation,
     cameraAlt,
-    isXRayMarsOpen,
-    setIsXRayMarsOpen,
     isRoutePlannerOpen,
     setIsRoutePlannerOpen,
-    isRegionDiscoveryOpen,
-    setIsRegionDiscoveryOpen,
     isPlaceNamesVisible,
     setIsPlaceNamesVisible,
-    setActiveMainView,
     setIsMissionBriefingOpen,
   } = useGlobeStore();
   const { isOpen: isAIOpen, toggleOpen: toggleAI } = useAIStore();
@@ -99,29 +94,11 @@ export const Header: React.FC = () => {
 
       <nav className="flex items-center gap-1" aria-label="Tools">
         <ToolbarButton
-          label="Interior"
-          title="Planetary interior (InSight seismology)"
-          icon={Activity}
-          active={isXRayMarsOpen}
-          onClick={() => setIsXRayMarsOpen(!isXRayMarsOpen)}
-        />
-        <ToolbarButton
           label="Traverse"
-          title="Rover traverse planning"
+          title="Plan a path between two points"
           icon={Navigation}
           active={isRoutePlannerOpen}
-          onClick={() => {
-            setActiveMainView('explorer');
-            setIsRoutePlannerOpen(!isRoutePlannerOpen);
-          }}
-        />
-        <ToolbarButton
-          label="Regions"
-          title="Region discovery"
-          icon={Layers}
-          active={isRegionDiscoveryOpen}
-          onClick={() => setIsRegionDiscoveryOpen(!isRegionDiscoveryOpen)}
-          labelClassName="hidden lg:inline"
+          onClick={() => setIsRoutePlannerOpen(!isRoutePlannerOpen)}
         />
         <ToolbarButton
           label="Place names"
@@ -151,7 +128,7 @@ export const Header: React.FC = () => {
         <button
           type="button"
           onClick={() => setIsMissionBriefingOpen(true)}
-          title="Help and guided tour"
+          title="Help"
           aria-label="Help"
           className="rounded p-1.5 text-brand-100 transition-colors hover:bg-brand-600 hover:text-white"
         >

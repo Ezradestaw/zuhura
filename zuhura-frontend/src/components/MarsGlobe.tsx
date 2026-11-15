@@ -25,15 +25,12 @@ import {
 import { EvaPoint, EvaRoutePlan } from '../eva/metabolicPathfinder';
 import { JEZERO_HAB_COORDINATES } from '../eva/jezeroScienceTargets';
 import { useWorkspaceStore } from '../store/workspaceStore';
-import { PinpointRouteHUD } from './PinpointRouteHUD';
 import { CompassOrientationHUD } from './CompassOrientationHUD';
 import { SurfaceExplorationHUD } from './SurfaceExplorationHUD';
 import { GlobeMeasurementHUD } from './GlobeMeasurementHUD';
 import { ImagerySplitSwipeHUD } from './ImagerySplitSwipeHUD';
 import { TileLoadingProgressHUD } from './TileLoadingProgressHUD';
 import { getHoverPlaceDescription } from '../lib/hoverData';
-import { fetchOptimizedRoute } from '../lib/advancedApiClient';
-import { resolveRouteWithElevation } from '../lib/routeFallback';
 
 const TARGET_VIEWS: Record<string, { lon: number; lat: number; alt: number }> = {
   global: { lon: 77.45, lat: 18.44, alt: 3500000.0 },
@@ -124,15 +121,12 @@ export const MarsGlobe: React.FC = () => {
     solarElevation,
     activeNavigationRoute,
     activeDiscoveredRegions,
-    isPinpointNavigationMode,
-    pinpointStep,
+    routePickTarget,
+    setRoutePickTarget,
     departurePoint,
     arrivalPoint,
-    selectedVehicleProfile,
     setDeparturePoint,
     setArrivalPoint,
-    setPinpointStep,
-    setActiveNavigationRoute,
     setTilesLoadingMetrics,
     setIsMountSharpModalOpen,
     setIsRoverRawImagesOpen,
@@ -155,14 +149,8 @@ export const MarsGlobe: React.FC = () => {
   const addMeasurementPointRef = useRef(addMeasurementPoint);
   addMeasurementPointRef.current = addMeasurementPoint;
 
-  const pinpointNavModeRef = useRef(isPinpointNavigationMode);
-  pinpointNavModeRef.current = isPinpointNavigationMode;
-  const pinpointStepRef = useRef(pinpointStep);
-  pinpointStepRef.current = pinpointStep;
-  const departurePointRef = useRef(departurePoint);
-  departurePointRef.current = departurePoint;
-  const selectedVehicleProfileRef = useRef(selectedVehicleProfile);
-  selectedVehicleProfileRef.current = selectedVehicleProfile;
+  const routePickTargetRef = useRef(routePickTarget);
+  routePickTargetRef.current = routePickTarget;
 
   const { layers } = useLayerStore();
   const { isTransectMode, transectStart, transectEnd, profileData, hoveredSampleIndex } = useTerrainAnalysisStore();
@@ -244,7 +232,7 @@ export const MarsGlobe: React.FC = () => {
     viewerInstance.scene.requestRender();
   }, [viewerInstance, enableLighting, solarAzimuth, solarElevation]);
 
-  // Scientific Layers Synchronization
+  // Keep imagery layers in sync with the layer panel
   useEffect(() => {
     if (!viewerInstance || viewerInstance.isDestroyed()) return;
 
@@ -480,101 +468,81 @@ export const MarsGlobe: React.FC = () => {
     viewerInstance.scene.requestRender();
   }, [viewerInstance, isTransectMode, profileData, transectStart, transectEnd, hoveredSampleIndex]);
 
-  // 3D Terrain-Aware Navigation Route Polyline Visualization
+  // Traverse: start/destination markers, the A* path and a dashed straight line for comparison
   useEffect(() => {
     if (!viewerInstance || viewerInstance.isDestroyed()) return;
 
-    // Clear previous navigation entities
-    navigationEntitiesRef.current.forEach((entity) => {
-      viewerInstance.entities.remove(entity);
-    });
-    navigationEntitiesRef.current = [];
+    navigationEntitiesRef.current.forEach((entity) => viewerInstance.entities.remove(entity));
+    const added: Cesium.Entity[] = [];
 
-    const newEntities: Cesium.Entity[] = [];
-
-    // Render Departure marker if pinpointed
-    if (departurePoint) {
-      const depMarker = viewerInstance.entities.add({
-        id: 'nav-station-departure',
-        position: Cesium.Cartesian3.fromDegrees(
-          departurePoint.lon,
-          departurePoint.lat,
-          Math.max(departurePoint.elevation_m, 0) + 200.0,
-          MARS_ELLIPSOID,
-        ),
-        point: {
-          pixelSize: 11,
-          color: Cesium.Color.fromCssColorString('#10b981'),
-          outlineColor: Cesium.Color.WHITE,
-          outlineWidth: 2,
-        },
-        label: {
-          text: `Start: ${departurePoint.name}`,
-          font: 'bold 11px monospace',
-          fillColor: Cesium.Color.fromCssColorString('#34d399'),
-          outlineColor: Cesium.Color.BLACK,
-          outlineWidth: 3,
-          style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-          pixelOffset: new Cesium.Cartesian2(0, -16),
-        },
-      });
-      newEntities.push(depMarker);
-    }
-
-    // Render Arrival marker if pinpointed
-    if (arrivalPoint) {
-      const arrMarker = viewerInstance.entities.add({
-        id: 'nav-station-arrival',
-        position: Cesium.Cartesian3.fromDegrees(
-          arrivalPoint.lon,
-          arrivalPoint.lat,
-          Math.max(arrivalPoint.elevation_m, 0) + 200.0,
-          MARS_ELLIPSOID,
-        ),
-        point: {
-          pixelSize: 11,
-          color: Cesium.Color.fromCssColorString('#ef4444'),
-          outlineColor: Cesium.Color.WHITE,
-          outlineWidth: 2,
-        },
-        label: {
-          text: `Target: ${arrivalPoint.name}`,
-          font: 'bold 11px monospace',
-          fillColor: Cesium.Color.fromCssColorString('#f87171'),
-          outlineColor: Cesium.Color.BLACK,
-          outlineWidth: 3,
-          style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-          pixelOffset: new Cesium.Cartesian2(0, -16),
-        },
-      });
-      newEntities.push(arrMarker);
-    }
-
-    const routeData = activeNavigationRoute?.recommended_route || activeNavigationRoute;
-    const waypoints = routeData?.waypoints;
-
-    if (waypoints && waypoints.length >= 2) {
-      const positions = waypoints.map((w: any) =>
-        Cesium.Cartesian3.fromDegrees(w.longitude, w.latitude, Math.max(w.elevation_m, 0) + 150.0, MARS_ELLIPSOID),
+    const addMarker = (point: { lat: number; lon: number }, label: string, color: string) => {
+      added.push(
+        viewerInstance.entities.add({
+          position: Cesium.Cartesian3.fromDegrees(point.lon, point.lat, 0, MARS_ELLIPSOID),
+          point: {
+            pixelSize: 12,
+            color: Cesium.Color.fromCssColorString(color),
+            outlineColor: Cesium.Color.WHITE,
+            outlineWidth: 2,
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+            disableDepthTestDistance: Number.POSITIVE_INFINITY,
+          },
+          label: {
+            text: label,
+            font: '600 12px sans-serif',
+            fillColor: Cesium.Color.WHITE,
+            outlineColor: Cesium.Color.BLACK,
+            outlineWidth: 3,
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            pixelOffset: new Cesium.Cartesian2(0, -18),
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+            disableDepthTestDistance: Number.POSITIVE_INFINITY,
+          },
+        }),
       );
+    };
 
-      // Glowing 3D traverse route polyline
-      const routeLine = viewerInstance.entities.add({
-        id: 'navigation-traverse-line',
-        polyline: {
-          positions: positions,
-          width: 5.0,
-          material: new Cesium.PolylineGlowMaterialProperty({
-            glowPower: 0.3,
-            color: Cesium.Color.fromCssColorString('#10b981'),
-          }),
-          clampToGround: true,
-        },
-      });
-      newEntities.push(routeLine);
+    if (departurePoint) addMarker(departurePoint, 'Start', '#014166');
+    if (arrivalPoint) addMarker(arrivalPoint, 'Destination', '#b45309');
+
+    if (departurePoint && arrivalPoint) {
+      added.push(
+        viewerInstance.entities.add({
+          polyline: {
+            positions: Cesium.Cartesian3.fromDegreesArray(
+              [departurePoint.lon, departurePoint.lat, arrivalPoint.lon, arrivalPoint.lat],
+              MARS_ELLIPSOID,
+            ),
+            width: 2,
+            material: new Cesium.PolylineDashMaterialProperty({ color: Cesium.Color.WHITE.withAlpha(0.7) }),
+            clampToGround: true,
+          },
+        }),
+      );
     }
 
-    navigationEntitiesRef.current = newEntities;
+    const waypoints: { latitude: number; longitude: number }[] | undefined = activeNavigationRoute?.waypoints;
+    if (waypoints && waypoints.length >= 2) {
+      added.push(
+        viewerInstance.entities.add({
+          polyline: {
+            positions: Cesium.Cartesian3.fromDegreesArray(
+              waypoints.flatMap((w) => [w.longitude, w.latitude]),
+              MARS_ELLIPSOID,
+            ),
+            width: 5,
+            material: new Cesium.PolylineOutlineMaterialProperty({
+              color: Cesium.Color.fromCssColorString('#facc15'),
+              outlineColor: Cesium.Color.BLACK,
+              outlineWidth: 1.5,
+            }),
+            clampToGround: true,
+          },
+        }),
+      );
+    }
+
+    navigationEntitiesRef.current = added;
     viewerInstance.scene.requestRender();
   }, [viewerInstance, activeNavigationRoute, departurePoint, arrivalPoint]);
 
@@ -835,7 +803,7 @@ export const MarsGlobe: React.FC = () => {
         }
       }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
-      // Left click on landmarks & Pinpoint Navigation clicks
+      // Left click: measurement points, traverse start/end, landmarks
       handler.setInputAction((click: { position: Cesium.Cartesian2 }) => {
         // 0. If in Geodesic Measurement Mode, handle vertex placement
         if (measurementToolActiveRef.current !== 'none') {
@@ -855,46 +823,26 @@ export const MarsGlobe: React.FC = () => {
           }
         }
 
-        // 1. If in Pinpoint Navigation Mode, handle globe clicks for Departure & Arrival
-        if (pinpointNavModeRef.current) {
+        // Traverse planner: the panel asked for a start or destination point.
+        const pickTarget = routePickTargetRef.current;
+        if (pickTarget) {
           const ray = viewer.camera.getPickRay(click.position);
-          if (ray) {
-            const cartesian = viewer.scene.globe.pick(ray, viewer.scene);
-            if (cartesian) {
-              const carto = MARS_ELLIPSOID.cartesianToCartographic(cartesian);
-              if (carto) {
-                const lat = Cesium.Math.toDegrees(carto.latitude);
-                const lon = Cesium.Math.toDegrees(carto.longitude);
-                const elev = carto.height;
-                const place = getHoverPlaceDescription(lat, lon, elev);
-
-                if (pinpointStepRef.current === 'select_departure' || !departurePointRef.current) {
-                  setDeparturePoint({ lat, lon, name: place.name, elevation_m: elev });
-                  setPinpointStep('select_arrival');
-                } else if (pinpointStepRef.current === 'select_arrival') {
-                  const arr = { lat, lon, name: place.name, elevation_m: elev };
-                  setArrivalPoint(arr);
-                  setPinpointStep('routing');
-
-                  const dep = departurePointRef.current;
-                  if (dep) {
-                    fetchOptimizedRoute(dep.lat, dep.lon, arr.lat, arr.lon, selectedVehicleProfileRef.current)
-                      .then((res) => {
-                        setActiveNavigationRoute(res);
-                        setPinpointStep('route_ready');
-                      })
-                      .catch(() => {
-                        resolveRouteWithElevation(dep, arr, selectedVehicleProfileRef.current).then((fallback) => {
-                          setActiveNavigationRoute(fallback);
-                          setPinpointStep('route_ready');
-                        });
-                      });
-                  }
-                }
-                return;
-              }
-            }
+          const cartesian = ray && viewer.scene.globe.pick(ray, viewer.scene);
+          const carto = cartesian && MARS_ELLIPSOID.cartesianToCartographic(cartesian);
+          if (carto) {
+            const lat = Cesium.Math.toDegrees(carto.latitude);
+            const lon = Cesium.Math.toDegrees(carto.longitude);
+            const point = {
+              lat,
+              lon,
+              name: getHoverPlaceDescription(lat, lon, carto.height).name,
+              elevation_m: carto.height,
+            };
+            if (pickTarget === 'start') setDeparturePoint(point);
+            else setArrivalPoint(point);
+            setRoutePickTarget(null);
           }
+          return;
         }
 
         const picked = viewer.scene.pick(click.position);
@@ -1268,11 +1216,9 @@ export const MarsGlobe: React.FC = () => {
   );
 
   return (
-    <div className={`relative w-full h-full bg-white ${isPinpointNavigationMode ? 'cursor-crosshair' : ''}`}>
+    <div className={`relative w-full h-full bg-white ${routePickTarget ? 'cursor-crosshair' : ''}`}>
       <div ref={containerRef} className="w-full h-full" />
 
-      {/* Pinpoint Departure & Arrival Route Navigation HUD */}
-      <PinpointRouteHUD />
 
       {/* Compass */}
       <CompassOrientationHUD />
@@ -1315,9 +1261,6 @@ export const MarsGlobe: React.FC = () => {
             >
               Reload globe
             </button>
-            <p className="text-[11px] text-ink-muted">
-              Mars Biaxial Ellipsoid (IAU:49902) configuration and telemetry engine active.
-            </p>
           </div>
         </div>
       )}

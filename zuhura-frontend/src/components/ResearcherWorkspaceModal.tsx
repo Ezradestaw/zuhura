@@ -602,7 +602,7 @@ export const ResearcherWorkspaceModal: React.FC = () => {
                   />
                 </div>
                 <textarea
-                  placeholder="Detailed scientific observation notes, mineral signatures, and stratigraphic context..."
+                  placeholder="What you observed"
                   value={newObsNotes}
                   onChange={(e) => setNewObsNotes(e.target.value)}
                   rows={2}
@@ -708,13 +708,13 @@ export const ResearcherWorkspaceModal: React.FC = () => {
                       value={newHypConfidence}
                       onChange={(e) => setNewHypConfidence(parseFloat(e.target.value))}
                       className="w-20 px-2.5 py-1.5 rounded bg-white border border-line text-xs text-ink font-mono text-center focus:outline-none"
-                      title="Epistemic Confidence Rating (0.0 to 1.0)"
+                      title="Confidence (0 to 1)"
                     />
                   </div>
                 </div>
                 <input
                   type="text"
-                  placeholder="Popperian Falsification Criteria (What scientific finding would disprove this?)"
+                  placeholder="What would prove this wrong?"
                   value={newHypFalsification}
                   onChange={(e) => setNewHypFalsification(e.target.value)}
                   className="w-full px-2.5 py-1.5 rounded bg-white border border-line text-xs text-ink placeholder-ink-faint focus:outline-none focus:border-brand-600"

@@ -12,7 +12,6 @@ from zuhura.provenance.taxonomy import (
     ProvenanceFactory,
     ScientificProvenanceRecord,
 )
-from zuhura.interior.model import get_mars_interior_summary, compare_interior_models
 from zuhura.navigation.mobility_model import (
     ROVER_SPECIFICATIONS,
     assess_terramechanics,
@@ -40,35 +39,6 @@ async def test_scientific_truth_provenance():
     insight_prov = ProvenanceFactory.create_insight_interior_provenance("samuel_2023_basal_molten")
     assert insight_prov.classification == EpistemicClassification.DERIVED
     assert "Nature" in insight_prov.scientific_references[0].journal
-
-
-@pytest.mark.asyncio
-async def test_insight_interior_multi_model_reconciliation():
-    """Validates InSight 2021 vs 2023 consensus reconciliation and /compare endpoint."""
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as client:
-        # Default 2023 model
-        r23 = await client.get("/api/v1/spatial/interior/model?profile=samuel_2023_basal_molten")
-        assert r23.status_code == 200
-        m23 = r23.json()
-        assert m23["core_radius_km"] == 1650.0
-        assert m23["has_basal_molten_layer"] is True
-        assert m23["basal_molten_layer_thickness_km"] == 160.0
-
-        # Historical 2021 model
-        r21 = await client.get("/api/v1/spatial/interior/model?profile=stahler_2021_large_core")
-        assert r21.status_code == 200
-        m21 = r21.json()
-        assert m21["core_radius_km"] == 1830.0
-        assert m21["has_basal_molten_layer"] is False
-
-        # Comparison endpoint
-        r_comp = await client.get("/api/v1/spatial/interior/compare")
-        assert r_comp.status_code == 200
-        comp = r_comp.json()
-        assert comp["status"] == "COMPARISON_READY"
-        assert "consensus_2023" in comp["models"]
-        assert "historical_2021" in comp["models"]
 
 
 @pytest.mark.asyncio

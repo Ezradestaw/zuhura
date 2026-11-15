@@ -19,14 +19,12 @@ export const LayerPanel: React.FC = () => {
     setSolarLighting,
     isLayerPanelCollapsed,
     setIsLayerPanelCollapsed,
-    activeMainView,
   } = useGlobeStore();
   const { isTransectMode, setIsTransectMode, setTransectStart, setTransectEnd, executeTransectQuery } =
     useTerrainAnalysisStore();
 
   const [selectedInfo, setSelectedInfo] = useState<ScientificLayer | null>(null);
 
-  if (activeMainView !== 'explorer') return null;
 
   const TERRAIN_OPTIONS = [
     { id: 'global', name: 'Global Mars (Multi-Res)' },
@@ -44,7 +42,7 @@ export const LayerPanel: React.FC = () => {
       <div className="flex items-center justify-between px-3.5 py-2.5 bg-surface-subtle border-b border-line">
         <div className="flex items-center space-x-2">
           <Layers className="w-4 h-4 text-brand-600" />
-          <span className="font-semibold text-xs text-ink">Scientific Layers</span>
+          <span className="font-semibold text-xs text-ink">Layers</span>
           <span className="px-1.5 py-0.2 rounded bg-brand-50 border border-brand-200 text-brand-600 text-[10px] font-mono font-bold">
             {visibleCount}/{layers.length}
           </span>

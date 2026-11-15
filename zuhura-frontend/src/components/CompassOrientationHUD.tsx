@@ -10,7 +10,6 @@ export const CompassOrientationHUD: React.FC = () => {
     cameraLat,
     cameraLon,
     cameraAlt,
-    activeMainView,
     isRoutePlannerOpen,
     isRegionDiscoveryOpen,
   } = useGlobeStore();
@@ -47,7 +46,7 @@ export const CompassOrientationHUD: React.FC = () => {
     }
   };
 
-  if (activeMainView !== 'explorer' || isRoutePlannerOpen || isRegionDiscoveryOpen) return null;
+  if (isRoutePlannerOpen || isRegionDiscoveryOpen) return null;
 
   return (
     <div className="absolute top-16 right-4 z-10 flex flex-col items-center select-none font-mono">

@@ -105,17 +105,6 @@ def test_mission_certification_full_e2e_pipeline():
     assert route["scientific_provenance"]["classification"] == "SIMULATED"
 
     # -------------------------------------------------------------------------
-    # STAGE 6: Planetary Interior Seismology Model (Samuel 2023 Consensual Layer)
-    # -------------------------------------------------------------------------
-    res_interior = client.get("/api/v1/spatial/interior/model")
-    assert res_interior.status_code == 200
-    interior = res_interior.json()
-    assert interior["planetary_radius_km"] == 3389.5
-    layer_names = [l["name"] for l in interior["layers"]]
-    assert any("Basal Molten Silicate" in name for name in layer_names)
-    assert any("Metallic Core" in name for name in layer_names)
-
-    # -------------------------------------------------------------------------
     # STAGE 7: Scientific Workspace & Hypotheses Formulation
     # -------------------------------------------------------------------------
     res_studies = client.get("/api/v1/spatial/workspace/studies")

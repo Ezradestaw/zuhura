@@ -11,6 +11,13 @@ export interface PlanetaryFeature {
   description: string;
 }
 
+export interface RoutePoint {
+  lat: number;
+  lon: number;
+  name: string;
+  elevation_m: number;
+}
+
 interface GlobeState {
   cameraLat: number;
   cameraLon: number;
@@ -24,12 +31,10 @@ interface GlobeState {
   solarAzimuth: number;
   solarElevation: number;
   // Advanced Planetary Feature Modes
-  isXRayMarsOpen: boolean;
   isRoutePlannerOpen: boolean;
   isPinpointOpen: boolean;
   isRegionDiscoveryOpen: boolean;
   isVisualIntelligenceOpen: boolean;
-  isHoverIntelligenceEnabled: boolean;
   isPlaceNamesVisible: boolean;
   isRoverRawImagesOpen: boolean;
   isMountSharpModalOpen: boolean;
@@ -41,12 +46,10 @@ interface GlobeState {
   activeEvaTargetId: string | null;
   activeNavigationRoute: any | null;
   activeDiscoveredRegions: any[];
-  // Pinpoint Departure & Arrival Navigation Mode
-  isPinpointNavigationMode: boolean;
-  pinpointStep: 'select_departure' | 'select_arrival' | 'routing' | 'route_ready';
-  departurePoint: { lat: number; lon: number; name: string; elevation_m: number } | null;
-  arrivalPoint: { lat: number; lon: number; name: string; elevation_m: number } | null;
-  selectedVehicleProfile: string;
+  // Traverse planner: start/destination picked on the globe
+  routePickTarget: 'start' | 'end' | null;
+  departurePoint: RoutePoint | null;
+  arrivalPoint: RoutePoint | null;
   // Camera orientation
   cameraHeading: number;
   cameraPitch: number;
@@ -62,8 +65,7 @@ interface GlobeState {
   // Tile Loading Progress & Health
   tilesLoadingCount: number;
   isTileLoadError: boolean;
-  // Mission Overview & Briefing
-  activeMainView: 'explorer' | 'overview';
+  // Help
   isMissionBriefingOpen: boolean;
   isLayerPanelCollapsed: boolean;
   setCameraPosition: (lat: number, lon: number, alt: number) => void;
@@ -73,12 +75,10 @@ interface GlobeState {
   setSelectedTerrain: (terrain: string) => void;
   setEnableLighting: (enabled: boolean) => void;
   setSolarLighting: (azimuth: number, elevation: number) => void;
-  setIsXRayMarsOpen: (open: boolean) => void;
   setIsRoutePlannerOpen: (open: boolean) => void;
   setIsPinpointOpen: (open: boolean) => void;
   setIsRegionDiscoveryOpen: (open: boolean) => void;
   setIsVisualIntelligenceOpen: (open: boolean) => void;
-  setIsHoverIntelligenceEnabled: (enabled: boolean) => void;
   setIsPlaceNamesVisible: (visible: boolean) => void;
   setIsRoverRawImagesOpen: (open: boolean) => void;
   setIsMountSharpModalOpen: (open: boolean) => void;
@@ -89,19 +89,15 @@ interface GlobeState {
   setActiveEvaTargetId: (targetId: string | null) => void;
   setActiveNavigationRoute: (route: any | null) => void;
   setActiveDiscoveredRegions: (regions: any[]) => void;
-  setPinpointNavigationMode: (active: boolean) => void;
-  setPinpointStep: (step: 'select_departure' | 'select_arrival' | 'routing' | 'route_ready') => void;
-  setDeparturePoint: (point: { lat: number; lon: number; name: string; elevation_m: number } | null) => void;
-  setArrivalPoint: (point: { lat: number; lon: number; name: string; elevation_m: number } | null) => void;
-  setSelectedVehicleProfile: (profile: string) => void;
-  clearPinpointRoute: () => void;
+  setRoutePickTarget: (target: 'start' | 'end' | null) => void;
+  setDeparturePoint: (point: RoutePoint | null) => void;
+  setArrivalPoint: (point: RoutePoint | null) => void;
   setIsSurfaceWalkActive: (active: boolean) => void;
   setSurfaceWalkSpeed: (speed: number) => void;
   setIsSplitScreenActive: (active: boolean) => void;
   setSplitPosition: (pos: number) => void;
   setSplitLayers: (leftId: string, rightId: string) => void;
   setTilesLoadingMetrics: (count: number, hasError: boolean) => void;
-  setActiveMainView: (view: 'explorer' | 'overview') => void;
   setIsMissionBriefingOpen: (open: boolean) => void;
   setIsLayerPanelCollapsed: (collapsed: boolean) => void;
 }
@@ -118,12 +114,10 @@ export const useGlobeStore = create<GlobeState>((set) => ({
   enableLighting: false,
   solarAzimuth: 315.0,
   solarElevation: 45.0,
-  isXRayMarsOpen: false,
   isRoutePlannerOpen: false,
   isPinpointOpen: false,
   isRegionDiscoveryOpen: false,
   isVisualIntelligenceOpen: false,
-  isHoverIntelligenceEnabled: true,
   isPlaceNamesVisible: true,
   isRoverRawImagesOpen: false,
   isMountSharpModalOpen: false,
@@ -134,11 +128,9 @@ export const useGlobeStore = create<GlobeState>((set) => ({
   activeEvaTargetId: null,
   activeNavigationRoute: null,
   activeDiscoveredRegions: [],
-  isPinpointNavigationMode: false,
-  pinpointStep: 'select_departure',
+  routePickTarget: null,
   departurePoint: null,
   arrivalPoint: null,
-  selectedVehicleProfile: 'rover_perseverance',
   cameraHeading: 0.0,
   cameraPitch: -90.0,
   cameraRoll: 0.0,
@@ -150,7 +142,6 @@ export const useGlobeStore = create<GlobeState>((set) => ({
   splitRightLayerId: 'zuhura-ctx-jezero',
   tilesLoadingCount: 0,
   isTileLoadError: false,
-  activeMainView: 'explorer',
   isMissionBriefingOpen: false,
   isLayerPanelCollapsed: true,
   setCameraPosition: (lat, lon, alt) => set({ cameraLat: lat, cameraLon: lon, cameraAlt: alt }),
@@ -160,12 +151,10 @@ export const useGlobeStore = create<GlobeState>((set) => ({
   setSelectedTerrain: (terrain) => set({ selectedTerrain: terrain }),
   setEnableLighting: (enabled) => set({ enableLighting: enabled }),
   setSolarLighting: (azimuth, elevation) => set({ solarAzimuth: azimuth, solarElevation: elevation }),
-  setIsXRayMarsOpen: (open) => set({ isXRayMarsOpen: open }),
   setIsRoutePlannerOpen: (open) => set({ isRoutePlannerOpen: open }),
   setIsPinpointOpen: (open) => set({ isPinpointOpen: open }),
   setIsRegionDiscoveryOpen: (open) => set({ isRegionDiscoveryOpen: open }),
   setIsVisualIntelligenceOpen: (open) => set({ isVisualIntelligenceOpen: open }),
-  setIsHoverIntelligenceEnabled: (enabled) => set({ isHoverIntelligenceEnabled: enabled }),
   setIsPlaceNamesVisible: (visible) => set({ isPlaceNamesVisible: visible }),
   setIsRoverRawImagesOpen: (open) => set({ isRoverRawImagesOpen: open }),
   setIsMountSharpModalOpen: (open) => set({ isMountSharpModalOpen: open }),
@@ -176,29 +165,15 @@ export const useGlobeStore = create<GlobeState>((set) => ({
   setActiveEvaTargetId: (targetId) => set({ activeEvaTargetId: targetId }),
   setActiveNavigationRoute: (route) => set({ activeNavigationRoute: route }),
   setActiveDiscoveredRegions: (regions) => set({ activeDiscoveredRegions: regions }),
-  setPinpointNavigationMode: (active) =>
-    set({
-      isPinpointNavigationMode: active,
-      pinpointStep: active ? 'select_departure' : 'select_departure',
-    }),
-  setPinpointStep: (step) => set({ pinpointStep: step }),
+  setRoutePickTarget: (target) => set({ routePickTarget: target }),
   setDeparturePoint: (point) => set({ departurePoint: point }),
   setArrivalPoint: (point) => set({ arrivalPoint: point }),
-  setSelectedVehicleProfile: (profile) => set({ selectedVehicleProfile: profile }),
-  clearPinpointRoute: () =>
-    set({
-      departurePoint: null,
-      arrivalPoint: null,
-      activeNavigationRoute: null,
-      pinpointStep: 'select_departure',
-    }),
   setIsSurfaceWalkActive: (active) => set({ isSurfaceWalkActive: active }),
   setSurfaceWalkSpeed: (speed) => set({ surfaceWalkSpeed: speed }),
   setIsSplitScreenActive: (active) => set({ isSplitScreenActive: active }),
   setSplitPosition: (pos) => set({ splitPosition: pos }),
   setSplitLayers: (leftId, rightId) => set({ splitLeftLayerId: leftId, splitRightLayerId: rightId }),
   setTilesLoadingMetrics: (count, hasError) => set({ tilesLoadingCount: count, isTileLoadError: hasError }),
-  setActiveMainView: (view) => set({ activeMainView: view }),
   setIsMissionBriefingOpen: (open) => set({ isMissionBriefingOpen: open }),
   setIsLayerPanelCollapsed: (collapsed) => set({ isLayerPanelCollapsed: collapsed }),
 }));

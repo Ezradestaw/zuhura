@@ -46,7 +46,7 @@ export const AtmosphericEnvironmentModal: React.FC = () => {
     error,
   } = useEnvironmentStore();
 
-  const { setCameraPosition, setActiveMainView } = useGlobeStore();
+  const { setCameraPosition } = useGlobeStore();
   const [copiedLatex, setCopiedLatex] = useState(false);
   const [copiedJson, setCopiedJson] = useState(false);
 
@@ -63,7 +63,6 @@ export const AtmosphericEnvironmentModal: React.FC = () => {
 
   const handleFlyToTarget = () => {
     setCameraPosition(targetLat, targetLon, 800000.0);
-    setActiveMainView('explorer');
     setIsEnvironmentModalOpen(false);
   };
 

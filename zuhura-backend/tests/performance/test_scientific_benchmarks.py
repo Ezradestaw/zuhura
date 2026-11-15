@@ -7,7 +7,6 @@ import time
 import pytest
 from httpx import AsyncClient, ASGITransport
 from zuhura.api.main import app
-from zuhura.interior.model import get_mars_interior_summary
 from zuhura.navigation.router import NavigationRouter, RoutePlanningRequest, Waypoint
 from zuhura.pinpoint.engine import LocationPinpointEngine
 from zuhura.ai.research_agent import decompose_research_question
@@ -31,13 +30,6 @@ async def test_performance_budgets():
         lat_hover = (time.perf_counter() - t0) * 1000.0
         assert resp.status_code == 200
         assert lat_hover < 25.0
-
-        # Budget 3: InSight Interior Summary (< 10 ms)
-        t0 = time.perf_counter()
-        model = get_mars_interior_summary()
-        lat_interior = (time.perf_counter() - t0) * 1000.0
-        assert model.planetary_radius_km == 3389.5
-        assert lat_interior < 20.0
 
         # Budget 4: Terrain-aware Route Calculation (< 250 ms)
         router = NavigationRouter()

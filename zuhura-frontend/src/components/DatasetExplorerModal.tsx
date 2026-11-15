@@ -308,7 +308,7 @@ export const DatasetExplorerModal: React.FC = () => {
             <div className="relative w-full max-w-2xl bg-white border border-line rounded-xl p-6 space-y-4 shadow-2xl text-xs">
               <div className="flex items-center justify-between border-b border-line pb-3">
                 <div>
-                  <span className="text-[10px] text-brand-600 font-bold">OGC WMTS Scientific Product</span>
+                  <span className="text-[10px] text-brand-600 font-bold">WMTS layer</span>
                   <h3 className="text-base font-bold text-ink mt-0.5">{selectedLayer.title}</h3>
                 </div>
                 <button

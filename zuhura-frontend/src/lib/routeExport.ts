@@ -1,4 +1,19 @@
-import { RouteOptionData, RouteWaypoint } from './advancedApiClient';
+import type { PathPoint } from './traverse';
+
+/** Any route with waypoints can be exported. */
+export interface ExportableRoute {
+  route_id: string;
+  name: string;
+  description?: string;
+  total_distance_km: number;
+  elevation_gain_m: number;
+  elevation_loss_m: number;
+  max_slope_degrees: number;
+  mean_slope_degrees: number;
+  is_synthetic?: boolean;
+  provenance_warning?: string | null;
+  waypoints: PathPoint[];
+}
 
 export interface TraverseExportPoint {
   latitude: number;
@@ -21,8 +36,8 @@ function csvCell(value: string | number): string {
   return text;
 }
 
-export function routeWaypoints(route: RouteOptionData): TraverseExportPoint[] {
-  return (route.waypoints || []).map((waypoint: RouteWaypoint) => ({
+export function routeWaypoints(route: ExportableRoute): TraverseExportPoint[] {
+  return (route.waypoints || []).map((waypoint) => ({
     latitude: waypoint.latitude,
     longitude: waypoint.longitude,
     elevation_m: waypoint.elevation_m,
@@ -32,7 +47,7 @@ export function routeWaypoints(route: RouteOptionData): TraverseExportPoint[] {
   }));
 }
 
-export function buildTraverseGeoJson(route: RouteOptionData): Record<string, unknown> {
+export function buildTraverseGeoJson(route: ExportableRoute): Record<string, unknown> {
   const points = routeWaypoints(route);
   return {
     type: 'FeatureCollection',
@@ -75,7 +90,7 @@ export function buildTraverseGeoJson(route: RouteOptionData): Record<string, unk
   };
 }
 
-export function buildTraverseCsv(route: RouteOptionData): string {
+export function buildTraverseCsv(route: ExportableRoute): string {
   const header = [
     'station_index',
     'latitude',
@@ -101,7 +116,7 @@ export function buildTraverseCsv(route: RouteOptionData): string {
   return [header.join(','), ...rows].join('\n');
 }
 
-export function buildTraverseKml(route: RouteOptionData): string {
+export function buildTraverseKml(route: ExportableRoute): string {
   const points = routeWaypoints(route);
   const coordinates = points.map((point) => `${point.longitude},${point.latitude},${point.elevation_m}`).join(' ');
   const name = xmlEscape(route.name || 'Zuhura traverse');

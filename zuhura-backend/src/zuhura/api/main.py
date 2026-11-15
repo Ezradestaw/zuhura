@@ -15,7 +15,6 @@ from zuhura.api.v1.missions import router as missions_router
 from zuhura.api.v1.ai import router as ai_router
 from zuhura.api.v1.illumination import router as illumination_router
 from zuhura.api.v1.terrain import router as terrain_router
-from zuhura.api.v1.interior import router as interior_router
 from zuhura.api.v1.navigation import router as navigation_router
 from zuhura.api.v1.hover import router as hover_router
 from zuhura.api.v1.pinpoint import router as pinpoint_router
@@ -80,7 +79,6 @@ app.include_router(missions_router, prefix="/api/v1", tags=["Missions"])
 app.include_router(ai_router, prefix="/api/v1/ai", tags=["AI"])
 app.include_router(illumination_router, prefix="/api/v1/illumination", tags=["Illumination"])
 app.include_router(terrain_router, prefix="/api/v1/spatial/terrain", tags=["Terrain Intelligence"])
-app.include_router(interior_router, prefix="/api/v1/spatial/interior", tags=["Planetary Interior (X-Ray Mars)"])
 app.include_router(navigation_router, prefix="/api/v1/spatial/navigation", tags=["Optimize Navigation"])
 app.include_router(hover_router, prefix="/api/v1/spatial/hover", tags=["Hover Intelligence"])
 app.include_router(pinpoint_router, prefix="/api/v1/spatial/pinpoint", tags=["Location Pinpoint"])

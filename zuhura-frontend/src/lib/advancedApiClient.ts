@@ -54,119 +54,6 @@ export interface KmlWaypoint {
   elevation_m?: number;
 }
 
-export interface InteriorLayerData {
-  id: string;
-  name: string;
-  classification: string;
-  depth_top_km: number;
-  depth_bottom_km: number;
-  thickness_km: number;
-  thickness_uncertainty_km: number;
-  radius_top_km: number;
-  radius_bottom_km: number;
-  state_of_matter: string;
-  primary_composition: string;
-  density_kg_m3: number;
-  density_range_kg_m3: [number, number];
-  temperature_k: number;
-  temperature_range_k: [number, number];
-  evidence_type: string;
-  seismic_p_velocity_km_s?: number;
-  seismic_s_velocity_km_s?: number;
-  scientific_significance: string;
-  source_citation: string;
-  doi: string;
-  model_notes: string;
-}
-
-export interface MarsInteriorModelData {
-  planetary_radius_km: number;
-  planetary_mass_kg: number;
-  surface_gravity_m_s2: number;
-  seismic_station: string;
-  data_vintage: string;
-  layers: InteriorLayerData[];
-  crustal_dichotomy_notes: string;
-  core_composition_notes: string;
-}
-
-export interface RouteWaypoint {
-  distance_km: number;
-  latitude: number;
-  longitude: number;
-  elevation_m: number;
-  slope_degrees: number;
-  roughness_tri: number;
-}
-
-export interface RouteSegmentData {
-  segment_index: number;
-  start_lat: number;
-  start_lon: number;
-  end_lat: number;
-  end_lon: number;
-  surface_distance_m: number;
-  elevation_start_m: number;
-  elevation_end_m: number;
-  elevation_delta_m: number;
-  slope_degrees: number;
-  is_hazard: boolean;
-  traversability: 'traversable' | 'difficult' | 'hazard' | 'impassable';
-}
-
-export interface RouteOptionData {
-  route_id: string;
-  name: string;
-  description: string;
-  total_distance_km: number;
-  direct_distance_km: number;
-  detour_factor: number;
-  elevation_gain_m: number;
-  elevation_loss_m: number;
-  min_elevation_m: number;
-  max_elevation_m: number;
-  max_slope_degrees: number;
-  mean_slope_degrees: number;
-  hazard_segments_count: number;
-  estimated_duration_sols?: number;
-  is_synthetic?: boolean;
-  provenance_warning?: string;
-  waypoints: RouteWaypoint[];
-  segments: RouteSegmentData[];
-  geojson: GeoJsonObject;
-  mobility_assessment?: {
-    vehicle_profile: ScalarRecord;
-    terramechanics: {
-      estimated_wheel_slip_pct: number;
-      traction_ratio: number;
-      sinkage_depth_cm: number;
-      soil_shear_risk: string;
-      bekker_motion_resistance_n?: number;
-      tractive_effort_n?: number;
-      entrapment_risk_pct?: number;
-      regolith_type_used?: string;
-    };
-    energy: {
-      mechanical_drive_energy_wh: number;
-      avionics_energy_wh: number;
-      total_energy_wh: number;
-      energy_rate_wh_per_km: number;
-      solar_insolation_mean_w_m2: number;
-      solar_energy_available_wh: number;
-      battery_net_delta_wh?: number;
-      survival_heater_energy_wh?: number;
-    };
-    feasibility: RouteFeasibilityReportData;
-    risks?: TraverseRiskAnalysisData;
-    sample_sol_schedule?: DailySolScheduleData;
-    hazard_score: number;
-    confidence_level_pct: number;
-    estimated_duration_sols: number;
-    estimated_duration_hours: number;
-  };
-  quality_metrics?: ScalarRecord;
-}
-
 export interface RegolithPropertiesData {
   regolith_id: string;
   name: string;
@@ -411,50 +298,6 @@ export interface SuperResolutionResultData {
   processing_notes: string;
 }
 
-export interface RoutePlanningResponseData {
-  status: string;
-  is_synthetic?: boolean;
-  recommended_route: RouteOptionData;
-  alternative_routes: RouteOptionData[];
-  mobility_profile: string;
-  cost_model_parameters: ScalarRecord;
-  scientific_provenance: ScientificProvenance;
-  disclaimer: string;
-}
-
-export interface HoverInspectionData {
-  latitude: number;
-  longitude: number;
-  planetographic_latitude: number;
-  elevation_m: number;
-  vertical_datum: string;
-  slope_degrees: number;
-  surface_description: string;
-  geological_era: string;
-  nearest_feature?: {
-    name: string;
-    feature_type: string;
-    distance_km: number;
-    diameter_km: number;
-    is_inside: boolean;
-    elevation_m: number;
-    description: string;
-  };
-  imagery_coverage: {
-    viking_global_232m: boolean;
-    ctx_regional_5m: boolean;
-    hirise_local_submeter: boolean;
-    themis_ir_100m: boolean;
-    details: string;
-  };
-  solar_status: {
-    is_daylight: boolean;
-    solar_elevation_deg: number;
-    solar_azimuth_deg: number;
-  };
-  data_source: string;
-}
-
 export interface PinpointCandidateData {
   candidate_id: string;
   feature_name: string;
@@ -515,35 +358,6 @@ export interface RegionDiscoveryResponseData {
 }
 
 // API functions
-export async function fetchInteriorModel(): Promise<MarsInteriorModelData> {
-  const res = await fetch('/api/v1/spatial/interior/model');
-  if (!res.ok) throw new Error('Failed to fetch Mars interior geophysical model.');
-  return res.json();
-}
-
-export async function fetchOptimizedRoute(
-  startLat: number,
-  startLon: number,
-  endLat: number,
-  endLon: number,
-  mobilityProfile: string = 'rover_perseverance',
-  preference: string = 'minimum_slope',
-): Promise<RoutePlanningResponseData> {
-  const res = await fetch('/api/v1/spatial/navigation/optimize-route', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      start: { latitude: startLat, longitude: startLon },
-      destination: { latitude: endLat, longitude: endLon },
-      mobility_profile: mobilityProfile,
-      preference: preference,
-      grid_resolution: 25,
-    }),
-  });
-  if (!res.ok) throw new Error(`Route calculation failed: ${res.statusText}`);
-  return res.json();
-}
-
 export async function fetchRegolithTypes(): Promise<{
   status: string;
   regolith_types: Record<string, RegolithPropertiesData>;
@@ -683,12 +497,6 @@ export async function fetchSuperResolution(
     { method: 'POST' },
   );
   if (!res.ok) throw new Error(`Super-resolution failed: ${res.statusText}`);
-  return res.json();
-}
-
-export async function fetchHoverInspection(lat: number, lon: number): Promise<HoverInspectionData> {
-  const res = await fetch(`/api/v1/spatial/hover/inspect?lat=${lat}&lon=${lon}`);
-  if (!res.ok) throw new Error(`Hover inspection failed: ${res.statusText}`);
   return res.json();
 }
 

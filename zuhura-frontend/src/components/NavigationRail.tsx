@@ -1,25 +1,20 @@
 import React from 'react';
 import type { LucideIcon } from 'lucide-react';
 import {
-  Activity,
   Bookmark,
   Camera,
   CircleHelp,
   Columns2,
   Database,
   Footprints,
-  Globe,
   Images,
   Layers,
-  LayoutDashboard,
-  MousePointer2,
   Mountain,
   Navigation,
   Ruler,
   Wind,
 } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
-import { useAIStore } from '../store/aiStore';
 import { useWorkspaceStore } from '../store/workspaceStore';
 import { useEnvironmentStore } from '../store/environmentStore';
 
@@ -71,18 +66,12 @@ const SectionLabel: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
 export const NavigationRail: React.FC = () => {
   const {
-    activeMainView,
-    setActiveMainView,
-    isXRayMarsOpen,
-    setIsXRayMarsOpen,
     isRoutePlannerOpen,
     setIsRoutePlannerOpen,
     isPinpointOpen,
     setIsPinpointOpen,
     isRegionDiscoveryOpen,
     setIsRegionDiscoveryOpen,
-    isPinpointNavigationMode,
-    setPinpointNavigationMode,
     setIsMissionBriefingOpen,
     isSurfaceWalkActive,
     setIsSurfaceWalkActive,
@@ -96,71 +85,19 @@ export const NavigationRail: React.FC = () => {
     setIsDatasetExplorerOpen,
     isAresHudOpen,
     setIsAresHudOpen,
-    isHoverIntelligenceEnabled,
-    setIsHoverIntelligenceEnabled,
   } = useGlobeStore();
-  const { isOpen: isAIOpen, toggleOpen: toggleAI } = useAIStore();
   const { isWorkspaceOpen, setIsWorkspaceOpen, measurementToolActive, setMeasurementToolActive } = useWorkspaceStore();
   const { isEnvironmentModalOpen, setIsEnvironmentModalOpen } = useEnvironmentStore();
 
-  const showExplorer = () => setActiveMainView('explorer');
-
   const toolItems: NavItem[] = [
     {
-      id: 'explorer',
-      label: 'Explorer',
-      description: '3D globe',
-      icon: Globe,
-      active:
-        activeMainView === 'explorer' &&
-        !isXRayMarsOpen &&
-        !isRoutePlannerOpen &&
-        !isPinpointOpen &&
-        !isRegionDiscoveryOpen &&
-        !isAIOpen &&
-        !isWorkspaceOpen &&
-        !isPinpointNavigationMode,
-      onClick: () => {
-        showExplorer();
-        setIsXRayMarsOpen(false);
-        setIsRoutePlannerOpen(false);
-        setIsPinpointOpen(false);
-        setIsRegionDiscoveryOpen(false);
-        if (isAIOpen) toggleAI();
-        if (isWorkspaceOpen) setIsWorkspaceOpen(false);
-        if (isPinpointNavigationMode) setPinpointNavigationMode(false);
-      },
-      shortcut: '1',
-    },
-    {
-      id: 'overview',
-      label: 'Mission overview',
-      description: 'Summary dashboard',
-      icon: LayoutDashboard,
-      active: activeMainView === 'overview',
-      onClick: () => setActiveMainView(activeMainView === 'overview' ? 'explorer' : 'overview'),
-      shortcut: '2',
-    },
-    {
       id: 'traverse',
-      label: 'Rover traverse',
-      description: 'Route planning',
+      label: 'Traverse',
+      description: 'A* path between two points',
       icon: Navigation,
-      active: isRoutePlannerOpen || isPinpointNavigationMode,
-      onClick: () => {
-        showExplorer();
-        setIsRoutePlannerOpen(!isRoutePlannerOpen);
-      },
-      shortcut: '3',
-    },
-    {
-      id: 'interior',
-      label: 'Planetary interior',
-      description: 'InSight seismology',
-      icon: Activity,
-      active: isXRayMarsOpen,
-      onClick: () => setIsXRayMarsOpen(!isXRayMarsOpen),
-      shortcut: '4',
+      active: isRoutePlannerOpen,
+      onClick: () => setIsRoutePlannerOpen(!isRoutePlannerOpen),
+      shortcut: '1',
     },
     {
       id: 'image-locator',
@@ -169,7 +106,7 @@ export const NavigationRail: React.FC = () => {
       icon: Camera,
       active: isPinpointOpen,
       onClick: () => setIsPinpointOpen(!isPinpointOpen),
-      shortcut: '6',
+      shortcut: '2',
     },
     {
       id: 'regions',
@@ -186,7 +123,7 @@ export const NavigationRail: React.FC = () => {
       icon: Bookmark,
       active: isWorkspaceOpen,
       onClick: () => setIsWorkspaceOpen(!isWorkspaceOpen),
-      shortcut: '8',
+      shortcut: '5',
     },
     {
       id: 'environment',
@@ -195,7 +132,7 @@ export const NavigationRail: React.FC = () => {
       icon: Wind,
       active: isEnvironmentModalOpen,
       onClick: () => setIsEnvironmentModalOpen(!isEnvironmentModalOpen),
-      shortcut: '0',
+      shortcut: '7',
     },
     {
       id: 'rover-images',
@@ -230,33 +167,19 @@ export const NavigationRail: React.FC = () => {
       description: 'Jezero field traverse',
       icon: Footprints,
       active: isAresHudOpen,
-      onClick: () => {
-        showExplorer();
-        setIsAresHudOpen(!isAresHudOpen);
-      },
+      onClick: () => setIsAresHudOpen(!isAresHudOpen),
       shortcut: 'E',
     },
   ];
 
   const viewItems: NavItem[] = [
     {
-      id: 'hover-details',
-      label: 'Hover details',
-      description: 'Card for the place under the cursor',
-      icon: MousePointer2,
-      active: isHoverIntelligenceEnabled,
-      onClick: () => setIsHoverIntelligenceEnabled(!isHoverIntelligenceEnabled),
-    },
-    {
       id: 'surface-walk',
       label: 'Surface walk',
       description: 'First-person view (W A S D)',
       icon: Footprints,
       active: isSurfaceWalkActive,
-      onClick: () => {
-        showExplorer();
-        setIsSurfaceWalkActive(!isSurfaceWalkActive);
-      },
+      onClick: () => setIsSurfaceWalkActive(!isSurfaceWalkActive),
     },
     {
       id: 'compare',
@@ -264,10 +187,7 @@ export const NavigationRail: React.FC = () => {
       description: 'Split-screen swipe',
       icon: Columns2,
       active: isSplitScreenActive,
-      onClick: () => {
-        showExplorer();
-        setIsSplitScreenActive(!isSplitScreenActive);
-      },
+      onClick: () => setIsSplitScreenActive(!isSplitScreenActive),
     },
     {
       id: 'measure',
@@ -275,10 +195,7 @@ export const NavigationRail: React.FC = () => {
       description: 'Distance and area',
       icon: Ruler,
       active: measurementToolActive !== 'none',
-      onClick: () => {
-        showExplorer();
-        setMeasurementToolActive(measurementToolActive === 'none' ? 'ruler' : 'none');
-      },
+      onClick: () => setMeasurementToolActive(measurementToolActive === 'none' ? 'ruler' : 'none'),
     },
   ];
 
@@ -302,12 +219,12 @@ export const NavigationRail: React.FC = () => {
         <button
           type="button"
           onClick={() => setIsMissionBriefingOpen(true)}
-          title="Help and guided tour (?)"
+          title="Help (?)"
           className="flex h-9 w-full items-center rounded px-3 text-brand-100 transition-colors hover:bg-brand-800 hover:text-white"
         >
           <CircleHelp className="h-4 w-4 shrink-0" aria-hidden="true" />
           <span className="ml-3 whitespace-nowrap text-xs font-medium opacity-0 transition-opacity group-hover:opacity-100">
-            Help and guided tour
+            Help
           </span>
         </button>
       </div>

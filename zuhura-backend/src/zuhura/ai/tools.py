@@ -25,7 +25,6 @@ from zuhura.api.v1.spatial import MARS_FEATURES, estimate_mars_elevation
 from zuhura.api.v1.missions import MARS_MISSIONS
 from zuhura.api.v1.catalog import INITIAL_DATASETS
 from zuhura.api.v1.illumination import get_solar_position
-from zuhura.interior.model import get_mars_interior_summary, MARS_INTERIOR_LAYERS
 from zuhura.navigation.router import NavigationRouter, RoutePlanningRequest, Waypoint
 from zuhura.pinpoint.engine import LocationPinpointEngine
 from zuhura.segmentation.engine import RegionDiscoveryEngine, RegionDiscoveryRequest
@@ -111,10 +110,6 @@ class SolarIlluminationInput(BaseModel):
 
 class MissionDetailsInput(BaseModel):
     mission_name: str = Field(..., min_length=2, max_length=100, description="Mission or rover name")
-
-
-class InteriorLayerInput(BaseModel):
-    layer_id: Optional[str] = Field(default=None, description="Optional layer ID (e.g. upper_crust, middle_crust, lower_crust, upper_mantle_lithosphere, mid_lower_mantle, basal_molten_layer, liquid_outer_core)")
 
 
 class OptimizeRouteInput(BaseModel):
@@ -803,32 +798,6 @@ def check_priority_datasets() -> Dict[str, Any]:
     }
 
 
-def get_mars_interior_structure(layer_id: Optional[str] = None) -> Dict[str, Any]:
-    """
-    Retrieve interior planetary structural layers (crust, mantle, core) based on NASA InSight seismic data.
-    """
-    args = InteriorLayerInput(layer_id=layer_id)
-    summary = get_mars_interior_summary()
-    if args.layer_id:
-        layer = next((l for l in summary.layers if l.id == args.layer_id), None)
-        if not layer:
-            return {
-                "status": "error",
-                "message": f"Interior layer '{args.layer_id}' not found.",
-                "available_layers": [l.id for l in summary.layers]
-            }
-        return {
-            "status": "success",
-            "layer": layer.model_dump(),
-            "seismic_station": summary.seismic_station,
-            "data_vintage": summary.data_vintage
-        }
-    return {
-        "status": "success",
-        "model": summary.model_dump()
-    }
-
-
 def optimize_navigation_route(
     start_latitude: float,
     start_longitude: float,
@@ -1100,13 +1069,7 @@ SCIENTIFIC_TOOLS_REGISTRY = {
         "description": "Check the status and PDS links for the 5 priority Mars datasets (CTX, HRSC, HiRISE, DTMs).",
         "input_schema": None
     },
-    # Advanced Planetary Intelligence Tools (X-Ray Mars, Pathfinding, CV Pinpoint, Geological Discovery)
-    "get_mars_interior_structure": {
-        "func": get_mars_interior_structure,
-        "is_async": False,
-        "description": "Retrieve InSight seismic planetary interior structure (crust, mantle, liquid core, density, temp).",
-        "input_schema": InteriorLayerInput
-    },
+    # Route planning, image pinpointing and region discovery
     "optimize_navigation_route": {
         "func": optimize_navigation_route,
         "is_async": False,

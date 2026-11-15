@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, RefreshCw, Activity, TrendingUp, Pin } from 'lucide-react';
+import { X, RefreshCw, TrendingUp, Pin } from 'lucide-react';
 import { useGlobeStore } from '../store/globeStore';
 import { useTerrainAnalysisStore } from '../store/terrainAnalysisStore';
 import { useWorkspaceStore } from '../store/workspaceStore';
@@ -8,7 +8,7 @@ import { nearestHoverLandmarks } from '../lib/hoverData';
 import { EpistemicBadge } from './EpistemicBadge';
 
 export const FeatureInspector: React.FC = () => {
-  const { selectedFeature, setSelectedFeature, activeMainView, setIsXRayMarsOpen, setCameraPosition } = useGlobeStore();
+  const { selectedFeature, setSelectedFeature, setCameraPosition } = useGlobeStore();
   const { setIsTransectMode, setTransectStart, executeTransectQuery } = useTerrainAnalysisStore();
   const addBookmark = useWorkspaceStore((state) => state.addBookmark);
 
@@ -40,7 +40,7 @@ export const FeatureInspector: React.FC = () => {
     fetchAnalysis();
   }, [selectedFeature]);
 
-  if (activeMainView !== 'explorer' || !selectedFeature) return null;
+  if (!selectedFeature) return null;
 
   const displayElev = liveElevation ?? selectedFeature.elevation_m;
 
@@ -218,14 +218,6 @@ export const FeatureInspector: React.FC = () => {
           >
             <Pin className="w-3.5 h-3.5" />
             {pinned ? 'Pinned' : 'Pin Location'}
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsXRayMarsOpen(true)}
-            className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[12px] font-medium text-ink hover:bg-surface-muted"
-          >
-            <Activity className="w-3.5 h-3.5" />
-            Analyze in X-Ray
           </button>
         </div>
       </div>

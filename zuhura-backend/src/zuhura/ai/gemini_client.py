@@ -1,12 +1,7 @@
-"""
-Client wrapper for the Google Gemini API.
-Supports Gemini 2.5 Flash / 1.5 Pro, function calling, streaming responses,
-token usage tracking, exponential backoff retry, and graceful quota exhaustion fallback.
-"""
+"""Small wrapper around the google-genai SDK used by Ask Zuhura."""
 
 import asyncio
 import logging
-import time
 from typing import Dict, Any, List, Optional, AsyncGenerator
 from dataclasses import dataclass, field
 
@@ -24,6 +19,9 @@ except ImportError:
 from zuhura.core.config import settings
 
 logger = logging.getLogger("zuhura.ai.gemini")
+
+# Tried in order when the configured model is retired or unavailable.
+FALLBACK_MODELS = ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-2.5-flash-lite"]
 
 
 @dataclass
@@ -91,7 +89,7 @@ class GeminiClient:
         contents: Any,
         system_instruction: Optional[str] = None,
         tools: Optional[List[Any]] = None,
-        max_retries: int = 2
+        max_retries: int = 1
     ) -> GeminiResponse:
         """
         Executes a standard non-streaming generation with bounded exponential backoff.
@@ -111,85 +109,95 @@ class GeminiClient:
         )
 
         last_error = None
-        for attempt in range(max_retries + 1):
-            try:
-                # Run synchronous SDK call in thread executor with timeout
-                loop = asyncio.get_running_loop()
-                response = await asyncio.wait_for(
-                    loop.run_in_executor(
-                        None,
-                        lambda: self._client.models.generate_content(
-                            model=self.model_name,
-                            contents=contents,
-                            config=config
+        for model in self._candidate_models():
+            for attempt in range(max_retries + 1):
+                try:
+                    loop = asyncio.get_running_loop()
+                    response = await asyncio.wait_for(
+                        loop.run_in_executor(
+                            None,
+                            lambda: self._client.models.generate_content(
+                                model=model, contents=contents, config=config
+                            ),
+                        ),
+                        timeout=self.timeout_seconds,
+                    )
+                except asyncio.TimeoutError:
+                    logger.warning("Gemini %s timed out (attempt %d)", model, attempt + 1)
+                    last_error = f"Gemini did not answer within {self.timeout_seconds:.0f} s."
+                    continue
+                except APIError as api_err:
+                    status_code = getattr(api_err, "code", None)
+                    msg = str(api_err)
+                    logger.error("Gemini API error on %s (status %s): %s", model, status_code, msg)
+                    if status_code == 404 or "NOT_FOUND" in msg:
+                        # Model retired or not available for this key: try the next one.
+                        last_error = f"Model {model} is not available."
+                        break
+                    if status_code == 429 or "RESOURCE_EXHAUSTED" in msg:
+                        return GeminiResponse(
+                            text="",
+                            is_fallback=True,
+                            quota_exhausted=True,
+                            error_message="The Gemini quota for this API key is used up. Try again later.",
                         )
-                    ),
-                    timeout=self.timeout_seconds
-                )
+                    if status_code in (400, 401, 403):
+                        return GeminiResponse(
+                            text="",
+                            is_fallback=True,
+                            error_message="Gemini rejected the request. Check GEMINI_API_KEY on the server.",
+                        )
+                    last_error = msg
+                    await asyncio.sleep(1.0 * (2 ** attempt))
+                    continue
+                except Exception as e:
+                    logger.error("Unexpected error calling Gemini: %s", e)
+                    last_error = str(e)
+                    continue
 
-                # Extract usage metadata
+                if model != self.model_name:
+                    logger.warning("Configured model %s failed; switching to %s", self.model_name, model)
+                    self.model_name = model
+
                 usage = GeminiUsage()
-                if hasattr(response, "usage_metadata") and response.usage_metadata:
-                    usage.prompt_tokens = getattr(response.usage_metadata, "prompt_token_count", 0) or 0
-                    usage.candidate_tokens = getattr(response.usage_metadata, "candidates_token_count", 0) or 0
-                    usage.total_tokens = getattr(response.usage_metadata, "total_token_count", 0) or 0
-
-                # Extract function calls if model proposed tool calls
-                tool_calls = []
-                if response.function_calls:
-                    for fc in response.function_calls:
-                        tool_calls.append({
-                            "name": fc.name,
-                            "args": dict(fc.args) if fc.args else {}
-                        })
-
-                response_text = response.text or ""
+                meta = getattr(response, "usage_metadata", None)
+                if meta:
+                    usage.prompt_tokens = getattr(meta, "prompt_token_count", 0) or 0
+                    usage.candidate_tokens = getattr(meta, "candidates_token_count", 0) or 0
+                    usage.total_tokens = getattr(meta, "total_token_count", 0) or 0
 
                 return GeminiResponse(
-                    text=response_text,
-                    tool_calls=tool_calls,
+                    text=response.text or "",
+                    tool_calls=self._called_tools(response),
                     usage=usage,
-                    model=self.model_name,
-                    finish_reason="STOP",
-                    is_fallback=False
+                    model=model,
                 )
-
-            except asyncio.TimeoutError:
-                logger.warning("Gemini request timed out (attempt %d/%d)", attempt + 1, max_retries + 1)
-                last_error = f"Gemini API request timed out after {self.timeout_seconds}s"
-                if attempt < max_retries:
-                    await asyncio.sleep(1.0 * (2 ** attempt))
-
-            except APIError as api_err:
-                status_code = getattr(api_err, "code", None)
-                msg = str(api_err)
-                logger.error("Gemini API Error (status %s): %s", status_code, msg)
-
-                # Check for quota exhaustion (429 or RESOURCE_EXHAUSTED)
-                if status_code == 429 or "RESOURCE_EXHAUSTED" in msg or "quota" in msg.lower():
-                    logger.warning("Gemini free-tier quota exhausted. Switching to grounded local scientific fallback.")
-                    return GeminiResponse(
-                        text="",
-                        is_fallback=True,
-                        quota_exhausted=True,
-                        error_message="Gemini free-tier quota exhausted. Operating in grounded local scientific mode."
-                    )
-
-                last_error = msg
-                if attempt < max_retries:
-                    await asyncio.sleep(1.0 * (2 ** attempt))
-
-            except Exception as e:
-                logger.error("Unexpected error calling Gemini API: %s", str(e))
-                last_error = str(e)
-                if attempt < max_retries:
-                    await asyncio.sleep(1.0 * (2 ** attempt))
 
         return GeminiResponse(
             text="",
             is_fallback=True,
-            error_message=f"Gemini API generation failed: {last_error}"
+            error_message=last_error or "Gemini did not return an answer.",
         )
+
+    def _candidate_models(self) -> List[str]:
+        models = [self.model_name]
+        for fallback in FALLBACK_MODELS:
+            if fallback not in models:
+                models.append(fallback)
+        return models
+
+    @staticmethod
+    def _called_tools(response: Any) -> List[Dict[str, Any]]:
+        """Tool calls Gemini made, including ones the SDK ran automatically."""
+        calls: List[Dict[str, Any]] = []
+        for content in getattr(response, "automatic_function_calling_history", None) or []:
+            for part in getattr(content, "parts", None) or []:
+                fc = getattr(part, "function_call", None)
+                if fc and fc.name:
+                    calls.append({"name": fc.name, "args": dict(fc.args or {})})
+        for fc in response.function_calls or []:
+            calls.append({"name": fc.name, "args": dict(fc.args or {})})
+        return calls
 
     async def stream_generate(
         self,
@@ -200,7 +208,6 @@ class GeminiClient:
         Streams generated text tokens chunk-by-chunk.
         """
         if not self.is_available() or self._client is None:
-            yield "[Grounded Scientific Engine active: Streaming local planetary intelligence...]\n\n"
             return
 
         config = types.GenerateContentConfig(
@@ -225,7 +232,7 @@ class GeminiClient:
                     yield chunk.text
         except Exception as e:
             logger.error("Error during Gemini stream: %s", str(e))
-            yield f"\n[Stream encountered provider notification: {str(e)}]"
+            yield f"\n(Gemini stopped responding: {e})"
 
 
 # Global singleton instance

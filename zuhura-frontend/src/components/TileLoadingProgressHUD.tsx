@@ -4,9 +4,8 @@ import { useGlobeStore } from '../store/globeStore';
 
 /** Thin loading bar while map tiles stream in, and a notice if tiles fail to load. */
 export const TileLoadingProgressHUD: React.FC = () => {
-  const { tilesLoadingCount, isTileLoadError, activeMainView } = useGlobeStore();
+  const { tilesLoadingCount, isTileLoadError } = useGlobeStore();
 
-  if (activeMainView !== 'explorer') return null;
 
   return (
     <>

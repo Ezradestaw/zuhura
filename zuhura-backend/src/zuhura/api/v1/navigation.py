@@ -25,8 +25,38 @@ from zuhura.navigation.mobility_model import (
 )
 from zuhura.provenance.taxonomy import ProvenanceFactory, EpistemicClassification
 
+from zuhura.navigation.astar import NoPathError, VEHICLES, plan_path
+
 router = APIRouter()
 _nav_router = NavigationRouter()
+
+
+class AStarRequest(BaseModel):
+    start_latitude: float = Field(..., ge=-90.0, le=90.0)
+    start_longitude: float = Field(..., ge=-180.0, le=360.0)
+    destination_latitude: float = Field(..., ge=-90.0, le=90.0)
+    destination_longitude: float = Field(..., ge=-180.0, le=360.0)
+    vehicle: str = Field(default="car", description="car or rover")
+
+
+@router.post("/astar", summary="Drivable path between two points (A* over MOLA)")
+def astar_route(req: AStarRequest) -> Dict[str, Any]:
+    if req.vehicle not in VEHICLES:
+        raise HTTPException(status_code=422, detail=f"Unknown vehicle '{req.vehicle}'.")
+    try:
+        return plan_path(
+            req.start_latitude,
+            req.start_longitude,
+            req.destination_latitude,
+            req.destination_longitude,
+            req.vehicle,
+        )
+    except NoPathError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
 
 
 class CommWindowsRequest(BaseModel):

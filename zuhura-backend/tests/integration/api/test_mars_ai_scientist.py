@@ -221,11 +221,6 @@ async def test_gemini_client_fallback_on_unconfigured_or_quota():
 @pytest.mark.anyio
 async def test_dispatch_new_advanced_tools():
     """Verify dispatch_tool_call executes new advanced planetary science tools."""
-    # 1. Interior structure
-    res_int = await dispatch_tool_call("get_mars_interior_structure", {"layer_id": "liquid_outer_core"})
-    assert res_int["status"] == "completed"
-    assert res_int["result"]["layer"]["name"] == "Liquid Iron-Nickel Metallic Core"
-
     # 2. Optimize route
     res_nav = await dispatch_tool_call("optimize_navigation_route", {
         "start_latitude": 18.38,

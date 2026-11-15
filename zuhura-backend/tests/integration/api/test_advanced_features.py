@@ -13,38 +13,6 @@ from zuhura.api.main import app
 
 
 @pytest.mark.asyncio
-async def test_interior_layers_endpoint():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as client:
-        resp = await client.get("/api/v1/spatial/interior/layers")
-        assert resp.status_code == 200
-        layers = resp.json()
-        assert len(layers) >= 5
-        layer_ids = [l["id"] for l in layers]
-        assert "upper_crust" in layer_ids
-        assert "upper_mantle_lithosphere" in layer_ids
-        assert "liquid_outer_core" in layer_ids
-
-        # Verify physical and seismological constraints
-        core = next(l for l in layers if l["id"] == "liquid_outer_core")
-        assert core["state_of_matter"] == "Liquid Metallic Alloy"
-        assert core["seismic_s_velocity_km_s"] == 0.0  # Shear wave extinction in liquid
-        assert core["density_kg_m3"] >= 5800.0
-
-
-@pytest.mark.asyncio
-async def test_interior_cross_section_endpoint():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as client:
-        resp = await client.get("/api/v1/spatial/interior/cross-section?cutaway_angle=90.0&layer_id=liquid_outer_core")
-        assert resp.status_code == 200
-        data = resp.json()
-        assert data["planetary_radius_km"] == 3389.5
-        assert data["cutaway_angle_degrees"] == 90.0
-        assert data["selected_layer"]["id"] == "liquid_outer_core"
-
-
-@pytest.mark.asyncio
 async def test_optimize_navigation_route():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
