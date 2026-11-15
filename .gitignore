@@ -60,13 +60,19 @@ Thumbs.db
 # Local binaries that do not belong in the scientific repository
 *.deb
 
-# Large planetary rasters and tile caches (NASA/USGS remote fallbacks used in production)
+# Large planetary rasters. Raw source data stays local.
+# Large processed COGs (MOLA global/polar, Viking) are GitHub Release assets,
+# downloaded by zuhura-backend/Dockerfile. Small COGs and tiles are committed.
 zuhura-data/data/raw/
-zuhura-data/data/tiles/
-zuhura-data/data/processed/
+zuhura-data/data/interim/
+zuhura-data/data/processed/*
+!zuhura-data/data/processed/ctx/
+!zuhura-data/data/processed/hirise/
 *.tif
 *.tiff
 *.cog.tif
 *.img
 !data/mars/mount_sharp/PIA23179.tif
+!zuhura-data/data/processed/ctx/*.tif
+!zuhura-data/data/processed/hirise/*.tif
 

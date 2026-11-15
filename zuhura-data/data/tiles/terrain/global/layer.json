@@ -1,0 +1,60 @@
+{
+  "tilejson": "2.1.0",
+  "format": "quantized-mesh-1.0",
+  "version": "1.0.0",
+  "name": "Zuhura Mars Global Multi-Resolution Terrain",
+  "description": "Global multi-resolution quantized-mesh 1.0 terrain pyramid derived from MOLA MEG128 global COG (IAU/IAG 2015 Mars Biaxial Ellipsoid).",
+  "scheme": "tms",
+  "ellipsoid": {
+    "name": "IAU/IAG 2015 Mars Biaxial Ellipsoid",
+    "semiMajorAxis": 3396190.0,
+    "semiMinorAxis": 3376200.0
+  },
+  "bounds": [
+    -180.0,
+    -90.0,
+    180.0,
+    90.0
+  ],
+  "minzoom": 0,
+  "maxzoom": 2,
+  "extensions": [
+    "octvertexnormals"
+  ],
+  "available": [
+    [
+      {
+        "startX": 0,
+        "endX": 1,
+        "startY": 0,
+        "endY": 0
+      }
+    ],
+    [
+      {
+        "startX": 0,
+        "endX": 3,
+        "startY": 0,
+        "endY": 1
+      }
+    ],
+    [
+      {
+        "startX": 0,
+        "endX": 7,
+        "startY": 0,
+        "endY": 3
+      }
+    ]
+  ],
+  "tiles": [
+    "{z}/{x}/{y}.terrain"
+  ],
+  "metadata": {
+    "source_product": "mola_global_meg128_cog",
+    "vertical_datum": "MOLA GMM-3 Areoid",
+    "grid_size": 33,
+    "generated_at": "2026-11-02T18:01:31.402026+00:00",
+    "has_normals": true
+  }
+}

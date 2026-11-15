@@ -11,8 +11,9 @@ build/
 # Raw and interim planetary data (large rasters/tiling cache)
 data/raw/
 data/interim/
-data/processed/
-data/tiles/
+data/processed/*
+!data/processed/ctx/
+!data/processed/hirise/
 *.tif
 *.tiff
 *.img
@@ -21,6 +22,9 @@ data/tiles/
 *.lbl
 *.LBL
 *.terrain
+!data/processed/ctx/*.tif
+!data/processed/hirise/*.tif
+!data/tiles/**/*.terrain
 
 # Generated validation and processing reports (recreated by scripts/)
 reports/

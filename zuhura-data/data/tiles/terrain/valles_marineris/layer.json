@@ -1,0 +1,60 @@
+{
+  "tilejson": "2.1.0",
+  "format": "quantized-mesh-1.0",
+  "version": "1.0.0",
+  "name": "Zuhura Mars Terrain \u2014 Valles Marineris (Coprates & Melas Chasma)",
+  "description": "Massive tectonic rift canyon system descending over 7 km below datum.",
+  "scheme": "tms",
+  "ellipsoid": {
+    "name": "IAU/IAG 2015 Mars Biaxial Ellipsoid",
+    "semiMajorAxis": 3396190.0,
+    "semiMinorAxis": 3376200.0
+  },
+  "bounds": [
+    280.0,
+    -14.0,
+    295.0,
+    -5.0
+  ],
+  "minzoom": 0,
+  "maxzoom": 7,
+  "extensions": [
+    "octvertexnormals"
+  ],
+  "available": [
+    [
+      {
+        "startX": 0,
+        "endX": 1,
+        "startY": 0,
+        "endY": 0
+      }
+    ],
+    [
+      {
+        "startX": 332,
+        "endX": 332,
+        "startY": 57,
+        "endY": 57
+      }
+    ]
+  ],
+  "tiles": [
+    "{z}/{x}/{y}.terrain"
+  ],
+  "metadata": {
+    "region": "valles_marineris",
+    "elevation_range_m": [
+      -5511.0,
+      6518.0
+    ],
+    "tile_coords": {
+      "z": 7,
+      "x": 332,
+      "y_tms": 57,
+      "y_xyz": 70
+    },
+    "tile_bytes": 83589,
+    "generated_at": "2026-11-02T18:02:10.913853+00:00"
+  }
+}

@@ -1,0 +1,53 @@
+# Production image for Render. Build context is the repository root, so the
+# committed datasets (data/mars, zuhura-data) are baked into the image.
+# Local development uses ./Dockerfile with data mounted by docker-compose.
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    libproj-dev \
+    proj-bin \
+    gdal-bin \
+    libgdal-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Large processed COGs (over GitHub's 100 MB file limit) live as assets on the
+# data-v1 GitHub Release. Downloaded first so code changes reuse this layer.
+ARG DATA_RELEASE_URL=https://github.com/Ezradestaw/zuhura/releases/download/data-v1
+RUN set -eux; \
+    P=/app/zuhura-data/data/processed; \
+    mkdir -p $P/mola/global_v3 $P/mola/polar_v2 $P/viking; \
+    curl -fsSL --retry 5 -o $P/mola/global_v3/mola_global_meg128_cog.tif $DATA_RELEASE_URL/mola_global_meg128_cog.tif; \
+    curl -fsSL --retry 5 -o $P/viking/Mars_Viking_MDIM21_ClrMosaic_global_232m_cog.tif $DATA_RELEASE_URL/Mars_Viking_MDIM21_ClrMosaic_global_232m_cog.tif; \
+    curl -fsSL --retry 5 -o $P/mola/polar_v2/megt_n_128_1.tif $DATA_RELEASE_URL/megt_n_128_1.tif; \
+    curl -fsSL --retry 5 -o $P/mola/polar_v2/megt_s_128_1.tif $DATA_RELEASE_URL/megt_s_128_1.tif; \
+    cd $P && printf '%s\n' \
+      '02546cef285e7d68153b5eb1aa1ee866f24e19dd084e1cacbcc357cfe3bd71f1  mola/global_v3/mola_global_meg128_cog.tif' \
+      'ac6d612cac52184941873bae7cc83451d54f215142c780cac99b64e1215b6979  viking/Mars_Viking_MDIM21_ClrMosaic_global_232m_cog.tif' \
+      '55697f6557035f58d518feddf4bd2dac70b0b0561c5e38b68fe09e564e83c795  mola/polar_v2/megt_n_128_1.tif' \
+      '215ccbc526d476bb46f56349b0b871e41ca5233d681320e91d13a2fbc7fbb73c  mola/polar_v2/megt_s_128_1.tif' \
+    | sha256sum -c -
+
+COPY zuhura-backend/pyproject.toml zuhura-backend/README.md zuhura-backend/run.py ./
+COPY zuhura-backend/src/ /app/src/
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir python-multipart && \
+    pip install --no-cache-dir .
+
+COPY data/mars/ /app/data/mars/
+COPY zuhura-data/catalogs/ /app/zuhura-data/catalogs/
+COPY zuhura-data/data/ /app/zuhura-data/data/
+
+ENV PYTHONPATH=/app/src \
+    PYTHONUNBUFFERED=1 \
+    PORT=10000 \
+    REPO_ROOT=/app \
+    DATA_REPO_ROOT=/app/zuhura-data \
+    MARS_DATA_ROOT=/app/data/mars \
+    TILES_CACHE_DIR=/app/zuhura-data/data/tiles
+EXPOSE 10000
+
+CMD ["python", "run.py"]

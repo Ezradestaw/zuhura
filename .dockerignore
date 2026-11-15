@@ -1,0 +1,17 @@
+# Build context for zuhura-backend/Dockerfile.render (repository root).
+# Send only what the image copies.
+*
+!zuhura-backend/pyproject.toml
+!zuhura-backend/README.md
+!zuhura-backend/run.py
+!zuhura-backend/src/
+!data/mars/
+!zuhura-data/catalogs/
+!zuhura-data/data/
+zuhura-data/data/raw/
+zuhura-data/data/interim/
+zuhura-data/data/processed/
+!zuhura-data/data/processed/ctx/
+!zuhura-data/data/processed/hirise/
+**/__pycache__/
+**/*.pyc

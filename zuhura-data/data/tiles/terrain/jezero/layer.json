@@ -1,0 +1,60 @@
+{
+  "tilejson": "2.1.0",
+  "format": "quantized-mesh-1.0",
+  "version": "1.0.0",
+  "name": "Zuhura Mars Terrain \u2014 Jezero Crater",
+  "description": "Perseverance landing site, western fan delta and ancient lacustrine basin.",
+  "scheme": "tms",
+  "ellipsoid": {
+    "name": "IAU/IAG 2015 Mars Biaxial Ellipsoid",
+    "semiMajorAxis": 3396190.0,
+    "semiMinorAxis": 3376200.0
+  },
+  "bounds": [
+    76.5,
+    18.0,
+    78.5,
+    19.0
+  ],
+  "minzoom": 0,
+  "maxzoom": 9,
+  "extensions": [
+    "octvertexnormals"
+  ],
+  "available": [
+    [
+      {
+        "startX": 0,
+        "endX": 1,
+        "startY": 0,
+        "endY": 0
+      }
+    ],
+    [
+      {
+        "startX": 732,
+        "endX": 732,
+        "startY": 308,
+        "endY": 308
+      }
+    ]
+  ],
+  "tiles": [
+    "{z}/{x}/{y}.terrain"
+  ],
+  "metadata": {
+    "region": "jezero",
+    "elevation_range_m": [
+      -2916.0,
+      -514.0
+    ],
+    "tile_coords": {
+      "z": 9,
+      "x": 732,
+      "y_tms": 308,
+      "y_xyz": 203
+    },
+    "tile_bytes": 21381,
+    "generated_at": "2026-11-02T18:02:10.288992+00:00"
+  }
+}

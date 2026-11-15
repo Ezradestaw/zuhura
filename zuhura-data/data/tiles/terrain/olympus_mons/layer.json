@@ -1,0 +1,60 @@
+{
+  "tilejson": "2.1.0",
+  "format": "quantized-mesh-1.0",
+  "version": "1.0.0",
+  "name": "Zuhura Mars Terrain \u2014 Olympus Mons Volcano",
+  "description": "Solar system's highest volcano rising to +21.2 km with massive summit caldera and basal scarp.",
+  "scheme": "tms",
+  "ellipsoid": {
+    "name": "IAU/IAG 2015 Mars Biaxial Ellipsoid",
+    "semiMajorAxis": 3396190.0,
+    "semiMinorAxis": 3376200.0
+  },
+  "bounds": [
+    222.0,
+    15.0,
+    232.0,
+    22.0
+  ],
+  "minzoom": 0,
+  "maxzoom": 7,
+  "extensions": [
+    "octvertexnormals"
+  ],
+  "available": [
+    [
+      {
+        "startX": 0,
+        "endX": 1,
+        "startY": 0,
+        "endY": 0
+      }
+    ],
+    [
+      {
+        "startX": 289,
+        "endX": 289,
+        "startY": 77,
+        "endY": 77
+      }
+    ]
+  ],
+  "tiles": [
+    "{z}/{x}/{y}.terrain"
+  ],
+  "metadata": {
+    "region": "olympus_mons",
+    "elevation_range_m": [
+      -1854.0,
+      21249.0
+    ],
+    "tile_coords": {
+      "z": 7,
+      "x": 289,
+      "y_tms": 77,
+      "y_xyz": 50
+    },
+    "tile_bytes": 83589,
+    "generated_at": "2026-11-02T18:02:11.270570+00:00"
+  }
+}
