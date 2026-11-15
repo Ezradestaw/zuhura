@@ -29,6 +29,6 @@ ENV PYTHONPATH=/app/src:/usr/lib/python3/dist-packages
 ENV PYTHONUNBUFFERED=1
 ENV PORT=10000
 ENV TILES_CACHE_DIR=/tmp/tiles
-EXPOSE 10000 7860 8000
+EXPOSE 10000
 
 CMD ["python", "run.py"]
