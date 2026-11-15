@@ -93,7 +93,7 @@ app.include_router(rover_router, prefix="/api/v1/rover", tags=["Mars Rovers & Su
 app.include_router(mount_sharp_router, prefix="/api/v1/mount-sharp", tags=["Curiosity Mount Sharp"])
 
 
-@app.get("/", include_in_schema=False)
+@app.api_route("/", methods=["GET", "HEAD"], include_in_schema=False)
 async def root():
     return {
         "platform": "Zuhura Mars Digital Twin",
