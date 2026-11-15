@@ -22,6 +22,7 @@ WORKDIR /app
 COPY pyproject.toml README.md run.py ./
 COPY src/ /app/src/
 RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir python-multipart && \
     pip install --no-cache-dir .
 
 ENV PYTHONPATH=/app/src
