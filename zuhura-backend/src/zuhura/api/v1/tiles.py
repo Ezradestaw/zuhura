@@ -14,7 +14,10 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 import matplotlib
 import matplotlib.cm as cm
 import numpy as np
-from osgeo import gdal
+try:
+    from osgeo import gdal
+except ImportError:
+    gdal = None  # type: ignore
 from PIL import Image
 
 from zuhura.api.deps import get_science_access
@@ -46,6 +49,8 @@ def get_transparent_tile_png() -> bytes:
 def get_viking_ds(repo_root: Path):
     """Singleton getter for Viking MDIM 2.1 COG dataset."""
     global _viking_ds
+    if gdal is None:
+        return None
     if _viking_ds is None:
         p = repo_root / "data/processed/viking/Mars_Viking_MDIM21_ClrMosaic_global_232m_cog.tif"
         if p.exists():
@@ -56,6 +61,8 @@ def get_viking_ds(repo_root: Path):
 def get_ctx_ds(repo_root: Path):
     """Singleton getter for CTX Jezero GeoTIFF dataset."""
     global _ctx_ds
+    if gdal is None:
+        return None
     if _ctx_ds is None:
         p = repo_root / "data/processed/ctx/P02_001820_1984_jezero_ctx_5m_cog.tif"
         if p.exists():
@@ -66,6 +73,8 @@ def get_ctx_ds(repo_root: Path):
 def get_hirise_ds(repo_root: Path):
     """Singleton getter for HiRISE Jezero GeoTIFF dataset."""
     global _hirise_ds
+    if gdal is None:
+        return None
     if _hirise_ds is None:
         p = repo_root / "data/processed/hirise/PSP_004299_1985_jezero_hirise_cog.tif"
         if p.exists():

@@ -10,7 +10,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     proj-bin \
     gdal-bin \
     libgdal-dev \
-    python3-gdal \
     && rm -rf /var/lib/apt/lists/*
 
 # Set up non-root user for Hugging Face Spaces / cloud environments (UID 1000)
@@ -25,7 +24,7 @@ COPY src/ /app/src/
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir .
 
-ENV PYTHONPATH=/app/src:/usr/lib/python3/dist-packages
+ENV PYTHONPATH=/app/src
 ENV PYTHONUNBUFFERED=1
 ENV PORT=10000
 ENV TILES_CACHE_DIR=/tmp/tiles

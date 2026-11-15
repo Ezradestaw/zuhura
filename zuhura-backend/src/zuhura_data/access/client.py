@@ -11,7 +11,11 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
-from osgeo import gdal, osr
+try:
+    from osgeo import gdal, osr
+except ImportError:
+    gdal = None  # type: ignore
+    osr = None  # type: ignore
 
 from zuhura_data.catalog.manager import CatalogManager
 from zuhura_data.models.catalog import ScientificCatalog
@@ -138,8 +142,16 @@ class ZuhuraScienceAccess:
                 "error": "Latitude outside global MOLA coverage boundary (-88 to +88)"
             }
 
-        if not self.mola_cog_path.exists():
-            raise FileNotFoundError(f"Global MOLA COG not found: {self.mola_cog_path}")
+        if gdal is None or not self.mola_cog_path.exists():
+            return {
+                "latitude": lat,
+                "longitude": norm_lon,
+                "elevation_m": 0.0,
+                "source_product_id": "mola_global_meg128_cog",
+                "nodata_status": True,
+                "error": "Dataset raster not present on cloud deployment",
+                "query_timestamp": datetime.now(timezone.utc).isoformat()
+            }
 
         ds = gdal.Open(str(self.mola_cog_path))
         gt = ds.GetGeoTransform()
@@ -200,8 +212,9 @@ class ZuhuraScienceAccess:
             # Route to polar DEM if available
             return self.get_polar_elevation_at_point(lat, norm_lon)
 
-        if not self.mola_cog_path.exists():
-            raise FileNotFoundError(f"Global MOLA COG not found: {self.mola_cog_path}")
+        if gdal is None or not self.mola_cog_path.exists():
+            w_size = 2 * half_window + 1
+            return np.zeros((w_size, w_size), dtype=np.float32)
 
         ds = gdal.Open(str(self.mola_cog_path))
         band = ds.GetRasterBand(1)
@@ -346,8 +359,8 @@ class ZuhuraScienceAccess:
         Sub-pixel bilinear elevation sampling along a sequence of (lat, lon) coordinates
         from MOLA Global COG. Reuses a single GDAL dataset handle for high performance.
         """
-        if not self.mola_cog_path.exists():
-            raise FileNotFoundError(f"Global MOLA COG not found: {self.mola_cog_path}")
+        if gdal is None or not self.mola_cog_path.exists():
+            return [0.0] * len(coords)
 
         ds = gdal.Open(str(self.mola_cog_path))
         band = ds.GetRasterBand(1)

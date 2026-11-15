@@ -21,7 +21,10 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
-from osgeo import gdal
+try:
+    from osgeo import gdal
+except ImportError:
+    gdal = None  # type: ignore
 
 # IAU/IAG 2015 Mars Biaxial Ellipsoid
 MARS_A = 3396190.0

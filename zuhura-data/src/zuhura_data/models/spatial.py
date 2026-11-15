@@ -7,7 +7,11 @@ and longitude wrapping across prime meridian and antimeridian.
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 from pydantic import BaseModel, Field, model_validator
-from osgeo import ogr, osr
+try:
+    from osgeo import ogr, osr
+except ImportError:
+    ogr = None  # type: ignore
+    osr = None  # type: ignore
 
 
 class CoordinateConvention(str, Enum):
@@ -98,8 +102,10 @@ class SpatialCoverage(BaseModel):
     center_lat: Optional[float] = None
     center_lon: Optional[float] = None
 
-    def get_ogr_geometry(self) -> ogr.Geometry:
-        """Return OGR geometry object for spatial analysis."""
+    def get_ogr_geometry(self) -> Any:
+        """Return OGR geometry object for spatial analysis, or None if unavailable."""
+        if ogr is None:
+            return None
         if self.geometry_wkt:
             geom = ogr.CreateGeometryFromWkt(self.geometry_wkt)
             if geom:
@@ -109,6 +115,8 @@ class SpatialCoverage(BaseModel):
 
     def intersects(self, other_coverage: "SpatialCoverage") -> bool:
         """Evaluate exact spatial intersection with another spatial coverage."""
+        if ogr is None:
+            return not (self.bbox.max_lat < other_coverage.bbox.min_lat or self.bbox.min_lat > other_coverage.bbox.max_lat or self.bbox.max_lon < other_coverage.bbox.min_lon or self.bbox.min_lon > other_coverage.bbox.max_lon)
         g1 = self.get_ogr_geometry()
         g2 = other_coverage.get_ogr_geometry()
         if not g1 or not g2:
@@ -117,6 +125,8 @@ class SpatialCoverage(BaseModel):
 
     def intersection_area_deg2(self, other_coverage: "SpatialCoverage") -> float:
         """Compute intersection area in square degrees."""
+        if ogr is None:
+            return 0.0
         g1 = self.get_ogr_geometry()
         g2 = other_coverage.get_ogr_geometry()
         if not g1 or not g2:
@@ -128,6 +138,8 @@ class SpatialCoverage(BaseModel):
 
     def contains_point(self, lat: float, lon: float) -> bool:
         """Check if point is inside coverage footprint."""
+        if ogr is None:
+            return self.bbox.contains_point(lat, lon)
         pt = ogr.Geometry(ogr.wkbPoint)
         pt.AddPoint(normalize_longitude_360(lon), lat)
         geom = self.get_ogr_geometry()

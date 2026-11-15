@@ -6,7 +6,10 @@ overlap percentages, and cross-instrument spatial coverage matrices.
 
 import math
 from typing import Any, Dict, List, Optional, Tuple
-from osgeo import ogr
+try:
+    from osgeo import ogr
+except ImportError:
+    ogr = None  # type: ignore
 
 # IAU 2015 Mars Ellipsoidal Constants
 MARS_A_M = 3396190.0
@@ -39,6 +42,8 @@ def calculate_polygon_overlap(wkt1: str, wkt2: str, reference_lat_deg: float = 1
     Computes rigorous polygon intersection between two Mars WKT geometries.
     Returns intersection area in deg^2, km^2, and relative overlap percentages.
     """
+    if ogr is None:
+        return {"intersects": False, "error": "GDAL/OGR unavailable in runtime environment"}
     g1 = ogr.CreateGeometryFromWkt(wkt1)
     g2 = ogr.CreateGeometryFromWkt(wkt2)
     
