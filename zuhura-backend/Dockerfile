@@ -20,14 +20,15 @@ RUN useradd -m -u 1000 user && \
 
 WORKDIR /app
 
-COPY pyproject.toml README.md ./
+COPY pyproject.toml README.md run.py ./
 COPY src/ /app/src/
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir .
 
 ENV PYTHONPATH=/app/src:/usr/lib/python3/dist-packages
+ENV PYTHONUNBUFFERED=1
 ENV PORT=10000
 ENV TILES_CACHE_DIR=/tmp/tiles
 EXPOSE 10000 7860 8000
 
-CMD ["sh", "-c", "python -m uvicorn zuhura.api.main:app --host 0.0.0.0 --port ${PORT:-10000}"]
+CMD ["python", "run.py"]
